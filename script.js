@@ -1226,3 +1226,103 @@ function hideGallery() {
             document.querySelector('.memory-game-container').style.display = 'none';
             document.getElementById('actionButtonsContainer').style.display = 'block';
         }
+
+(function() {
+    const canvas = document.getElementById('star-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w = window.innerWidth;
+    let h = window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
+
+    function resize() {
+        w = window.innerWidth;
+        h = window.innerHeight;
+        canvas.width = w;
+        canvas.height = h;
+    }
+    window.addEventListener('resize', resize);
+
+    // Star properties
+    const numStars = 120;
+    const stars = [];
+    for (let i = 0; i < numStars; i++) {
+        stars.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 1.2 + 0.5,
+            alpha: Math.random(),
+            dAlpha: (Math.random() * 0.02 + 0.005) * (Math.random() < 0.5 ? 1 : -1)
+        });
+    }
+
+    // Shooting star
+    let shootingStar = null;
+    function maybeShootStar() {
+        if (!shootingStar && Math.random() < 0.005) {
+            shootingStar = {
+                x: Math.random() * w * 0.7,
+                y: Math.random() * h * 0.5,
+                len: Math.random() * 80 + 100,
+                speed: Math.random() * 8 + 10,
+                angle: Math.PI / 4 + Math.random() * Math.PI / 8,
+                alpha: 1
+            };
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, w, h);
+
+        // Draw stars
+        for (let s of stars) {
+            ctx.save();
+            ctx.globalAlpha = s.alpha;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+            ctx.fillStyle = "#fff";
+            ctx.shadowColor = "#fff";
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            ctx.restore();
+
+            s.alpha += s.dAlpha;
+            if (s.alpha <= 0.2 || s.alpha >= 1) s.dAlpha *= -1;
+        }
+
+        // Draw shooting star
+        if (shootingStar) {
+            ctx.save();
+            ctx.globalAlpha = shootingStar.alpha;
+            ctx.strokeStyle = "#fff";
+            ctx.lineWidth = 2;
+            ctx.shadowColor = "#fff";
+            ctx.shadowBlur = 10;
+            ctx.beginPath();
+            ctx.moveTo(shootingStar.x, shootingStar.y);
+            ctx.lineTo(
+                shootingStar.x - Math.cos(shootingStar.angle) * shootingStar.len,
+                shootingStar.y - Math.sin(shootingStar.angle) * shootingStar.len
+            );
+            ctx.stroke();
+            ctx.restore();
+
+            shootingStar.x += Math.cos(shootingStar.angle) * shootingStar.speed;
+            shootingStar.y += Math.sin(shootingStar.angle) * shootingStar.speed;
+            shootingStar.alpha -= 0.02;
+            if (
+                shootingStar.x > w ||
+                shootingStar.y > h ||
+                shootingStar.alpha <= 0
+            ) {
+                shootingStar = null;
+            }
+        } else {
+            maybeShootStar();
+        }
+
+        requestAnimationFrame(draw);
+    }
+    draw();
+})();
