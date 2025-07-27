@@ -1,0 +1,829 @@
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    color: #fff;
+    text-align: center;
+    min-height: 100vh;
+    position: relative;
+    background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="%23ff0000" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/></svg>'), auto;
+}
+#initialContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transition: opacity 0.5s ease;
+}
+#poemContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 1.5em;
+    line-height: 1.8;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 1000;
+    overflow-y: auto;
+    text-align: center;
+}
+#poemContainer p {
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 0 10px;
+}
+#poemContainer .poem-title {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 1em;
+    text-align: center;
+    padding: 0 10px;
+}
+#initialContent button,
+.poem-button,
+#showProposalButton,
+.love-reasons-button,
+.kiss-button,
+.gallery-button,
+.timeline-button,
+.letter-button,
+.memory-game-button {
+    padding: 10px 20px;
+    background-color: #ff4d88;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2em;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 10px #fff;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+    margin: 5px;
+}
+#initialContent button:hover,
+#showProposalButton:hover,
+.kiss-button:hover {
+    background-color: #ff0066;
+}
+h1 {
+    margin-top: 2em;
+    font-size: 3em;
+    animation: fadeIn 3s ease-out forwards;
+    display: none;
+}
+.floating-message {
+    position: fixed;
+    top: 20px;
+    width: 100%;
+    text-align: center;
+    font-size: 1.3em;
+    opacity: 0;
+    animation: fadeInOnce 4s ease-out 2s forwards;
+    z-index: 10;
+    display: none;
+}
+@keyframes fadeInOnce {
+    to {
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.heart,
+.gift {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transform: rotate(45deg);
+    animation: float 6s linear infinite;
+    opacity: 0.8;
+    display: block;
+}
+.heart {
+    background: radial-gradient(circle, #ff4d88 0%, #ff0066 100%);
+    box-shadow: 0 0 10px #fff3, 0 0 20px #fff6;
+    cursor: pointer;
+}
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #ff4d88 0%, #ff0066 100%);
+    border-radius: 50%;
+}
+.heart::before {
+    top: -10px;
+    left: 0;
+}
+.heart::after {
+    left: -10px;
+    top: 0;
+}
+.gift {
+    font-size: 1.5em;
+    animation: floatGift 8s linear infinite;
+}
+@keyframes floatGift {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(-100vh) rotate(45deg);
+        opacity: 0;
+    }
+}
+.message {
+    position: absolute;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #d6336c;
+    border-radius: 10px;
+    font-size: 0.9em;
+    white-space: nowrap;
+    animation: fadeOut 2.5s ease-out forwards;
+    pointer-events: none;
+    z-index: 10;
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+}
+.sparkle {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background-image: radial-gradient(white 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.05;
+    animation: sparkleMove 10s linear infinite;
+    z-index: 0;
+    display: none;
+}
+@keyframes sparkleMove {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100px 100px;
+    }
+}
+.moon {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(#fff, #ffd);
+    box-shadow: 0 0 20px 10px #fff7;
+    cursor: pointer;
+    animation: moonPulse 4s infinite ease-in-out;
+    z-index: 5;
+    display: none;
+}
+@keyframes moonPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 20px 10px #fff7;
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 30px 15px #fff;
+        transform: scale(1.05);
+    }
+}
+.flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    opacity: 0;
+    animation: flashGlow 1s ease-in-out;
+    z-index: 100;
+    pointer-events: none;
+}
+@keyframes flashGlow {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.music-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.7);
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 1.2em;
+    cursor: pointer;
+    z-index: 10;
+}
+#yesButton {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+#yesButton:hover {
+    background-color: #367c39;
+}
+#proposalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 1.5em;
+    line-height: 1.8;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    z-index: 1000;
+    overflow-y: auto;
+    text-align: center;
+}
+#proposalContainer div {
+    border: 4px solid #ff4d88;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 20px;
+    animation: heartbeat 2s infinite;
+}
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.05); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+#proposalContainer h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+#closePoemButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    z-index: 1001;
+}
+#closePoemButton:hover {
+    background-color: #d32f2f;
+}
+/* Falling petals */
+@keyframes falling {
+    0% { transform: translateY(-10vh) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+}
+.petal {
+    position: fixed;
+    top: -10vh;
+    font-size: 1.2em;
+    animation: falling 15s linear infinite;
+    opacity: 0.7;
+    z-index: 0;
+    pointer-events: none;
+}
+.photo-gallery {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1001;
+    overflow-y: auto;
+    padding: 70px 20px 20px;
+}
+.close-gallery {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    z-index: 1002;
+}
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 50px;
+}
+.photo-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s;
+}
+.photo-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+.photo-item:hover img {
+    transform: scale(1.05);
+}
+/* Timeline */
+.timeline-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1001;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 50px auto;
+}
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: #ff4d88;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1px;
+}
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+    box-sizing: border-box;
+}
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff4d88;
+    border-radius: 50%;
+    top: 15px;
+    z-index: 1;
+}
+.left {
+    left: 0;
+}
+.right {
+    left: 50%;
+}
+.left::after {
+    right: -10px;
+}
+.right::after {
+    left: -10px;
+}
+.timeline-content {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid #ff4d88;
+}
+.timeline-date {
+    font-weight: bold;
+    color: #ff4d88;
+    margin-bottom: 10px;
+}
+.timeline-text {
+    margin-bottom: 10px;
+}
+.timeline-photo {
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.close-timeline {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    z-index: 1002;
+}
+/* Desktop Button Positions */
+#showProposalButton {
+    position: fixed;
+    bottom: 80px;
+    left: 20px;
+    padding: 10px 20px;
+    background-color: #00B8D4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    z-index: 10;
+}
+.poem-button {
+    padding: 10px 20px;
+    background-color: #800080;
+}
+.love-reasons-button {
+    background-color: #FF5722;
+}
+.gallery-button {
+    background-color: #9C27B0;
+    color: white; /* Kept for consistency */
+}
+.timeline-button {
+    background-color: #3F51B5;
+}
+.poem-button:hover {
+    background-color: #6a006a; /* Darker purple */
+}
+.love-reasons-button:hover {
+    background-color: #e64a19; /* Darker orange */
+}
+.gallery-button:hover {
+    background-color: #7B1FA2; /* Darker purple */
+}
+.timeline-button:hover {
+    background-color: #303F9F; /* Darker blue */
+}
+.letter-button {
+    background-color: #607D8B; /* Slate Gray */
+}
+.letter-button:hover { background-color: #455A64; }
+.memory-game-button {
+    background-color: #009688; /* Teal */
+}
+.memory-game-button:hover {
+    background-color: #00796B;
+}
+.kiss-button {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #E91E63;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5em;
+    z-index: 10;
+}
+.button-row {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px; /* Creates space between buttons */
+    z-index: 10;
+}
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* Arrange buttons in a 2-column grid on mobile */
+    #actionButtonsContainer {
+        position: fixed;
+        bottom: 20px;
+        left: 5%;
+        right: 5%;
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap-reverse; /* Fill from bottom-up, wrapping into new rows */
+        justify-content: center; /* Center the buttons horizontally */
+        gap: 10px; /* Consistent spacing */
+    }
+    #actionButtonsContainer > .button-row > button,
+    #actionButtonsContainer > button {
+        position: static; /* Add this to make them part of the flex flow */
+        padding: 12px 10px; /* Adjust padding for smaller buttons */
+        font-size: 1em; /* Adjust font size */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-radius: 8px;
+        flex-grow: 1; /* Allow buttons to grow and fill space */
+        flex-basis: calc(50% - 5px); /* Two buttons per row with gap */
+        margin: 0; /* Reset margins */
+        box-sizing: border-box; /* Ensure padding is included in width calculation */
+    }
+    .button-row {
+        position: static; /* Reset fixed positioning */
+        display: contents; /* Makes the container 'disappear' for layout flattening */
+    }
+    /* Adjust gallery and timeline for mobile */
+    .photo-gallery, .timeline-container {
+        padding-top: 80px;
+        padding-bottom: 40px;
+    }
+    .photo-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+    }
+    .timeline::after {
+        left: 15px;
+    }
+    .timeline-item {
+        width: 100%;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+    .timeline-item::after {
+        left: 7px;
+    }
+    .left::after, .right::after {
+        left: 7px;
+    }
+    .left, .right {
+        left: 0;
+    }
+    .memory-grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on smaller screens */
+    }
+}
+@media (max-width: 480px) {
+    .memory-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
+    }
+}
+/* Additional adjustments for very small screens */
+@media (max-width: 480px) {
+    .photo-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    #showProposalButton, .poem-button, .love-reasons-button, 
+    .gallery-button, .timeline-button {
+        /* This selector is now too broad, but we'll leave it for now */
+        font-size: 1em;
+        padding: 10px 15px;
+    }
+}
+@keyframes blink {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+.constellation-container {
+    /* Optional: Add a subtle background or texture */
+}
+.constellation-container div {
+    /* Add any global styles for elements within the container */
+}
+.constellation-container div:not(:last-child) {
+    /* Style for stars (not lines) */
+    /* Example:  animation: twinkle 2s infinite; */
+}
+.constellation-container div:last-child {
+    /* Style for lines */
+    /* Example:  stroke-dasharray: 5 5;  animation: dash 5s linear infinite; */
+}
+.constellation-line {
+    animation: lineGlow 2s infinite alternate;
+}
+/* The 'twinkle' keyframe is already defined above, this one is a duplicate */
+@keyframes lineGlow {
+    0% { opacity: 0.5; }
+    100% { opacity: 0.9; }
+}
+const styles = `
+`;
+/* This was an invalid JS block inside CSS */
+.firework {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: white;
+    overflow: hidden;
+    z-index: 10001; /* Above other elements */
+}
+.firework-particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background-color: white;
+    opacity: 1;
+}
+@keyframes fireworkExplode {
+    0% {
+        opacity: 1;
+        transform: rotate(0deg) translate(0px) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: rotate(360deg) translate(150px) rotate(-360deg);
+    }
+}
+.celebration-message {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #ff4d88;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+    z-index: 10002; /* Above everything */
+    animation: pulse 1s infinite alternate;
+}
+@keyframes pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+/* Love Letter Styles */
+.love-letter-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 1001;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+}
+.love-letter {
+    background-color: #fdf5e6; /* Parchment color */
+    color: #5d4037; /* Brown text color */
+    padding: 40px;
+    border-radius: 10px;
+    max-width: 600px;
+    font-family: 'Georgia', serif;
+    font-size: 1.2em;
+    line-height: 1.6;
+    text-align: left;
+    border: 1px solid #d2b48c;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+.love-letter-cursor {
+    display: inline-block;
+    animation: blink 1s step-end infinite;
+}
+/* Memory Game Styles */
+.memory-game-container {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1001;
+    padding: 70px 20px 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.close-game {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    z-index: 1002;
+}
+.memory-game-container h2 {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    gap: 15px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.memory-card {
+    background-color: transparent; /* The back face will have the color */
+    border-radius: 10px;
+    cursor: pointer;
+    aspect-ratio: 1 / 1;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+.memory-card.flip {
+    transform: rotateY(180deg);
+}
+.card-face {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.card-front {
+    transform: rotateY(180deg);
+}
+.card-front img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+.card-back {
+    background-color: #ff4d88;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
