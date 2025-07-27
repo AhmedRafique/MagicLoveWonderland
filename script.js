@@ -1326,3 +1326,106 @@ function hideGallery() {
     }
     draw();
 })();
+
+// --- Playlist Data ---
+const playlist = [
+    // English
+    { title: "All of Me - John Legend (Lyric Video)", youtubeId: "450p7goxZqg" }, // Official lyric video
+    { title: "Perfect - Ed Sheeran (Official Music Video)", youtubeId: "2Vv-BfVoq4g" }, // Official video, embeddable
+    { title: "Thinking Out Loud - Ed Sheeran (Lyric Video)", youtubeId: "lp-EO5I60KA" }, // Official lyric video
+    { title: "Just the Way You Are - Bruno Mars (Lyric Video)", youtubeId: "LjhCEhWiKXk" }, // Official lyric video
+    { title: "A Thousand Years - Christina Perri (Lyric Video)", youtubeId: "rtOvBOTyX00" }, // Official lyric video
+    { title: "Say You Won't Let Go - James Arthur (Lyric Video)", youtubeId: "0yW7w8F2TVA" }, // Official lyric video
+    { title: "Can't Help Falling in Love - Elvis Presley (Audio)", youtubeId: "vGJTaP6anOU" }, // Official audio
+    { title: "My Heart Will Go On - Celine Dion (Audio)", youtubeId: "FHG2oizTlpY" }, // Official audio
+    { title: "You Are the Reason - Calum Scott (Lyric Video)", youtubeId: "ShZ978fBl6Y" }, // Official lyric video
+    { title: "Love Me Like You Do - Ellie Goulding (Lyric Video)", youtubeId: "AJtDXIazrMo" }, // Official lyric video
+    { title: "I Will Always Love You - Whitney Houston (Lyric Video)", youtubeId: "3JWTaaS7LdU" }, // Official lyric video
+    { title: "Everything - Michael Bublé (Lyric Video)", youtubeId: "SPUJIbXN0WY" }, // Official lyric video
+    { title: "Your Song - Elton John (Lyric Video)", youtubeId: "GlPlfCy1urI" }, // Official lyric video
+    { title: "Make You Feel My Love - Adele (Lyric Video)", youtubeId: "0put0_a--Ng" }, // Official lyric video
+    { title: "All My Life - K-Ci & JoJo (Lyric Video)", youtubeId: "DXvMT_mVbqw" }, // Official lyric video
+    { title: "Endless Love - Lionel Richie & Diana Ross (Lyric Video)", youtubeId: "JM_R1R28kLM" }, // Official lyric video
+    { title: "At Last - Etta James", youtubeId: "S-cbOl96RFM" },
+    { title: "Unchained Melody - The Righteous Brothers", youtubeId: "qiiyq2xrSI0" },
+    { title: "I Don't Want to Miss a Thing - Aerosmith", youtubeId: "JkK8g6FMEXE" },
+    { title: "Because You Loved Me - Celine Dion", youtubeId: "pHxBG2v5g4g" },
+    { title: "How Deep Is Your Love - Bee Gees", youtubeId: "XpqqjU7u5Yc" },
+    { title: "Endless Love - Luther Vandross & Mariah Carey", youtubeId: "JM_R1R28kLM" },
+    { title: "Amazed - Lonestar", youtubeId: "x-skFgrV59A" },
+    { title: "I Won't Give Up - Jason Mraz", youtubeId: "O1-4u9W-bns" },
+    { title: "Bleeding Love - Leona Lewis", youtubeId: "7_weSk0BonM" },
+    { title: "Back at One - Brian McKnight", youtubeId: "pR0VSg3dJvY" },
+    { title: "Truly Madly Deeply - Savage Garden", youtubeId: "WQnAxOQxQIU" },
+    { title: "Just the Two of Us - Bill Withers", youtubeId: "bG5N3GC-m20" },
+    { title: "Iris - Goo Goo Dolls", youtubeId: "NdYWuo9OFAw" },
+    { title: "You’re Still the One - Shania Twain", youtubeId: "KNZH-emehxA" },
+    { title: "I Knew I Loved You - Savage Garden", youtubeId: "jjnmICxvoVY" },
+    { title: "I Just Called to Say I Love You - Stevie Wonder", youtubeId: "QwOU3bnuU0k" },
+    { title: "More Than Words - Extreme", youtubeId: "UrIiLvg58SY" },
+    { title: "When a Man Loves a Woman - Michael Bolton", youtubeId: "r7fXg3g6bDg" },
+    { title: "Hero - Enrique Iglesias", youtubeId: "koJlIGDImiU" },
+    { title: "I Swear - All-4-One", youtubeId: "25rL-ooWICU" },
+    { title: "If I Ain't Got You - Alicia Keys", youtubeId: "Ju8Hr50Ckwk" },
+    { title: "From This Moment On - Shania Twain", youtubeId: "a-Lp2uC_1lI" },
+    { title: "I Could Fall in Love - Selena", youtubeId: "lDY7k1q3bD8" },
+    { title: "Vision of Love - Mariah Carey", youtubeId: "Y8HOfcYWZoo" },
+    { title: "Always - Bon Jovi", youtubeId: "9BMwcO6_hyA" },
+    { title: "My Girl - The Temptations", youtubeId: "6IUG-9jZD-g" },
+    { title: "Let’s Stay Together - Al Green", youtubeId: "COiIC3A0ROM" },
+    { title: "I Will Be Here - Steven Curtis Chapman", youtubeId: "S9gQvE5r2ew" },
+    { title: "You Are So Beautiful - Joe Cocker", youtubeId: "wlDmslyGmGI" },
+    { title: "I Do (Cherish You) - 98 Degrees", youtubeId: "QwOU3bnuU0k" },
+    { title: "Un-break My Heart - Toni Braxton", youtubeId: "p2Rch6WvPJE" },
+    { title: "Have I Told You Lately - Rod Stewart", youtubeId: "s1ysoohV_zA" },
+    { title: "I’ll Make Love to You - Boyz II Men", youtubeId: "fV8vB1BB2qc" },
+    { title: "You’re Beautiful - James Blunt", youtubeId: "oofSnsGkops" },
+    { title: "Just the Way You Are - Billy Joel", youtubeId: "HaA3YZ6QdJU" },
+    { title: "I Do - Colbie Caillat", youtubeId: "E0oyglKjbFQ" },
+    { title: "Love Story - Taylor Swift", youtubeId: "8xg3vE8Ie_E" },
+    { title: "Marry Me - Train", youtubeId: "ghZt2cILcCU" },
+    { title: "All My Life - Linda Ronstadt & Aaron Neville", youtubeId: "w3MteyB6q0E" },
+    { title: "Kiss Me - Sixpence None The Richer", youtubeId: "8N-qO3sPMjc" },
+    { title: "The Power of Love - Celine Dion", youtubeId: "Y8HOfcYWZoo" },
+    { title: "I’ll Stand by You - The Pretenders", youtubeId: "maAyfcO-X3k" },
+    { title: "You Are the Best Thing - Ray LaMontagne", youtubeId: "vJ3xTjvj9tw" },
+    { title: "I Choose You - Sara Bareilles", youtubeId: "xjE5D9cHiOk" },
+    { title: "Forever and Ever, Amen - Randy Travis", youtubeId: "sgJXbIP83A8" },
+    { title: "Can’t Take My Eyes Off You - Frankie Valli", youtubeId: "NGFToiLtXro" },
+    { title: "When You Say Nothing at All - Ronan Keating", youtubeId: "AuJrEBtmM1Q" },
+    { title: "You Make My Dreams - Hall & Oates", youtubeId: "EErSKhC0CZs" },
+    { title: "Truly, Madly, Deeply - Savage Garden", youtubeId: "WQnAxOQxQIU" }
+];
+
+let currentSongIndex = 0;
+
+function showPlaylist() {
+    const overlay = document.querySelector('.playlist-overlay');
+    const list = overlay.querySelector('.playlist-list');
+    const titleDiv = overlay.querySelector('.playlist-song-title');
+    const ytDiv = document.getElementById('playlist-youtube');
+    overlay.style.display = 'flex';
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+
+    // Build playlist
+    list.innerHTML = '';
+    playlist.forEach((song, idx) => {
+        const li = document.createElement('li');
+        li.textContent = song.title;
+        li.onclick = () => {
+            window.open(`https://www.youtube.com/watch?v=${song.youtubeId}`, '_blank');
+        };
+        list.appendChild(li);
+    });
+
+    // Show a message instead of an embedded player
+    titleDiv.innerHTML = `<span style="color:#ffb6d5;">Click any song to play it on YouTube 🎶</span>`;
+    ytDiv.innerHTML = '';
+}
+
+function hidePlaylist() {
+    const overlay = document.querySelector('.playlist-overlay');
+    overlay.style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'block';
+}
+window.hidePlaylist = hidePlaylist;

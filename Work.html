@@ -34,6 +34,7 @@
             <button class="timeline-button" onclick="showTimeline()">Our Story</button>
             <button class="letter-button" onclick="showLoveLetter()">A Letter For You</button>
             <button class="memory-game-button" onclick="showMemoryGame()">Memory Game</button>
+            <button class="playlist-button" onclick="showPlaylist()">Our Playlist</button>
         </div>
         <button class="kiss-button" onclick="sendKiss()">💋</button>
     </div>
@@ -80,6 +81,16 @@
         <div class="love-letter">
             <p id="letter-content"></p>
             <span class="love-letter-cursor">|</span>
+        </div>
+    </div>
+
+    <div class="playlist-overlay" style="display:none;">
+        <button class="close-playlist" onclick="hidePlaylist()">Close</button>
+        <h2>Our Love Playlist</h2>
+        <ul class="playlist-list"></ul>
+        <div class="playlist-player">
+            <div class="playlist-song-title"></div>
+            <div id="playlist-youtube" style="width:90%; aspect-ratio:16/9; margin-top:10px;"></div>
         </div>
     </div>
 
