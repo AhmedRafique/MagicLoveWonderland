@@ -7,8 +7,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <button id="dayNightSwitch" class="playlist-button" style="position:fixed;top:20px;left:20px;z-index:10002;">
+        🌞 Day
+    </button>
+
     <div id="initialContent">
-        <button onclick="initiateLoveWonderland()">Open Your Surprise</button>
+        <button id="openSurpriseBtn" onclick="initiateLoveWonderland()">Open Your Surprise</button>
+        <div id="dailyLoveNote" class="daily-love-note"></div>
     </div>
 
     <div class="sparkle" style="display: none;"></div>
@@ -92,6 +97,10 @@
             <div class="playlist-song-title"></div>
             <div id="playlist-youtube" style="width:90%; aspect-ratio:16/9; margin-top:10px;"></div>
         </div>
+    </div>
+
+    <div id="dailyLoveNotePopup" class="daily-love-note-popup" style="display:none;">
+        <div class="daily-love-note-content"></div>
     </div>
 
     <canvas id="star-canvas"></canvas>

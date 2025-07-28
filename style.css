@@ -549,13 +549,16 @@ h1 {
     bottom: 100px;
     right: 20px;
     padding: 10px 15px;
-    background-color: #E91E63;
-    color: white;
+    background: rgba(255, 105, 180, 0.35); /* Hot pink, transparent */
+    color: #fff;
     border: none;
-    border-radius: 50%;
+    border-radius: 12px;
     cursor: pointer;
-    font-size: 1.5em;
+    font-size: 2em;
     z-index: 10;
+}
+.kiss-button:hover {
+    background: rgba(255, 105, 180, 0.55); /* Slightly less transparent on hover */
 }
 .button-row {
     position: fixed;
@@ -907,4 +910,61 @@ const styles = `
 .playlist-button:hover {
     background-color: #7B1FA2;
     color: #fff;
+}
+body.night-mode {
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    color: #fff;
+    transition: background 0.8s;
+}
+body.night-mode #star-canvas {
+    opacity: 1 !important;
+}
+body.day-mode {
+    background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+    color: #fff;
+    transition: background 0.8s;
+}
+#star-canvas {
+    opacity: 0;
+    transition: opacity 0.8s;
+}
+.daily-love-note {
+    margin: 30px auto 10px auto;
+    padding: 22px 28px;
+    background: rgba(255, 255, 255, 0.85); /* Brighter background */
+    color: #d6336c; /* Deep pink text */
+    font-size: 1.5em;
+    font-family: 'Georgia', serif;
+    border-radius: 18px;
+    box-shadow: 0 0 18px #ffb6d5;
+    max-width: 440px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    animation: fadeIn 2s;
+    display: none; /* Hidden by default */
+}
+.daily-love-note-popup {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10010;
+    animation: fadeIn 0.5s;
+}
+.daily-love-note-content {
+    background: rgba(255,255,255,0.95);
+    color: #d6336c;
+    font-size: 1.5em;
+    font-family: 'Georgia', serif;
+    border-radius: 18px;
+    box-shadow: 0 0 18px #ffb6d5;
+    max-width: 440px;
+    text-align: center;
+    letter-spacing: 0.5px;
+    padding: 32px 38px;
+    animation: fadeIn 1s;
+    cursor: pointer;
+    user-select: none;
 }
