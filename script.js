@@ -1484,3 +1484,81 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+// Gift box functions
+function showGiftBox() {
+    document.getElementById('giftBoxOverlay').style.display = 'flex';
+    document.querySelector('.gift-box').style.display = 'flex';
+    document.getElementById('giftSurprise').style.display = 'none';
+    // Reset lid position
+    document.querySelector('.gift-lid').style.transform = 'none';
+}
+
+function hideGiftBox() {
+    document.getElementById('giftBoxOverlay').style.display = 'none';
+}
+
+// Unwrap animation and show surprise
+document.addEventListener('DOMContentLoaded', function() {
+    const giftBox = document.getElementById('giftBox');
+    if (giftBox) {
+        giftBox.onclick = function() {
+            // Animate lid
+            document.querySelector('.gift-lid').style.transform = 'rotate(-70deg) translateY(-60px)';
+            setTimeout(function() {
+                giftBox.style.display = 'none';
+
+                // --- Surprise Categories ---
+                const categories = ['poem', 'message', 'photo', 'video'];
+                const chosenCategory = categories[Math.floor(Math.random() * categories.length)];
+
+                let surpriseHTML = "";
+
+                if (chosenCategory === 'poem') {
+                    // Pick a random poem from your poems array
+                    const poem = poems[Math.floor(Math.random() * poems.length)];
+                    surpriseHTML = `<div style="margin-bottom:10px;font-weight:bold;color:#ff4d88;">A poem just for you:</div>
+                        <div style="font-size:1.1em;">
+                            <div class="poem-title" style="margin-bottom:8px;">${poem.title}</div>
+                            ${poem.text.map(line => `<div>${line}</div>`).join('')}
+                        </div>`;
+                } else if (chosenCategory === 'message') {
+                    // Pick a random message from a new array
+                    const giftMessages = [
+                        "You are my greatest adventure, Radwa! 💖",
+                        "Every day with you is a gift I cherish.",
+                        "Your love is my favorite surprise.",
+                        "You make my heart smile every single day.",
+                        "I am so grateful for you, always.",
+                        "You are the magic in my world.",
+                        "With you, every moment is special.",
+                        "You are my sunshine and my stars.",
+                        "I love you more than words can say.",
+                        "You are my dream come true."
+                    ];
+                    const msg = giftMessages[Math.floor(Math.random() * giftMessages.length)];
+                    surpriseHTML = `<div style="font-size:1.3em;color:#d6336c;">${msg}</div>`;
+                } else if (chosenCategory === 'photo') {
+                    // Pick a random photo from your galleryPhotos array
+                    const photo = galleryPhotos[Math.floor(Math.random() * galleryPhotos.length)];
+                    surpriseHTML = `<div style="margin-bottom:10px;font-weight:bold;color:#ff4d88;">A special memory:</div>
+                        <img src="photos/${photo}" alt="A sweet memory" style="max-width:220px; border-radius:12px; box-shadow:0 0 8px #ffb6d5;">`;
+                } else if (chosenCategory === 'video') {
+                    // Pick randomly between your videos
+                    const videos = [
+                        { title: "Our special video", file: "OurStory.mp4" }
+                    ];
+                    const vid = videos[Math.floor(Math.random() * videos.length)];
+                    surpriseHTML = `<div style="margin-bottom:10px;font-weight:bold;color:#ff4d88;">${vid.title}:</div>
+                        <video controls style="max-width:220px; border-radius:12px; box-shadow:0 0 8px #ffb6d5;">
+                            <source src="${vid.file}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>`;
+                }
+
+                document.querySelector('.gift-message').innerHTML = surpriseHTML;
+                document.getElementById('giftSurprise').style.display = 'block';
+            }, 900);
+        };
+    }
+});

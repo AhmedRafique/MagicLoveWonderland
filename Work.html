@@ -42,6 +42,7 @@
             <button class="playlist-button" onclick="showPlaylist()">Our Playlist</button>
         </div>
         <button class="kiss-button" onclick="sendKiss()">💋</button>
+        <button class="gift-button" onclick="showGiftBox()">🎁 Gift</button>
     </div>
 
     <div id="proposalContainer">
@@ -101,6 +102,19 @@
 
     <div id="dailyLoveNotePopup" class="daily-love-note-popup" style="display:none;">
         <div class="daily-love-note-content"></div>
+    </div>
+
+    <div id="giftBoxOverlay" class="gift-box-overlay" style="display:none;">
+        <div class="gift-box" id="giftBox">
+            <div class="gift-lid"></div>
+            <div class="gift-body"></div>
+            <div class="gift-bow"></div>
+            <span class="gift-label">Click to Unwrap!</span>
+        </div>
+        <div class="gift-surprise" id="giftSurprise" style="display:none;">
+            <div class="gift-message"></div>
+            <button class="close-gift" onclick="hideGiftBox()">Close</button>
+        </div>
     </div>
 
     <canvas id="star-canvas"></canvas>

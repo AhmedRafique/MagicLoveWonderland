@@ -968,3 +968,120 @@ body.day-mode {
     cursor: pointer;
     user-select: none;
 }
+.gift-box-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10020;
+    flex-direction: column;
+}
+.gift-box {
+    position: relative;
+    width: 120px;
+    height: 140px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: popIn 0.7s;
+}
+.gift-lid {
+    width: 120px;
+    height: 40px;
+    background: #ffb6d5;
+    border-radius: 12px 12px 20px 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    transition: transform 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+}
+.gift-body {
+    width: 120px;
+    height: 100px;
+    background: #fff;
+    border-radius: 0 0 18px 18px;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 1;
+    border: 3px solid #ffb6d5;
+}
+.gift-bow {
+    width: 40px;
+    height: 20px;
+    background: #ff4d88;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    top: -18px;
+    left: 40px;
+    z-index: 3;
+}
+.gift-label {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ff4d88;
+    font-weight: bold;
+    font-size: 1.1em;
+    background: #fff8;
+    padding: 4px 12px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+.gift-surprise {
+    margin-top: 40px;
+    background: #fff;
+    color: #d6336c;
+    border-radius: 18px;
+    box-shadow: 0 0 18px #ffb6d5;
+    padding: 32px 38px;
+    font-size: 1.3em;
+    text-align: center;
+    animation: fadeIn 1s;
+    min-width: 220px;
+}
+.close-gift {
+    margin-top: 18px;
+    background: #ffb6d5;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 1em;
+    cursor: pointer;
+}
+@keyframes popIn {
+    0% { transform: scale(0.7); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.gift-button {
+    background-color: #ffb6d5;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ffb6d5;
+    margin: 5px;
+    transition: background-color 0.3s;
+}
+.gift-button:hover {
+    background-color: #ff4d88;
+    color: #fff;
+}
+
+.gift-message video {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px #ffb6d5;
+    margin: 10px 0;
+    background: #000;
+    display: block;
+}
