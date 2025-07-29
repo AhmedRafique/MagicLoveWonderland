@@ -21,7 +21,8 @@
     <h1 style="display: none;">For Radwa ❤️</h1>
     <div class="floating-message" style="display: none;">This world is brighter because you're in it, Radwa.</div>
 
-    <audio id="bg-music" loop style="display: none;">
+    <button id="musicButton" class="music-button">🔊</button>
+    <audio id="bg-music" loop>
         <source src="background-music.mp3" type="audio/mpeg">
     </audio>
 
@@ -30,7 +31,6 @@
     </audio>
 
     <div id="actionButtonsContainer" style="display: none;">
-        <button class="music-button" onclick="toggleMusic()">♫</button>
         <button id="showProposalButton" onclick="showProposal()">Press ME</button>
         <div class="button-row">
             <button class="poem-button" onclick="showPoem()">Surprise</button>

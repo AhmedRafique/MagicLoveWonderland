@@ -1431,92 +1431,56 @@ function hidePlaylist() {
 window.hidePlaylist = hidePlaylist;
 
 document.addEventListener("DOMContentLoaded", function() {
+    // Music button toggle
+    const musicBtn = document.getElementById("musicButton");
+    const bgMusic = document.getElementById("bg-music");
+    let musicOn = false;
+    if (musicBtn && bgMusic) {
+        musicBtn.addEventListener("click", function() {
+            if (musicOn) {
+                bgMusic.pause();
+                musicBtn.textContent = "🔇";
+                musicOn = false;
+            } else {
+                bgMusic.play();
+                musicBtn.textContent = "🔊";
+                musicOn = true;
+            }
+        });
+    }
+
+    // Day/Night switch
     const switchBtn = document.getElementById("dayNightSwitch");
-    document.body.classList.add("day-mode");
-
-    switchBtn.onclick = function() {
-        if (document.body.classList.contains("day-mode")) {
-            document.body.classList.remove("day-mode");
-            document.body.classList.add("night-mode");
-            switchBtn.innerHTML = "🌙 Night";
-        } else {
-            document.body.classList.remove("night-mode");
-            document.body.classList.add("day-mode");
-            switchBtn.innerHTML = "🌞 Day";
-        }
-    };
-});
-
-function drawStars() {
-    const canvas = document.getElementById('star-canvas');
-    if (!canvas) return;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < 120; i++) {
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const r = Math.random() * 1.5 + 0.5;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, 2 * Math.PI);
-        ctx.fillStyle = "#fff";
-        ctx.globalAlpha = Math.random() * 0.8 + 0.2;
-        ctx.fill();
-        ctx.globalAlpha = 1;
+    if (switchBtn) {
+        document.body.classList.add("day-mode");
+        switchBtn.innerHTML = "🌞 Day";
+        switchBtn.onclick = function() {
+            if (document.body.classList.contains("day-mode")) {
+                document.body.classList.remove("day-mode");
+                document.body.classList.add("night-mode");
+                switchBtn.innerHTML = "🌙 Night";
+            } else {
+                document.body.classList.remove("night-mode");
+                document.body.classList.add("day-mode");
+                switchBtn.innerHTML = "🌞 Day";
+            }
+        };
     }
-}
-window.addEventListener('resize', drawStars);
-document.addEventListener('DOMContentLoaded', drawStars);
 
-// New love notes array
-const loveNotes = [
-    "You make every day brighter just by being you.",
-    "Your smile is my favorite sunrise.",
-    "I love you more than words can say.",
-    "You are my heart’s greatest adventure.",
-    "Every moment with you is a treasure.",
-    "You are the reason I believe in magic.",
-    "With you, every day feels like a dream.",
-    "You are my sunshine on a cloudy day.",
-    "I’m grateful for you every single day.",
-    "You are the best part of my life.",
-    "Your laughter is my favorite sound.",
-    "You are my forever and always.",
-    "I love you to the moon and back.",
-    "You are my home.",
-    "You make my heart skip a beat.",
-    "You are my greatest gift.",
-    "I fall in love with you more every day.",
-    "You are my soulmate.",
-    "You are my happily ever after.",
-    "You are my everything."
-];
-
-function getDailyLoveNote() {
-    const today = new Date();
-    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
-    const note = loveNotes[dayOfYear % loveNotes.length];
-    return note;
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    const noteDiv = document.getElementById("dailyLoveNote");
-    if (noteDiv) {
-        noteDiv.textContent = getDailyLoveNote();
-    }
-});
-
-document.getElementById('openSurpriseBtn').addEventListener('click', function() {
+    // Daily Love Note popup
+    const openSurpriseBtn = document.getElementById('openSurpriseBtn');
     const popup = document.getElementById("dailyLoveNotePopup");
-    const content = popup.querySelector(".daily-love-note-content");
-    content.textContent = getDailyLoveNote();
-    popup.style.display = "flex";
-});
-
-// Close popup when clicking outside the note
-document.getElementById("dailyLoveNotePopup").addEventListener("click", function(e) {
-    if (e.target === this) {
-        this.style.display = "none";
+    const content = popup ? popup.querySelector(".daily-love-note-content") : null;
+    if (openSurpriseBtn && popup && content) {
+        openSurpriseBtn.addEventListener('click', function() {
+            content.textContent = getDailyLoveNote();
+            popup.style.display = "flex";
+        });
+        // Close popup when clicking outside the note
+        popup.addEventListener("click", function(e) {
+            if (e.target === this) {
+                this.style.display = "none";
+            }
+        });
     }
 });
