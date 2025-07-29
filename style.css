@@ -272,7 +272,7 @@ h1 {
     padding: 10px;
     font-size: 1.2em;
     cursor: pointer;
-    z-index: 10;
+    z-index: 200; /* <-- Make sure this is higher than #actionButtonsContainer */
 }
 #yesButton {
     margin-top: 20px;
@@ -561,97 +561,49 @@ h1 {
     background: rgba(255, 105, 180, 0.55); /* Slightly less transparent on hover */
 }
 .button-row {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
     display: flex;
-    gap: 10px; /* Creates space between buttons */
-    z-index: 10;
+    flex-wrap: wrap;
+    gap: 18px 24px; /* vertical and horizontal spacing */
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto 0 auto;
+    padding: 0 10px;
+    max-width: 900px;
 }
-@media (max-width: 768px) {
-    /* Arrange buttons in a 2-column grid on mobile */
-    #actionButtonsContainer {
-        position: fixed;
-        bottom: 20px;
-        left: 5%;
-        right: 5%;
-        width: 90%;
-        display: flex;
-        flex-wrap: wrap-reverse; /* Fill from bottom-up, wrapping into new rows */
-        justify-content: center; /* Center the buttons horizontally */
-        gap: 10px; /* Consistent spacing */
-    }
-    #actionButtonsContainer > .button-row > button,
-    #actionButtonsContainer > button {
-        position: static; /* Add this to make them part of the flex flow */
-        padding: 12px 10px; /* Adjust padding for smaller buttons */
-        font-size: 1em; /* Adjust font size */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        border-radius: 8px;
-        flex-grow: 1; /* Allow buttons to grow and fill space */
-        flex-basis: calc(50% - 5px); /* Two buttons per row with gap */
-        margin: 0; /* Reset margins */
-        box-sizing: border-box; /* Ensure padding is included in width calculation */
-    }
+
+.button-row button {
+    min-width: 140px;
+    flex: 1 1 180px;
+    font-size: 1.1em;
+    margin: 0;
+}
+
+@media (max-width: 900px) {
     .button-row {
-        position: static; /* Reset fixed positioning */
-        display: contents; /* Makes the container 'disappear' for layout flattening */
+        max-width: 98vw;
+        gap: 14px 10px;
     }
-    /* Adjust gallery and timeline for mobile */
-    .photo-gallery, .timeline-container {
-        padding-top: 80px;
-        padding-bottom: 40px;
-    }
-    .photo-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 10px;
-    }
-    .timeline::after {
-        left: 15px;
-    }
-    .timeline-item {
-        width: 100%;
-        padding-left: 25px;
-        padding-right: 25px;
-    }
-    .timeline-item::after {
-        left: 7px;
-    }
-    .left::after, .right::after {
-        left: 7px;
-    }
-    .left, .right {
-        left: 0;
-    }
-    .memory-grid {
-        grid-template-columns: repeat(3, 1fr); /* 3 columns on smaller screens */
-    }
-}
-@media (max-width: 480px) {
-    .memory-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on very small screens */
-    }
-}
-@media (max-width: 480px) {
-    .photo-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    }
-    
-    #showProposalButton, .poem-button, .love-reasons-button, 
-    .gallery-button, .timeline-button {
-        /* This selector is now too broad, but we'll leave it for now */
+    .button-row button {
+        min-width: 110px;
+        flex: 1 1 120px;
         font-size: 1em;
-        padding: 10px 15px;
     }
 }
-@keyframes blink {
-    from, to { opacity: 1; }
-    50% { opacity: 0; }
+
+@media (max-width: 600px) {
+    .button-row {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+        max-width: 98vw;
+    }
+    .button-row button {
+        width: 100%;
+        min-width: 0;
+    }
 }
+/* Optional: Add a subtle background or texture */
 .constellation-container {
-    /* Optional: Add a subtle background or texture */
 }
 .constellation-container div {
     /* Add any global styles for elements within the container */
@@ -749,7 +701,7 @@ const styles = `
     line-height: 1.6;
     text-align: left;
     border: 1px solid #d2b48c;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 .love-letter-cursor {
     display: inline-block;
@@ -1084,4 +1036,102 @@ body.day-mode {
     margin: 10px 0;
     background: #000;
     display: block;
+}
+.puzzle-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10030;
+}
+.puzzle-box {
+    background: #fff;
+    color: #d6336c;
+    border-radius: 18px;
+    box-shadow: 0 0 18px #ffb6d5;
+    padding: 32px 38px;
+    font-size: 1.2em;
+    text-align: center;
+    min-width: 280px;
+    max-width: 90vw;
+    animation: fadeIn 0.7s;
+}
+.puzzle-instructions {
+    margin-bottom: 18px;
+    font-weight: bold;
+}
+.slider-track {
+    width: 220px;
+    height: 36px;
+    background: #ffe0f0;
+    border-radius: 18px;
+    position: relative;
+    margin: 0 auto 20px auto;
+    box-shadow: 0 0 8px #ffb6d5;
+}
+.slider-thumb {
+    width: 36px;
+    height: 36px;
+    background: #ffb6d5;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    box-shadow: 0 0 8px #ff4d88;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slider-thumb::after {
+    content: "👉";
+    font-size: 1.5em;
+    color: #fff;
+}
+.secret-message {
+    margin-top: 18px;
+    font-size: 1.2em;
+    color: #d6336c;
+    animation: fadeIn 1s;
+}
+.close-puzzle {
+    margin-top: 18px;
+    background: #ffb6d5;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 1em;
+    cursor: pointer;
+}
+.puzzle-button {
+    background-color: #ffb6d5;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ffb6d5;
+    margin: 5px;
+    transition: background-color 0.3s;
+}
+.puzzle-button:hover {
+    background-color: #ff4d88;
+}
+#actionButtonsContainer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100vw;
+    background: linear-gradient(to top, rgba(255,255,255,0.12) 60%, rgba(255,255,255,0));
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 18px 0 24px 0;
+    box-sizing: border-box;
 }

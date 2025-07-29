@@ -1167,7 +1167,8 @@ function hideGallery() {
                 grid.innerHTML = "<p style='color:white; text-align:center;'>Not enough photos for a game!</p>";
                 return;
             }
-            const gamePhotos = galleryPhotos.slice(0, photoCount);
+            const shuffled = [...galleryPhotos].sort(() => 0.5 - Math.random());
+            const gamePhotos = shuffled.slice(0, photoCount);
             const cardSet = [...gamePhotos, ...gamePhotos]; // Duplicate for pairs
 
             // Shuffle the cards
@@ -1561,4 +1562,57 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 900);
         };
     }
+});
+
+// Puzzle functions
+function showPuzzle() {
+    document.getElementById('puzzleOverlay').style.display = 'flex';
+    document.getElementById('secretMessage').style.display = 'none';
+    resetSlider();
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+}
+function hidePuzzle() {
+    document.getElementById('puzzleOverlay').style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'block';
+}
+function resetSlider() {
+    const thumb = document.getElementById('sliderThumb');
+    thumb.style.left = '0px';
+    thumb.onmousedown = startDrag;
+    document.onmouseup = null;
+    document.onmousemove = null;
+}
+function startDrag(e) {
+    e.preventDefault();
+    const thumb = document.getElementById('sliderThumb');
+    const track = thumb.parentElement;
+    const max = track.offsetWidth - thumb.offsetWidth;
+    let startX = e.clientX;
+    let startLeft = parseInt(thumb.style.left, 10) || 0;
+
+    document.onmousemove = function(ev) {
+        let dx = ev.clientX - startX;
+        let newLeft = Math.min(Math.max(startLeft + dx, 0), max);
+        thumb.style.left = newLeft + 'px';
+        if (newLeft >= max) {
+            // Unlocked!
+            document.onmousemove = null;
+            document.onmouseup = null;
+            setTimeout(() => {
+                document.getElementById('secretMessage').style.display = 'block';
+            }, 200);
+        }
+    };
+    document.onmouseup = function() {
+        // Snap back if not unlocked
+        if (parseInt(thumb.style.left, 10) < max) {
+            thumb.style.left = '0px';
+        }
+        document.onmousemove = null;
+        document.onmouseup = null;
+    };
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const thumb = document.getElementById('sliderThumb');
+    if (thumb) thumb.onmousedown = startDrag;
 });
