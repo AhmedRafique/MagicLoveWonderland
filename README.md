@@ -1,7 +1,7 @@
 ✨ Magic Love Wonderland ✨
 =========================
 
-A deeply personal and interactive web experience designed to celebrate love through a collection of magical, animated features. This project transforms a simple webpage into an immersive wonderland, perfect for anniversaries, proposals, or just as a special surprise for a loved one.
+A deeply personal and interactive web experience designed to celebrate love through a collection of magical, animated features. This project transforms a simple webpage into an immersive wonderland, perfect for anniversaries, proposals, or just as a special surprise for Radwa.
 
 ---
 
