@@ -62,7 +62,7 @@ The project is organized into a clear and simple structure:
 
 ```
 MagicLoveWonderland/
-├── 📄 Work.html             # The main HTML file for structure and content.
+├── 📄 index.html             # The main HTML file for structure and content.
 ├── 🎨 style.css             # All CSS for styling, layout, and animations.
 ├── ✨ script.js             # The core JavaScript for all interactivity and logic.
 ├── 🎵 background-music.mp3   # The background audio file.
@@ -88,7 +88,7 @@ This project is designed to be easily personalized. No complex setup is required
    ```bash
    cd MagicLoveWonderland
    ```
-3. **Open `Work.html` in your web browser** to see the magic happen!
+3. **Open `index.html` in your web browser** to see the magic happen!
 
 #### Personalizing the Content
 
