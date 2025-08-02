@@ -171,6 +171,29 @@ const loveMessages = [
             "Because you are you, and that's more than enough."            
         ];
 
+        const nameStarMessages = [
+            "For your Radiant smile that lights up my world.",
+            "For your Amazing heart, so full of kindness.",
+            "For your Dazzling personality that captivates me.",
+            "For the Wonderful way you make me feel loved.",
+            "For the Awesome adventures we share together.",
+            "Because you are Resilient and strong.",
+            "Because you are Admirable in every way.",
+            "Because you are my Dearest friend.",
+            "Because you are my greatest Wonder.",
+            "Because you are Absolutely perfect for me.",
+            "Your laugh is my favorite sound.",
+            "You make my world a better place.",
+            "You are the 'R' in my reality.",
+            "You are the 'A' in my always.",
+            "You are the 'D' in my destiny.",
+            "You are the 'W' in my world.",
+            "You are the 'A' in my everything.",
+            "My heart belongs to you.",
+            "You are my dream come true.",
+            "My forever and always."
+        ];
+
         const timelineEvents = [
             {
                 date: "08 Jan 2025",
@@ -334,6 +357,19 @@ const loveMessages = [
         let proposalVisible = false;
 
         let heartInterval;
+        let loveReasonsModeActive = false;
+        let reasonStars = [];
+        let nameConstellation = { stars: [], lines: [] };
+        let hoveredStar = null;
+        const LETTER_MAP = {
+            R: [[10,100],[10,0],[60,0],[70,10],[75,30],[70,45],[60,50],[10,50],null,[60,50],[80,100]],
+            A: [[0,100],[25,0],[50,100],null,[12,60],[38,60]],
+            D: [[0,0],[0,100],[50,80],[50,20],[0,0]],
+            W: [[0,0],[15,100],[25,60],[35,100],[50,0]],
+        };
+
+
+
         let giftInterval;
         let randomHeartInterval;
         let petalInterval;
@@ -374,153 +410,6 @@ const loveMessages = [
             }
         }
 
-        function createConstellation(name = "RADWA") {
-    // Remove existing constellations
-    const existing = document.querySelector('.constellation-container');
-    if (existing) existing.remove();
-
-    // Create container
-    const container = document.createElement('div');
-    container.className = 'constellation-container';
-
-    showOverlay(container);
-
-    container.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.9);
-        z-index: 10000;
-        pointer-events: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    `;
-    
-    // Close button
-    const closeBtn = document.createElement('button');
-    closeBtn.textContent = '×';
-    closeBtn.style.cssText = `
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: #ff4d88;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        font-size: 24px;
-        cursor: pointer;
-        z-index: 10001;
-    `;
-    closeBtn.onclick = () => {
-        container.remove();
-        document.getElementById('actionButtonsContainer').style.display = 'block';
-    };
-    container.appendChild(closeBtn);
-
-    // Detailed star positions for each letter
-    const LETTER_MAP = {
-    R: [
-        [10, 100 - 0],   // Bottom left -> Top left
-        [10, 100 - 100], // Top left -> Bottom left
-        [60, 100 - 100], // Top right -> Bottom right
-        [70, 100 - 90],  // Top curve start -> Bottom curve end
-        [75, 100 - 70],  // Top curve middle -> Middle curve
-        [70, 100 - 55],  // Top curve end -> Top curve start
-        [60, 100 - 50],  // Middle right -> Middle right (remains the same)
-        [10, 100 - 50],  // Middle left -> Middle left (remains the same)
-        [35, 100 - 15],  // Bottom leg start -> Top leg end
-        [60, 100 - 0]    // Bottom leg end -> Top leg start
-    ],
-    A: [
-        [0, 100], [25, 0], [50, 100], // The main V-shape
-        null, // This creates a break in the path
-        [12, 60], [38, 60] // The cross-bar
-    ],
-    D: [[0, 0], [0, 100], [40, 80], [40, 20], [0, 0]],
-    W: [[0, 0], [10, 100], [25, 40], [40, 100], [50, 0]],
-};
-    const BASE_SIZE = 15; // Size per letter in vw
-    const SPACING = 5; // Space between letters in vw
-    
-    // Create the full constellation
-    name.split('').forEach((letter, letterIndex) => {
-        const group = document.createElement('div');
-        group.style.position = 'absolute';
-        group.style.left = `${letterIndex * (BASE_SIZE + SPACING)}vw`;
-        group.style.width = `${BASE_SIZE}vw`;
-        group.style.height = `${BASE_SIZE}vw`;
-
-        const points = LETTER_MAP[letter.toUpperCase()] || [];
-        points.forEach(point => {
-            // Skip null points used for breaking paths
-            if (!point) return;
-            const [xPercent, yPercent] = point;
-
-            // Create star
-            const star = document.createElement('div');
-            star.className = 'constellation-star';
-            star.style.cssText = `
-                position: absolute;
-                left: ${xPercent}%;
-                top: ${yPercent}%;
-                width: 8px;
-                height: 8px;
-                background: white;
-                border-radius: 50%;
-                box-shadow: 0 0 10px white;
-                transform: translate(-50%, -50%);
-                animation: twinkle 2s infinite;
-            `;
-            group.appendChild(star);
-        });
-
-        // Create connections between stars
-        for(let i = 0; i < points.length - 1; i++) {
-            const p1 = points[i];
-            const p2 = points[i+1];
-            
-            // If either point is null, it's a path break, so we skip drawing a line
-            if (!p1 || !p2) continue;
-            
-            const line = document.createElement('div');
-            line.className = 'constellation-line';
-            
-            const length = Math.sqrt(
-                Math.pow(p2[0]-p1[0], 2) + 
-                Math.pow(p2[1]-p1[1], 2)
-            );
-            
-            const angle = Math.atan2(
-                p2[1] - p1[1], 
-                p2[0] - p1[0]
-            ) * 180 / Math.PI;
-
-            line.style.cssText = `
-                position: absolute;
-                left: ${p1[0]}%;
-                top: ${p1[1]}%;
-                width: ${length}%;
-                height: 2px;
-                background: linear-gradient(90deg, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
-                transform-origin: 0 50%;
-                transform: rotate(${angle}deg);
-                animation: lineGlow 3s infinite;
-            `;
-            
-            group.appendChild(line);
-        }
-
-        container.appendChild(group);
-    });
-
-    document.body.appendChild(container);
-}
-
         function initiateLoveWonderland() {
             if (wonderlandInitiated) return;
             wonderlandInitiated = true;
@@ -530,7 +419,7 @@ const loveMessages = [
             document.querySelector('.moon').style.display = 'block';
             document.querySelector('h1').style.display = 'block';
             document.querySelector('.floating-message').style.display = 'block';
-            document.getElementById('actionButtonsContainer').style.display = 'block';
+            document.getElementById('actionButtonsContainer').style.display = 'flex';
 
             // Start creating petals
             createPetals();
@@ -675,7 +564,8 @@ const loveMessages = [
                     );
                 }, i * 500);
             }
-            createConstellation("RADWA");
+            // Instead of creating an overlay, trigger the main starry night view
+            showLoveReasons();
         }
 
         function showProposal() {
@@ -981,63 +871,28 @@ function createFirework() {
 }
 
 
-        function hidePoem() {
-            const poemContainer = document.getElementById('poemContainer');
-            poemContainer.style.opacity = '0';
-            poemContainer.style.visibility = 'hidden';
-            document.getElementById('actionButtonsContainer').style.display = 'block';
+    function hidePoem() {
+        const poemContainer = document.getElementById('poemContainer');
+        poemContainer.style.opacity = '0';
+        poemContainer.style.visibility = 'hidden';
+        document.getElementById('actionButtonsContainer').style.display = 'flex';
+    }
+
+    function showLoveReasons() {
+        loveReasonsModeActive = true;
+        document.body.classList.add('starry-night-active');
+        
+        // Ensure night mode is on for the effect
+        if (document.body.classList.contains("day-mode")) {
+            document.body.classList.remove("day-mode");
+            document.body.classList.add("night-mode");
+            document.getElementById("dayNightSwitch").innerHTML = "🌙 Night";
         }
 
-       function showLoveReasons() {
-    // Create 50 floating love reason messages
-    for (let i = 0; i < 50; i++) {
-        setTimeout(() => {
-            const reason = document.createElement('div');
-            reason.className = 'message';
-            
-            // Select a random love reason
-            reason.textContent = loveReasons[Math.floor(Math.random() * loveReasons.length)];
-            
-            // Random position on screen
-            reason.style.left = Math.random() * window.innerWidth + 'px';
-            reason.style.top = Math.random() * window.innerHeight + 'px';
-            
-            // Random slight rotation for natural look (-15deg to 15deg)
-            reason.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
-            
-            // Random animation duration (3-5 seconds)
-            reason.style.animation = `fadeOut ${3 + Math.random() * 2}s forwards`;
-            
-            // Random font size (slightly bigger or smaller)
-            reason.style.fontSize = `${0.8 + Math.random() * 0.4}em`;
-            
-            // Different background colors for visual interest
-            const colors = [
-                'rgba(255, 255, 255, 0.9)',
-                'rgba(255, 215, 215, 0.9)',
-                'rgba(255, 240, 240, 0.9)'
-            ];
-            reason.style.background = colors[Math.floor(Math.random() * colors.length)];
-            
-            document.body.appendChild(reason);
-            
-            // Remove element after animation completes
-            setTimeout(() => {
-                if (reason.parentNode) {
-                    reason.parentNode.removeChild(reason);
-                }
-            }, 5000); // Increased to match max animation duration (3s + 2s)
-            
-        }, i * 100); // Stagger appearance (every 100ms)
+        document.getElementById('actionButtonsContainer').style.display = 'none';
+        document.getElementById('closeReasonsButton').style.display = 'block';
+        document.getElementById('star-canvas').style.pointerEvents = 'auto';
     }
-    
-    // Create some floating hearts along with the messages
-    for (let i = 0; i < 20; i++) {
-        setTimeout(() => {
-            createRandomHeart();
-        }, i * 150);
-    }
-}
     
           function showGallery() {
     const gallery = document.querySelector('.photo-gallery');
@@ -1065,7 +920,7 @@ function createFirework() {
 
 function hideGallery() {
     document.querySelector('.photo-gallery').style.display = 'none';
-    document.getElementById('actionButtonsContainer').style.display = 'block';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
 }
     
           
@@ -1106,7 +961,7 @@ function hideGallery() {
 
         function hideTimeline() {
             document.querySelector('.timeline-container').style.display = 'none';
-            document.getElementById('actionButtonsContainer').style.display = 'block';
+            document.getElementById('actionButtonsContainer').style.display = 'flex';
         }
 
         // Initialize with a heart cursor
@@ -1151,7 +1006,16 @@ function hideGallery() {
 
         function hideLoveLetter() {
             document.querySelector('.love-letter-container').style.display = 'none';
-            document.getElementById('actionButtonsContainer').style.display = 'block';
+            document.getElementById('actionButtonsContainer').style.display = 'flex';
+        }
+
+        function hideLoveReasons() {
+            loveReasonsModeActive = false;
+            document.body.classList.remove('starry-night-active');
+            hoveredStar = null; // Clear hover state
+            document.getElementById('actionButtonsContainer').style.display = 'flex';
+            document.getElementById('closeReasonsButton').style.display = 'none';
+            document.getElementById('star-canvas').style.pointerEvents = 'none';
         }
 
         function showMemoryGame() {
@@ -1225,42 +1089,99 @@ function hideGallery() {
 
         function hideMemoryGame() {
             document.querySelector('.memory-game-container').style.display = 'none';
-            document.getElementById('actionButtonsContainer').style.display = 'block';
+            document.getElementById('actionButtonsContainer').style.display = 'flex';
         }
 
-(function() {
+function initializeStarrySky() {
     const canvas = document.getElementById('star-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let w = window.innerWidth;
     let h = window.innerHeight;
-    canvas.width = w;
-    canvas.height = h;
+    let time = 0;
+    let mouse = { x: -100, y: -100 };
 
-    function resize() {
+    let genericStars = [];
+    const numGenericStars = 120;
+    let shootingStar = null;
+
+    function init() {
         w = window.innerWidth;
         h = window.innerHeight;
         canvas.width = w;
         canvas.height = h;
-    }
-    window.addEventListener('resize', resize);
 
-    // Star properties
-    const numStars = 120;
-    const stars = [];
-    for (let i = 0; i < numStars; i++) {
-        stars.push({
-            x: Math.random() * w,
-            y: Math.random() * h,
-            r: Math.random() * 1.2 + 0.5,
-            alpha: Math.random(),
-            dAlpha: (Math.random() * 0.02 + 0.005) * (Math.random() < 0.5 ? 1 : -1)
+        // Init generic stars for default view
+        genericStars = [];
+        for (let i = 0; i < numGenericStars; i++) {
+            genericStars.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: Math.random() * 1.2 + 0.5,
+                alpha: Math.random(),
+                dAlpha: (Math.random() * 0.02 + 0.005) * (Math.random() < 0.5 ? 1 : -1)
+            });
+        }
+
+        // Init stars for "Love Reasons" mode
+        reasonStars = loveReasons.map(reason => ({
+            x: Math.random() * w * 0.9 + w * 0.05, // Avoid edges
+            y: Math.random() * h * 0.9 + h * 0.05,
+            vx: (Math.random() - 0.5) * 0.1, // slow drift x
+            vy: (Math.random() - 0.5) * 0.1, // slow drift y
+            r: Math.random() * 1.5 + 1,
+            baseR: Math.random() * 1.5 + 1,
+            alpha: Math.random() * 0.5 + 0.3,
+            dAlpha: (Math.random() * 0.02 + 0.005) * (Math.random() < 0.5 ? 1 : -1),
+            text: reason
+        }));
+
+        // Init name constellation
+        initNameConstellation("RADWA", w, h);
+    }
+
+    function initNameConstellation(name, w, h) {
+        let messageIndex = 0;
+        nameConstellation = { stars: [], lines: [] }; // Reset
+        const BASE_SIZE_VW = 10;
+        const SPACING_VW = 2;
+        const vw = w / 100;
+
+        const totalWidth = (name.length * BASE_SIZE_VW + (name.length - 1) * SPACING_VW) * vw;
+        const totalHeight = BASE_SIZE_VW * vw;
+        const startX = (w - totalWidth) / 2;
+        const startY = (h - totalHeight) / 2;
+
+        name.split('').forEach((letter, letterIndex) => {
+            const letterPoints = LETTER_MAP[letter.toUpperCase()] || [];
+            const letterOffsetX = startX + letterIndex * (BASE_SIZE_VW + SPACING_VW) * vw;
+            
+            const points = letterPoints.map(p => {
+                if (!p) return null;
+                return {
+                    x: letterOffsetX + (p[0] / 100) * BASE_SIZE_VW * vw,
+                    y: startY + (p[1] / 100) * BASE_SIZE_VW * vw,
+                };
+            });
+
+            points.forEach(point => {
+                if (!point) return;
+                const message = nameStarMessages[messageIndex % nameStarMessages.length];
+                nameConstellation.stars.push({ x: point.x, y: point.y, r: 3.5, baseR: 3.5, alpha: 1, text: message });
+                messageIndex++;
+            });
+
+            for (let i = 0; i < points.length - 1; i++) {
+                const p1 = points[i];
+                const p2 = points[i+1];
+                if (!p1 || !p2) continue;
+                nameConstellation.lines.push({ x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y });
+            }
         });
     }
 
-    // Shooting star
-    let shootingStar = null;
     function maybeShootStar() {
+        // Create a shooting star randomly
         if (!shootingStar && Math.random() < 0.005) {
             shootingStar = {
                 x: Math.random() * w * 0.7,
@@ -1273,26 +1194,127 @@ function hideGallery() {
         }
     }
 
+    window.addEventListener('resize', init);
+
+    canvas.addEventListener('mousemove', (e) => {
+        if (!loveReasonsModeActive) return;
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+    });
+
+    canvas.addEventListener('mouseout', () => {
+        hoveredStar = null;
+        mouse.x = -100;
+        mouse.y = -100;
+    });
+
     function draw() {
+        time += 0.02;
         ctx.clearRect(0, 0, w, h);
 
-        // Draw stars
-        for (let s of stars) {
+        // Find hovered star on every frame for smooth interaction with moving stars
+        if (loveReasonsModeActive) {
+            let foundStar = null;
+            // Prioritize checking name stars as they are the centerpiece
+            for (const star of nameConstellation.stars) {
+                const dist = Math.hypot(mouse.x - star.x, mouse.y - star.y);
+                if (dist < star.r + 8) { // Larger hover area for name stars
+                    foundStar = star;
+                    break;
+                }
+            }
+
+            if (!foundStar) {
+                for (const star of reasonStars) {
+                    const dist = Math.hypot(mouse.x - star.x, mouse.y - star.y);
+                    if (dist < star.r + 5) { // 5px buffer
+                        foundStar = star;
+                        break;
+                    }
+                }
+            }
+            hoveredStar = foundStar;
+        }
+
+        const starsToDraw = loveReasonsModeActive ? reasonStars : genericStars;
+
+        // Draw all stars (twinkling)
+        for (let s of starsToDraw) {
             ctx.save();
             ctx.globalAlpha = s.alpha;
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
             ctx.fillStyle = "#fff";
-            ctx.shadowColor = "#fff";
-            ctx.shadowBlur = 8;
+            ctx.shadowBlur = s === hoveredStar ? 12 : 6;
+            ctx.shadowColor = s === hoveredStar ? "#ffb6d5" : "#fff";
             ctx.fill();
             ctx.restore();
 
             s.alpha += s.dAlpha;
             if (s.alpha <= 0.2 || s.alpha >= 1) s.dAlpha *= -1;
+
+            // Grow/shrink hovered star
+            if (loveReasonsModeActive) {
+                const targetR = (s === hoveredStar) ? s.baseR * 2.5 : s.baseR;
+                s.r += (targetR - s.r) * 0.1;
+
+                // Add drifting motion
+                s.x += s.vx;
+                s.y += s.vy;
+
+                // Wrap around screen edges
+                if (s.x > w + s.r) s.x = -s.r;
+                if (s.x < -s.r) s.x = w + s.r;
+                if (s.y > h + s.r) s.y = -s.r;
+                if (s.y < -s.r) s.y = h + s.r;
+            }
         }
 
-        // Draw shooting star
+        if (loveReasonsModeActive) {
+            // Draw name constellation with a gentle pulsing glow
+            const pulseFactor = Math.sin(time) * 0.5 + 0.5; // Varies between 0 and 1
+            ctx.save();
+            ctx.strokeStyle = `rgba(255, 255, 255, ${0.4 + pulseFactor * 0.3})`;
+            ctx.lineWidth = 3;
+            ctx.shadowColor = "#ffb6d5";
+            ctx.shadowBlur = 5 + pulseFactor * 7; // Glow will pulse from 5 to 12
+            nameConstellation.lines.forEach(line => {
+                ctx.beginPath();
+                ctx.moveTo(line.x1, line.y1);
+                ctx.lineTo(line.x2, line.y2);
+                ctx.stroke();
+            });
+            // Now draw stars, they can have their own shadow properties
+            nameConstellation.stars.forEach(star => {
+                const isHovered = star === hoveredStar;
+                const targetR = isHovered ? star.baseR * 3.5 : star.baseR;
+                star.r += (targetR - star.r) * 0.1;
+
+                ctx.beginPath();
+                // Override shadow for this specific star path
+                ctx.shadowBlur = isHovered ? 15 : 8;
+                ctx.shadowColor = isHovered ? "#ffb6d5" : "#fff";
+                ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
+                ctx.fillStyle = "#fff";
+                ctx.fill();
+            });
+            ctx.restore();
+
+            // Draw hovered text
+            if (hoveredStar) {
+                ctx.save();
+                ctx.fillStyle = "#ffb6d5";
+                ctx.font = "16px 'Georgia', serif";
+                ctx.textAlign = "center";
+                ctx.shadowColor = "#000";
+                ctx.shadowBlur = 5;
+                ctx.fillText(hoveredStar.text, hoveredStar.x, hoveredStar.y - 20);
+                ctx.restore();
+            }
+        }
+
+        // Draw and update shooting star
         if (shootingStar) {
             ctx.save();
             ctx.globalAlpha = shootingStar.alpha;
@@ -1325,8 +1347,9 @@ function hideGallery() {
 
         requestAnimationFrame(draw);
     }
+    init();
     draw();
-})();
+}
 
 // --- Playlist Data ---
 const playlist = [
@@ -1427,11 +1450,24 @@ function showPlaylist() {
 function hidePlaylist() {
     const overlay = document.querySelector('.playlist-overlay');
     overlay.style.display = 'none';
-    document.getElementById('actionButtonsContainer').style.display = 'block';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
 }
 window.hidePlaylist = hidePlaylist;
 
+// New function to get a unique love note for the day
+function getDailyLoveNote() {
+    const today = new Date();
+    const startOfYear = new Date(today.getFullYear(), 0, 0);
+    const diff = today - startOfYear;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    const randomIndex = dayOfYear % loveMessages.length;
+    return loveMessages[randomIndex];
+}
+
 document.addEventListener("DOMContentLoaded", function() {
+    initializeStarrySky();
+
     // Music button toggle
     const musicBtn = document.getElementById("musicButton");
     const bgMusic = document.getElementById("bg-music");
@@ -1573,7 +1609,7 @@ function showPuzzle() {
 }
 function hidePuzzle() {
     document.getElementById('puzzleOverlay').style.display = 'none';
-    document.getElementById('actionButtonsContainer').style.display = 'block';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
 }
 function resetSlider() {
     const thumb = document.getElementById('sliderThumb');
