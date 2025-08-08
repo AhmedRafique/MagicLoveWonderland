@@ -43,6 +43,7 @@
             <button class="kiss-button" onclick="sendKiss()">💋</button>
             <button class="gift-button" onclick="showGiftBox()">🎁 Gift</button>
             <button class="puzzle-button" onclick="showPuzzle()">Secret Puzzle</button>
+            <button class="birthday-button" onclick="showBirthdayCountdown()">🎂 Birthday Countdown</button>
         </div>
     </div>
 
@@ -130,6 +131,33 @@
             </div>
             <button class="close-puzzle" onclick="hidePuzzle()">Close</button>
         </div>
+    </div>
+
+    <div id="birthdayCountdownOverlay" style="display:none;">
+        <button class="close-countdown" onclick="hideBirthdayCountdown()">✖</button>
+        <h2>Counting down to your special day!</h2>
+        <div class="birthday-age">
+            You are <span id="ageInDays"></span> young!
+        </div>
+        <div class="countdown-timer">
+            <div class="timer-box">
+                <span id="days">00</span>
+                <span class="timer-label">Days</span>
+            </div>
+            <div class="timer-box">
+                <span id="hours">00</span>
+                <span class="timer-label">Hours</span>
+            </div>
+            <div class="timer-box">
+                <span id="minutes">00</span>
+                <span class="timer-label">Minutes</span>
+            </div>
+            <div class="timer-box">
+                <span id="seconds">00</span>
+                <span class="timer-label">Seconds</span>
+            </div>
+        </div>
+        <p class="birthday-wish">Can't wait to celebrate with you, my love! ❤️</p>
     </div>
 
     <button id="closeReasonsButton" onclick="hideLoveReasons()">Back</button>

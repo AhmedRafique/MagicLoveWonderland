@@ -1652,3 +1652,118 @@ document.addEventListener('DOMContentLoaded', function() {
     const thumb = document.getElementById('sliderThumb');
     if (thumb) thumb.onmousedown = startDrag;
 });
+
+// Add this to your script.js file
+
+// A variable to hold our countdown timer, so we can stop it later
+let birthdayCountdownInterval;
+
+// --- Helper function to calculate detailed age ---
+function calculateDetailedAge(birthDate) {
+    const today = new Date();
+    let years = today.getFullYear() - birthDate.getFullYear();
+    let months = today.getMonth() - birthDate.getMonth();
+    let days = today.getDate() - birthDate.getDate();
+
+    // If days are negative, borrow from the previous month
+    if (days < 0) {
+        months--;
+        // Get the last day of the previous month
+        const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += lastMonth.getDate();
+    }
+
+    // If months are negative, borrow from years
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+    return { years, months, days };
+}
+
+// --- Birthday Countdown Functions ---
+
+function showBirthdayCountdown() {
+    const overlay = document.getElementById('birthdayCountdownOverlay');
+    // Use 'flex' to easily center the content, as defined in the CSS below
+    if (!overlay) return; // Safety check in case HTML is missing
+    overlay.style.display = 'flex';
+    document.getElementById('actionButtonsContainer').style.display = 'none'; // Hide the main buttons
+    startBirthdayCountdown();
+}
+
+function hideBirthdayCountdown() {
+    const overlay = document.getElementById('birthdayCountdownOverlay');
+    if (!overlay) return;
+    overlay.style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex'; // Show the main buttons again
+    // This is important to stop the countdown from running in the background
+    clearInterval(birthdayCountdownInterval);
+}
+
+function startBirthdayCountdown() {
+    // !!! IMPORTANT !!!
+    // Replace with Radwa's actual birth date in YYYY, MM-1, DD format.
+    // Note: Month is 0-indexed (0=Jan, 1=Feb, ..., 10=Nov, 11=Dec)
+    const birthDate = new Date(1998, 10, 25); // Example: November 25, 1998
+
+    // --- Age in Years, Months, Days Calculation ---
+    const today = new Date();
+    const age = calculateDetailedAge(birthDate);
+
+    const ageParts = [];
+    if (age.years > 0) {
+        ageParts.push(`<span class="age-value">${age.years}</span> ${age.years === 1 ? 'year' : 'years'}`);
+    }
+    if (age.months > 0) {
+        ageParts.push(`<span class="age-value">${age.months}</span> ${age.months === 1 ? 'month' : 'months'}`);
+    }
+    // Always include days
+    ageParts.push(`<span class="age-value">${age.days}</span> ${age.days === 1 ? 'day' : 'days'}`);
+
+    let ageString = "";
+    if (ageParts.length > 1) {
+        const lastPart = ageParts.pop();
+        ageString = ageParts.join(', ') + `, and ${lastPart}`;
+    } else {
+        ageString = ageParts[0] || "";
+    }
+    document.getElementById('ageInDays').innerHTML = ageString;
+
+    // --- Countdown Calculation ---
+    const currentYear = today.getFullYear();
+    let nextBirthday = new Date(currentYear, birthDate.getMonth(), birthDate.getDate());
+
+    // If her birthday has already passed this year, set the countdown for next year's birthday
+    if (today > nextBirthday) {
+        nextBirthday.setFullYear(currentYear + 1);
+    }
+
+    // Function to update the timer every second
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = nextBirthday - now;
+
+        // If the countdown is over, display a birthday message!
+        if (distance < 0) {
+            document.querySelector('#birthdayCountdownOverlay .countdown-timer').innerHTML = "<h3 class='birthday-today-message'>Happy Birthday, my love! 🎉</h3>";
+            clearInterval(birthdayCountdownInterval);
+            return;
+        }
+
+        // Time calculations for days, hours, minutes and seconds
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the elements, adding a '0' if the number is less than 10
+        document.getElementById('days').textContent = String(days).padStart(2, '0');
+        document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+        document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+        document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown(); // Run once immediately so it doesn't start blank
+    birthdayCountdownInterval = setInterval(updateCountdown, 1000); // Update every second
+}
