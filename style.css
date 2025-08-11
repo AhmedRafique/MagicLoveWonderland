@@ -1379,6 +1379,14 @@ body.day-mode .playlist-button { background-color: #d7a9e3; } /* Light Orchid */
 body.day-mode .gift-button { background-color: #ffb7c5; } /* Light Pink */
 body.day-mode .puzzle-button { background-color: #ffb347; } /* Apricot */
 body.day-mode .birthday-button { background-color: #c3aed6; } /* Lavender */
+body.day-mode .daily-question-button { background-color: #f67280; } /* Coral Pink */
+
+/* Make the daily question button stand out */
+.daily-question-button {
+    padding: 16px 25px !important;
+    font-size: 1.2em !important;
+    min-height: 60px;
+}
 
 /* --- Night Mode (Cosmic & Glowing Palette) --- */
 
@@ -1408,6 +1416,7 @@ body.night-mode .playlist-button:hover { border-color: #8d9db6; }
 body.night-mode .gift-button:hover { border-color: #ffb6c1; }
 body.night-mode .puzzle-button:hover { border-color: #e8a87c; }
 body.night-mode .birthday-button:hover { border-color: #c3aed6; }
+body.night-mode .daily-question-button:hover { border-color: #f67280; }
 
 /* Style for special buttons not in the main row */
 
@@ -1561,6 +1570,7 @@ body.day-mode .category-button.memories { background-color: #6ca0dc; } /* Soft B
 body.day-mode .category-button.love { background-color: #ff6f61; } /* Living Coral */
 body.day-mode .category-button.fun { background-color: #f7d68b; } /* Pastel Yellow */
 body.day-mode .category-button.special { background-color: #b19cd9; } /* Soft Lavender */
+body.day-mode .category-button.daily { background-color: #f67280; } /* Coral Pink */
 
 /* Unique hover glows for category buttons in Night Mode */
 body.night-mode .category-button.memories:hover { border-color: #6ca0dc; }
@@ -1568,6 +1578,7 @@ body.night-mode .category-button.love:hover { border-color: #ff6f61; }
 body.night-mode .category-button.fun:hover { border-color: #f7d68b; }
 body.night-mode .category-button.special:hover { border-color: #b19cd9; }
 
+body.night-mode .category-button.daily:hover { border-color: #f67280; }
 
 #backToCategories {
     margin-top: 20px; /* Space above the back button */
@@ -1639,4 +1650,55 @@ body.night-mode #backToCategories:hover {
     to {
         transform: translateY(110vh) translateX(calc(var(--sway) * 100px));
     }
+}
+
+/* --- Daily Question Styles --- */
+#dailyQuestionOverlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10030;
+    animation: fadeIn 0.5s;
+}
+
+.daily-question-box {
+    background: #fff;
+    color: #555;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.2);
+    padding: 32px 38px;
+    font-size: 1.2em;
+    text-align: center;
+    min-width: 300px;
+    max-width: 90vw;
+    border-top: 8px solid #f67280;
+}
+
+.daily-question-box h3 {
+    color: #f67280;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-family: 'Georgia', serif;
+}
+
+.daily-question-box p {
+    font-size: 1.2em;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.close-daily-question {
+    background: #f67280;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 22px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.close-daily-question:hover { background-color: #e06870; }
 }

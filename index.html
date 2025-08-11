@@ -40,6 +40,7 @@
             <button class="category-button love" onclick="showCategory('love')">💌 Love & Poems</button>
             <button class="category-button fun" onclick="showCategory('fun')">🎲 Fun & Surprises</button>
             <button class="category-button special" onclick="showCategory('special')">✨ Special Moments</button>
+            <button class="category-button daily" onclick="showCategory('daily')">💖 Daily Connection</button>
         </div>
 
         <!-- Sub-categories (initially hidden) -->
@@ -61,6 +62,10 @@
             <button class="playlist-button" onclick="showPlaylist()">Our Playlist</button>
             <button class="birthday-button" onclick="showBirthdayCountdown()">🎂 Birthday Countdown</button>
             <button id="showProposalButton" onclick="showProposal()">The Big Question...</button>
+        </div>
+        <div id="dailyCategory" class="button-row" style="display: none;">
+            <button class="daily-question-button" onclick="showDailyQuestion()">Today's Question</button>
+            <!-- You can add more daily features here in the future! -->
         </div>
 
         <button id="backToCategories" onclick="showMainCategories()">⬅️ Back</button>
@@ -174,6 +179,14 @@
             </div>
         </div>
         <p class="birthday-wish">Can't wait to celebrate with you, my love! ❤️</p>
+    </div>
+
+    <div id="dailyQuestionOverlay" style="display:none;">
+        <div class="daily-question-box">
+            <h3>Today's Question for Us</h3>
+            <p id="dailyQuestionText"></p>
+            <button class="close-daily-question" onclick="hideDailyQuestion()">Close</button>
+        </div>
     </div>
 
     <button id="closeReasonsButton">Back</button>

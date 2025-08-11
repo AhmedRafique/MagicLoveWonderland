@@ -2033,3 +2033,49 @@ function showMainCategories() {
         container.style.opacity = '1'; // Fade back in with new content
     }, 200); // This should match the CSS transition duration
 }
+
+// --- Daily Question Feature ---
+
+const dailyQuestions = [
+    "What's a small thing that happened today that made you smile?",
+    "If we could go anywhere in the world right now, where would you want to go?",
+    "What song is currently stuck in your head?",
+    "What's one of your favorite memories of us?",
+    "If you could have any superpower for a day, what would it be and why?",
+    "What's a new hobby you'd love for us to try together?",
+    "What's one thing you're really proud of this week?",
+    "Describe your perfect, relaxing evening.",
+    "What's a movie you could watch over and over again?",
+    "What's one dream you have for our future?",
+    "What's the best compliment you've ever received?",
+    "If you could talk to your younger self, what's one piece of advice you'd give?",
+    "What's something you're looking forward to this month?",
+    "What's a simple pleasure that always makes your day better?",
+    "What's a skill you'd love to learn?",
+    "What's a book or story that has stayed with you?",
+    "What's one thing I do that always makes you laugh?",
+    "If our love story was a movie, what would its title be?",
+    "What's one adventure you want us to have together?",
+    "What are you most grateful for today?"
+];
+
+function getDailyQuestion() {
+    const today = new Date();
+    const startOfYear = new Date(today.getFullYear(), 0, 0);
+    const diff = today - startOfYear;
+    const oneDay = 1000 * 60 * 60 * 24;
+    const dayOfYear = Math.floor(diff / oneDay);
+    // Use the day of the year to get a consistent question for the day
+    return dailyQuestions[dayOfYear % dailyQuestions.length];
+}
+
+function showDailyQuestion() {
+    document.getElementById('dailyQuestionText').textContent = getDailyQuestion();
+    document.getElementById('dailyQuestionOverlay').style.display = 'flex';
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+}
+
+function hideDailyQuestion() {
+    document.getElementById('dailyQuestionOverlay').style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
