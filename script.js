@@ -1996,26 +1996,40 @@ function startBirthdayCountdown() {
 // --- Category Navigation Functions ---
 
 function showCategory(categoryName) {
-    // Hide main categories view
-    document.getElementById('mainCategories').style.display = 'none';
+    const container = document.getElementById('actionButtonsContainer');
+    container.style.opacity = '0'; // Start fading out
 
-    // Show the selected category's buttons
-    const categoryToShow = document.getElementById(categoryName + 'Category');
-    if (categoryToShow) {
-        categoryToShow.style.display = 'flex';
-    }
+    setTimeout(() => {
+        // Hide main categories view
+        document.getElementById('mainCategories').style.display = 'none';
 
-    // Show the back button
-    document.getElementById('backToCategories').style.display = 'block';
+        // Show the selected category's buttons
+        const categoryToShow = document.getElementById(categoryName + 'Category');
+        if (categoryToShow) {
+            categoryToShow.style.display = 'flex';
+        }
+
+        // Show the back button
+        document.getElementById('backToCategories').style.display = 'block';
+
+        container.style.opacity = '1'; // Fade back in with new content
+    }, 200); // This should match the CSS transition duration
 }
 
 function showMainCategories() {
-    // Hide all sub-category button rows
-    const subcategories = document.querySelectorAll('#actionButtonsContainer .button-row');
-    subcategories.forEach(el => {
-        if (el.id !== 'mainCategories') el.style.display = 'none';
-    });
+    const container = document.getElementById('actionButtonsContainer');
+    container.style.opacity = '0'; // Start fading out
 
-    document.getElementById('mainCategories').style.display = 'flex';
-    document.getElementById('backToCategories').style.display = 'none';
+    setTimeout(() => {
+        // Hide all sub-category button rows
+        const subcategories = document.querySelectorAll('#actionButtonsContainer .button-row');
+        subcategories.forEach(el => {
+            if (el.id !== 'mainCategories') el.style.display = 'none';
+        });
+
+        document.getElementById('mainCategories').style.display = 'flex';
+        document.getElementById('backToCategories').style.display = 'none';
+
+        container.style.opacity = '1'; // Fade back in with new content
+    }, 200); // This should match the CSS transition duration
 }

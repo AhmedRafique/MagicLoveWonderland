@@ -1188,6 +1188,7 @@ body.day-mode {
     align-items: center;
     padding: 18px 0 24px 0;
     box-sizing: border-box;
+    transition: opacity 0.2s ease-out;
 }
 
 /* Add this to your style.css file */
