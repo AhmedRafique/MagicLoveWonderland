@@ -1085,8 +1085,69 @@ body.day-mode {
 .secret-message {
     margin-top: 18px;
     font-size: 1.2em;
-    color: #d6336c;
     animation: fadeIn 1s;
+}
+.secret-message h3 {
+    color: #ff4d88;
+    margin-bottom: 15px;
+}
+.secret-message .puzzle-text {
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: #d6336c;
+}
+.secret-message .puzzle-photo {
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-top: 10px;
+}
+.secret-message .puzzle-caption {
+    font-style: italic;
+    color: #888;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+.secret-message .puzzle-voucher {
+    border: 2px dashed #ffb6d5;
+    background: #fff8fa;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+.secret-message .puzzle-voucher-emoji {
+    font-size: 2.5em;
+    display: block;
+    margin-bottom: 10px;
+}
+.secret-message .puzzle-voucher p {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+}
+.secret-message .puzzle-riddle-q {
+    font-style: italic;
+    margin-bottom: 20px;
+}
+.secret-message .puzzle-riddle-a {
+    font-weight: bold;
+    color: #ff4d88;
+    margin-top: 10px;
+}
+.secret-message .puzzle-riddle-button {
+    background: #ffb6d5;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+.secret-message .puzzle-riddle-button:hover {
+    background-color: #ff9ac4;
 }
 .close-puzzle {
     margin-top: 18px;

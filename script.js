@@ -95,9 +95,30 @@ const loveMessages = [
             "You're the light of my life 💡",
             "You're the butter to my bread 🧈",
             "You're the ink to my pen ✒️",
-            "You're the icing on my cake 🎂"
-        ];
-
+            "You're the icing on my cake 🎂",
+            "If I had a flower for every time I thought of you, I could walk in my garden forever. 🌸",
+            "You are the beautiful answer to every prayer I've ever had. 🙏",
+            "You're not just my love, you're my sanity. And my favorite kind of madness. 🤪",
+            "I love you more than I love finding a parking spot right by the entrance. 🚗",
+            "My day is incomplete if I don't tell you I love you. So, I love you! ❤️",
+            "You're the 'She said YES!' to my life's biggest question. 🎉",
+            "Every love song I hear, I think of you. 🎶",
+            "You're the human equivalent of a perfect, sunny day. ☀️",
+            "I must have done something right to deserve you in my life. ✨",
+            "You're my favorite person to do absolutely nothing with. 🛋️",
+            "I love you for all that you are, all that you have been, and all you're yet to be. 💖",
+            "You're my favorite notification, my favorite text, my favorite call. 📱",
+            "I didn't know I was missing anything until I met you. 🧩",
+            "You make me want to be a better man. You make me want to be the best man. 🏆",
+            "My heart does a little '!!!' every time I see you. 😍",
+            "You're the plot twist I never saw coming, and the best one of my life. 📖",
+            "I love you more than a silent room after a loud day. 🤫",
+            "You're my home, not a place, but a feeling. 🏡",
+            "I would find you in any lifetime. ♾️",
+            "You're the reason my reality is finally better than my dreams. 💭",
+            "My love for you is a journey, starting at forever and ending at never. 🗺️",
+            "You're the only one who can make my heart race and feel calm at the same time. 💓"
+];
         const loveReasons = [
             "How your nose crinkles when you laugh",
             "The way you care about tiny details",
@@ -168,9 +189,17 @@ const loveMessages = [
             "Your adventurous spirit.",
             "How you always put our relationship first.",
             "The way you make me feel like I'm home.",
-            "Because you are you, and that's more than enough."            
+            "Because you are you, and that's more than enough.",
+            "The way you hum when you're happy.",
+            "How you're fiercely protective of the people you love.",
+            "Your ability to see the good in everyone.",
+            "The way you make our house feel like a home.",
+            "Your ambition and how you chase your dreams.",
+            "How you can be both strong and gentle at the same time.",
+            "The way you get excited about the little things in life.",
+            "Your incredible sense of style.",
+            "How you always smell so good."
         ];
-
         const nameStarMessages = [
             "For your Radiant smile that lights up my world.",
             "For your Amazing heart, so full of kindness.",
@@ -852,6 +881,58 @@ function createFirework() {
             "To heights unknown, to distant shores.",
             "Forever yours, my love, my life,",
             "My cherished Radwa, my faithful wife."
+        ]
+    },
+    {
+        title: "Our Future's Tapestry",
+        text: [
+            "I see a future, woven bright,",
+            "With threads of laughter, pure and light.",
+            "Each strand a day, with you, my dear,",
+            "Dispelling every doubt and fear.",
+            "A tapestry of moments, bold and new,",
+            "A lifetime spent, in love with you.",
+            "From morning's sun to evening's grace,",
+            "Our love's the pattern time can't erase."
+        ]
+    },
+    {
+        title: "The Quiet Moments",
+        text: [
+            "It's not the grand, the loud, the bold,",
+            "But quiet stories, softly told.",
+            "A knowing glance, a gentle hand,",
+            "A language only we understand.",
+            "The peaceful silence, side-by-side,",
+            "Where all our deepest feelings hide.",
+            "In these small moments, love is vast,",
+            "A quiet magic, built to last."
+        ]
+    },
+    {
+        title: "Your Inner Light",
+        text: [
+            "Some loves are drawn to fleeting grace,",
+            "A pretty smile, a lovely face.",
+            "But I was captured, from the start,",
+            "By the stunning beauty of your heart.",
+            "Your kindness shines, a radiant gleam,",
+            "Fulfilling my most cherished dream.",
+            "It is your soul, so pure and true,",
+            "That makes me fall in love with you."
+        ]
+    },
+    {
+        title: "My Compass, My North",
+        text: [
+            "When I am lost, and skies are grey,",
+            "You are the compass showing me the way.",
+            "You are the anchor in the storm,",
+            "You are the fire that keeps me warm.",
+            "My constant star, my truest guide,",
+            "With you, I have nothing left to hide.",
+            "My destination, journey's end,",
+            "My love, my home, my dearest friend."
         ]
     }
 ];
@@ -1601,9 +1682,68 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Puzzle functions
+let currentPuzzleSurprise = null;
+
+const puzzleSurprises = [
+    { 
+        type: 'message', 
+        title: '💌 A Secret Note',
+        content: "You've unlocked my heart... again! I love you more than all the stars in the sky." 
+    },
+    { 
+        type: 'message', 
+        title: '🤫 My Biggest Secret',
+        content: "My biggest secret is that every day, I somehow manage to fall in love with you even more." 
+    },
+    { 
+        type: 'photo', 
+        title: '📷 A Secret Memory',
+        content: 'secret_photo.jpeg',
+        caption: "A secret smile, captured just for you." 
+    },
+    { 
+        type: 'voucher', 
+        title: '🎟️ Love Voucher',
+        content: 'One Uninterrupted Cuddle Session', 
+        emoji: '🤗' 
+    },
+    { 
+        type: 'voucher', 
+        title: '🎟️ Love Voucher',
+        content: 'One Movie Night (Your Pick!)', 
+        emoji: '🎬' 
+    },
+    { 
+        type: 'riddle', 
+        title: '🤔 A Little Riddle',
+        question: "I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?", 
+        answer: "A Map! (And all my roads lead to you.)" 
+    },
+    {
+        type: 'message',
+        title: '💌 A Simple Truth',
+        content: "Just a reminder: you are loved, you are cherished, and you are my entire world."
+    },
+    {
+        type: 'voucher', // A voucher more suited for your situation
+        title: '🎟️ Future Fun Voucher',
+        content: 'One Future Date Night, Planned Entirely by Me',
+        emoji: '🗓️'
+    },
+    {
+        type: 'compliment', // A new type of surprise!
+        title: '✨ A Special Compliment',
+        content: 'I am so incredibly proud of the person you are. Your strength and kindness inspire me every single day.'
+    }
+];
+
 function showPuzzle() {
+    // Select a random surprise for this puzzle attempt
+    currentPuzzleSurprise = puzzleSurprises[Math.floor(Math.random() * puzzleSurprises.length)];
+
     document.getElementById('puzzleOverlay').style.display = 'flex';
     document.getElementById('secretMessage').style.display = 'none';
+    document.getElementById('secretMessage').innerHTML = ''; // Clear previous surprise
     resetSlider();
     document.getElementById('actionButtonsContainer').style.display = 'none';
 }
@@ -1615,43 +1755,98 @@ function resetSlider() {
     const thumb = document.getElementById('sliderThumb');
     thumb.style.left = '0px';
     thumb.onmousedown = startDrag;
+    // Make sure touch events are also handled for mobile
+    thumb.ontouchstart = startDrag;
     document.onmouseup = null;
     document.onmousemove = null;
+    document.ontouchend = null;
+    document.ontouchmove = null;
 }
 function startDrag(e) {
     e.preventDefault();
     const thumb = document.getElementById('sliderThumb');
     const track = thumb.parentElement;
     const max = track.offsetWidth - thumb.offsetWidth;
-    let startX = e.clientX;
+    let startX = e.clientX || e.touches[0].clientX;
     let startLeft = parseInt(thumb.style.left, 10) || 0;
 
-    document.onmousemove = function(ev) {
-        let dx = ev.clientX - startX;
+    function move(ev) {
+        let currentX = ev.clientX || ev.touches[0].clientX;
+        let dx = currentX - startX;
         let newLeft = Math.min(Math.max(startLeft + dx, 0), max);
         thumb.style.left = newLeft + 'px';
         if (newLeft >= max) {
             // Unlocked!
-            document.onmousemove = null;
-            document.onmouseup = null;
+            stop();
             setTimeout(() => {
+                displayPuzzleSurprise();
                 document.getElementById('secretMessage').style.display = 'block';
             }, 200);
         }
-    };
-    document.onmouseup = function() {
+    }
+
+    function stop() {
         // Snap back if not unlocked
         if (parseInt(thumb.style.left, 10) < max) {
             thumb.style.left = '0px';
         }
         document.onmousemove = null;
         document.onmouseup = null;
-    };
+        document.ontouchmove = null;
+        document.ontouchend = null;
+    }
+
+    document.onmousemove = move;
+    document.onmouseup = stop;
+    document.ontouchmove = move;
+    document.ontouchend = stop;
 }
 document.addEventListener('DOMContentLoaded', function() {
     const thumb = document.getElementById('sliderThumb');
     if (thumb) thumb.onmousedown = startDrag;
 });
+
+function displayPuzzleSurprise() {
+    const container = document.getElementById('secretMessage');
+    if (!currentPuzzleSurprise) {
+        container.innerHTML = "<h3>💖 Oops!</h3><p>Something went wrong, but my love for you is always right!</p>";
+        return;
+    }
+
+    let html = `<h3>${currentPuzzleSurprise.title}</h3>`;
+
+    switch (currentPuzzleSurprise.type) {
+        case 'message':
+            html += `<p class="puzzle-text">${currentPuzzleSurprise.content}</p>`;
+            break;
+        case 'compliment':
+            html += `<p class="puzzle-text" style="font-style: italic;">${currentPuzzleSurprise.content}</p>`;
+            break;
+        case 'photo':
+            html += `<img src="photos/${currentPuzzleSurprise.content}" alt="Secret Photo" class="puzzle-photo" onerror="this.style.display='none'; this.parentElement.innerHTML += '<p>Secret photo is shy! But imagine my happiest smile.</p>'">`;
+            html += `<p class="puzzle-caption">${currentPuzzleSurprise.caption}</p>`;
+            break;
+        case 'voucher':
+            html += `<div class="puzzle-voucher">
+                        <span class="puzzle-voucher-emoji">${currentPuzzleSurprise.emoji}</span>
+                        <p>${currentPuzzleSurprise.content}</p>
+                     </div>`;
+            break;
+        case 'riddle':
+            html += `<p class="puzzle-riddle-q">${currentPuzzleSurprise.question}</p>`;
+            html += `<p class="puzzle-riddle-a" style="display:none;">${currentPuzzleSurprise.answer}</p>`;
+            html += `<button onclick="revealRiddleAnswer()" class="puzzle-riddle-button">Reveal Answer</button>`;
+            break;
+    }
+    container.innerHTML = html;
+}
+
+function revealRiddleAnswer() {
+    const answerEl = document.querySelector('.puzzle-riddle-a');
+    const buttonEl = document.querySelector('.puzzle-riddle-button');
+    if (answerEl) answerEl.style.display = 'block';
+    if (buttonEl) buttonEl.style.display = 'none';
+}
 
 // Add this to your script.js file
 
