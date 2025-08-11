@@ -217,7 +217,7 @@ const loveMessages = [
             "You are the 'A' in my always.",
             "You are the 'D' in my destiny.",
             "You are the 'W' in my world.",
-            "You are the 'A' in my everything.",
+            "And 'A' for being Absolutely everything to me.",
             "My heart belongs to you.",
             "You are my dream come true.",
             "My forever and always."
@@ -486,10 +486,12 @@ const loveMessages = [
         }
 
         function createHeartAtPosition(e) {
+            if (loveReasonsModeActive) return; // Don't create hearts in constellation view
             createHeart(e.clientX, e.clientY, false);
         }
 
         function handleTouchMove(e) {
+            if (loveReasonsModeActive) return; // Don't create hearts in constellation view
             e.preventDefault();
             for (let touch of e.touches) {
                 createHeart(touch.clientX, touch.clientY, false);
@@ -1045,9 +1047,6 @@ function hideGallery() {
             document.getElementById('actionButtonsContainer').style.display = 'flex';
         }
 
-        // Initialize with a heart cursor
-        document.body.style.cursor = "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 16 16\"><path fill=\"%23ff0000\" d=\"M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z\"/></svg>'), auto";
-    
         function sendKiss() {
             const kiss = document.createElement('div');
             kiss.textContent = '💋';
@@ -1181,6 +1180,7 @@ function initializeStarrySky() {
     let h = window.innerHeight;
     let time = 0;
     let mouse = { x: -100, y: -100 };
+    let textDisplay = { alpha: 0, star: null }; // For fading text
 
     let genericStars = [];
     const numGenericStars = 120;
@@ -1316,6 +1316,20 @@ function initializeStarrySky() {
                 }
             }
             hoveredStar = foundStar;
+
+            // Update text display logic for fade effect
+            if (hoveredStar) {
+                // If hovering, snap text to full alpha and set the target star
+                textDisplay.star = hoveredStar;
+                textDisplay.alpha = 1;
+            } else {
+                // If not hovering, fade out smoothly
+                if (textDisplay.alpha > 0) {
+                    textDisplay.alpha -= 0.03; // Adjust fade-out speed here
+                } else {
+                    textDisplay.star = null; // Clear star only when fully faded
+                }
+            }
         }
 
         const starsToDraw = loveReasonsModeActive ? reasonStars : genericStars;
@@ -1357,7 +1371,7 @@ function initializeStarrySky() {
             const pulseFactor = Math.sin(time) * 0.5 + 0.5; // Varies between 0 and 1
             ctx.save();
             ctx.strokeStyle = `rgba(255, 255, 255, ${0.4 + pulseFactor * 0.3})`;
-            ctx.lineWidth = 3;
+            ctx.lineWidth = 5; // Increased thickness for better visibility
             ctx.shadowColor = "#ffb6d5";
             ctx.shadowBlur = 5 + pulseFactor * 7; // Glow will pulse from 5 to 12
             nameConstellation.lines.forEach(line => {
@@ -1383,14 +1397,15 @@ function initializeStarrySky() {
             ctx.restore();
 
             // Draw hovered text
-            if (hoveredStar) {
+            if (textDisplay.star) {
                 ctx.save();
-                ctx.fillStyle = "#ffb6d5";
+                ctx.globalAlpha = textDisplay.alpha; // Use the managed alpha for fade effect
+                ctx.fillStyle = "#ffb6d5"; // Text color
                 ctx.font = "16px 'Georgia', serif";
                 ctx.textAlign = "center";
                 ctx.shadowColor = "#000";
                 ctx.shadowBlur = 5;
-                ctx.fillText(hoveredStar.text, hoveredStar.x, hoveredStar.y - 20);
+                ctx.fillText(textDisplay.star.text, textDisplay.star.x, textDisplay.star.y - 20);
                 ctx.restore();
             }
         }

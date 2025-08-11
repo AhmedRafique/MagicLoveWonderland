@@ -14,7 +14,8 @@ body {
     z-index: 1;
 }
 body.starry-night-active {
-    cursor: default;
+    /* A custom, precise cursor for the constellation view. The '8 8' centers it. */
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="3" fill="white" stroke="%23ffb6d5" stroke-width="1.5"/></svg>') 8 8, pointer;
 }
 #initialContent {
     display: flex;
