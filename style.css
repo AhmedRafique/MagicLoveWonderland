@@ -559,7 +559,7 @@ h1 {
     border-radius: 12px;
     cursor: pointer;
     font-size: 2em;
-    z-index: 10;
+    z-index: 101; /* Must be higher than actionButtonsContainer (100) */
 }
 .kiss-button:hover {
     background: rgba(255, 105, 180, 0.55); /* Slightly less transparent on hover */
@@ -1183,8 +1183,9 @@ body.day-mode {
     background: linear-gradient(to top, rgba(255,255,255,0.12) 60%, rgba(255,255,255,0));
     z-index: 100;
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
     padding: 18px 0 24px 0;
     box-sizing: border-box;
 }
@@ -1538,5 +1539,103 @@ body.night-mode #initialContent button:hover { background-color: #6b7091; }
     .close-gallery, .close-timeline, .close-game, #closeReasonsButton, .close-puzzle, .close-gift, .close-countdown {
         padding: 8px 12px;
         font-size: 0.9em;
+    }
+}
+
+/* --- Category Navigation Styles --- */
+
+.category-button {
+    padding: 14px 22px !important; /* Ensure consistent padding */
+    font-size: 1.15em !important;
+    font-weight: bold;
+    flex-basis: 45% !important; /* Make category buttons take up more space */
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Unique colors for category buttons in Day Mode */
+body.day-mode .category-button.memories { background-color: #6ca0dc; } /* Soft Blue */
+body.day-mode .category-button.love { background-color: #ff6f61; } /* Living Coral */
+body.day-mode .category-button.fun { background-color: #f7d68b; } /* Pastel Yellow */
+body.day-mode .category-button.special { background-color: #b19cd9; } /* Soft Lavender */
+
+/* Unique hover glows for category buttons in Night Mode */
+body.night-mode .category-button.memories:hover { border-color: #6ca0dc; }
+body.night-mode .category-button.love:hover { border-color: #ff6f61; }
+body.night-mode .category-button.fun:hover { border-color: #f7d68b; }
+body.night-mode .category-button.special:hover { border-color: #b19cd9; }
+
+
+#backToCategories {
+    margin-top: 20px; /* Space above the back button */
+    padding: 10px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: bold;
+    display: none; /* Hidden by default */
+    transition: all 0.3s ease;
+}
+
+body.day-mode #backToCategories {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #555;
+    border: 2px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+body.day-mode #backToCategories:hover {
+    background-color: white;
+    border-color: #aaa;
+}
+
+body.night-mode #backToCategories {
+    background-color: rgba(45, 52, 80, 0.7);
+    color: #e0e0e0;
+    border: 2px solid rgba(195, 174, 214, 0.6);
+}
+body.night-mode #backToCategories:hover {
+    background-color: rgba(45, 52, 80, 1);
+    border-color: rgba(195, 174, 214, 1);
+}
+
+.constellation-instructions {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-family: 'Georgia', serif;
+    font-size: 1.1em;
+    z-index: 10002; /* Above canvas, below close button */
+    pointer-events: none; /* So it doesn't block hovering */
+}
+
+/* --- Love Reason Shower Styles --- */
+.love-reason-message {
+    position: fixed;
+    top: -100px; /* Start above the screen */
+    padding: 12px 18px;
+    background: rgba(255, 182, 193, 0.85); /* Light Pink */
+    color: #a3334d; /* Darker pink for text */
+    border-radius: 20px;
+    font-size: 1.1em;
+    font-family: 'Georgia', serif;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    border: 1px solid rgba(255,255,255,0.5);
+    animation: floatDown 12s linear forwards; /* Animation to float down */
+}
+
+@keyframes floatDown {
+    to {
+        transform: translateY(110vh) translateX(calc(var(--sway) * 100px));
     }
 }

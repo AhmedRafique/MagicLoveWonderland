@@ -386,7 +386,7 @@ const loveMessages = [
         let proposalVisible = false;
 
         let heartInterval;
-        let loveReasonsModeActive = false;
+        let nameConstellationModeActive = false;
         let reasonStars = [];
         let nameConstellation = { stars: [], lines: [] };
         let hoveredStar = null;
@@ -402,6 +402,7 @@ const loveMessages = [
         let giftInterval;
         let randomHeartInterval;
         let petalInterval;
+        let reasonShowerInterval;
 
         // Check if she's been here before
         if (localStorage.getItem('radwaVisited')) {
@@ -486,12 +487,12 @@ const loveMessages = [
         }
 
         function createHeartAtPosition(e) {
-            if (loveReasonsModeActive) return; // Don't create hearts in constellation view
+            if (nameConstellationModeActive) return; // Don't create hearts in constellation view
             createHeart(e.clientX, e.clientY, false);
         }
 
         function handleTouchMove(e) {
-            if (loveReasonsModeActive) return; // Don't create hearts in constellation view
+            if (nameConstellationModeActive) return; // Don't create hearts in constellation view
             e.preventDefault();
             for (let touch of e.touches) {
                 createHeart(touch.clientX, touch.clientY, false);
@@ -585,18 +586,8 @@ const loveMessages = [
             flash.className = 'flash';
             document.body.appendChild(flash);
             setTimeout(() => flash.remove(), 1000);
-            
-            // Show multiple messages when moon is clicked
-            for (let i = 0; i < 3; i++) {
-                setTimeout(() => {
-                    showLoveMessage(
-                        Math.random() * window.innerWidth,
-                        Math.random() * window.innerHeight
-                    );
-                }, i * 500);
-            }
-            // Instead of creating an overlay, trigger the main starry night view
-            showLoveReasons();
+            // Show the name constellation view
+            showNameConstellation();
         }
 
         function showProposal() {
@@ -962,7 +953,36 @@ function createFirework() {
     }
 
     function showLoveReasons() {
-        loveReasonsModeActive = true;
+        document.getElementById('actionButtonsContainer').style.display = 'none';
+        const closeButton = document.getElementById('closeReasonsButton');
+        closeButton.style.display = 'block';
+        closeButton.onclick = hideLoveReasons; // Assign correct hide function
+
+        // Start showering reasons across the screen
+        reasonShowerInterval = setInterval(createFloatingReason, 700); // A new reason appears every 0.7s
+    }
+
+    function createFloatingReason() {
+        const reason = loveReasons[Math.floor(Math.random() * loveReasons.length)];
+        const msgElem = document.createElement('div');
+        msgElem.className = 'love-reason-message'; // Use the new class
+        msgElem.textContent = reason;
+
+        // Random horizontal start position and animation properties
+        msgElem.style.left = `${Math.random() * 90}vw`;
+        msgElem.style.setProperty('--sway', Math.random() * 2 - 1);
+        msgElem.style.animationDuration = `${10 + Math.random() * 5}s`;
+
+        document.body.appendChild(msgElem);
+
+        // Auto-remove after animation to prevent buildup
+        setTimeout(() => {
+            msgElem.remove();
+        }, 15000);
+    }
+
+    function showNameConstellation() {
+        nameConstellationModeActive = true;
         document.body.classList.add('starry-night-active');
         
         // Ensure night mode is on for the effect
@@ -973,10 +993,18 @@ function createFirework() {
         }
 
         document.getElementById('actionButtonsContainer').style.display = 'none';
-        document.getElementById('closeReasonsButton').style.display = 'block';
+        const closeButton = document.getElementById('closeReasonsButton');
+        closeButton.style.display = 'block';
+        closeButton.onclick = hideNameConstellation; // Assign correct hide function
+
         document.getElementById('star-canvas').style.pointerEvents = 'auto';
+        
+        const instructions = document.getElementById('constellationInstructions');
+        // Update instructions for this specific view
+        instructions.textContent = "Hover over the stars of her name to see a secret message.";
+        instructions.style.display = 'block';
     }
-    
+
           function showGallery() {
     const gallery = document.querySelector('.photo-gallery');
     const grid = document.querySelector('.photo-grid');
@@ -1090,12 +1118,24 @@ function hideGallery() {
         }
 
         function hideLoveReasons() {
-            loveReasonsModeActive = false;
+            // Stop the shower of reasons
+            clearInterval(reasonShowerInterval);
+
+            // Clean up any remaining messages on screen
+            document.querySelectorAll('.love-reason-message').forEach(el => el.remove());
+
+            document.getElementById('actionButtonsContainer').style.display = 'flex';
+            document.getElementById('closeReasonsButton').style.display = 'none';
+        }
+
+        function hideNameConstellation() {
+            nameConstellationModeActive = false;
             document.body.classList.remove('starry-night-active');
-            hoveredStar = null; // Clear hover state
+            hoveredStar = null;
             document.getElementById('actionButtonsContainer').style.display = 'flex';
             document.getElementById('closeReasonsButton').style.display = 'none';
             document.getElementById('star-canvas').style.pointerEvents = 'none';
+            document.getElementById('constellationInstructions').style.display = 'none';
         }
 
         function showMemoryGame() {
@@ -1180,7 +1220,6 @@ function initializeStarrySky() {
     let h = window.innerHeight;
     let time = 0;
     let mouse = { x: -100, y: -100 };
-    let textDisplay = { alpha: 0, star: null }; // For fading text
 
     let genericStars = [];
     const numGenericStars = 120;
@@ -1278,7 +1317,7 @@ function initializeStarrySky() {
     window.addEventListener('resize', init);
 
     canvas.addEventListener('mousemove', (e) => {
-        if (!loveReasonsModeActive) return;
+        if (!nameConstellationModeActive) return;
         const rect = canvas.getBoundingClientRect();
         mouse.x = e.clientX - rect.left;
         mouse.y = e.clientY - rect.top;
@@ -1295,8 +1334,8 @@ function initializeStarrySky() {
         ctx.clearRect(0, 0, w, h);
 
         // Find hovered star on every frame for smooth interaction with moving stars
-        if (loveReasonsModeActive) {
-            let foundStar = null;
+        let foundStar = null;
+        if (nameConstellationModeActive) {
             // Prioritize checking name stars as they are the centerpiece
             for (const star of nameConstellation.stars) {
                 const dist = Math.hypot(mouse.x - star.x, mouse.y - star.y);
@@ -1305,34 +1344,10 @@ function initializeStarrySky() {
                     break;
                 }
             }
-
-            if (!foundStar) {
-                for (const star of reasonStars) {
-                    const dist = Math.hypot(mouse.x - star.x, mouse.y - star.y);
-                    if (dist < star.r + 5) { // 5px buffer
-                        foundStar = star;
-                        break;
-                    }
-                }
-            }
             hoveredStar = foundStar;
-
-            // Update text display logic for fade effect
-            if (hoveredStar) {
-                // If hovering, snap text to full alpha and set the target star
-                textDisplay.star = hoveredStar;
-                textDisplay.alpha = 1;
-            } else {
-                // If not hovering, fade out smoothly
-                if (textDisplay.alpha > 0) {
-                    textDisplay.alpha -= 0.03; // Adjust fade-out speed here
-                } else {
-                    textDisplay.star = null; // Clear star only when fully faded
-                }
-            }
         }
 
-        const starsToDraw = loveReasonsModeActive ? reasonStars : genericStars;
+        const starsToDraw = nameConstellationModeActive ? reasonStars : genericStars;
 
         // Draw all stars (twinkling)
         for (let s of starsToDraw) {
@@ -1350,8 +1365,8 @@ function initializeStarrySky() {
             if (s.alpha <= 0.2 || s.alpha >= 1) s.dAlpha *= -1;
 
             // Grow/shrink hovered star
-            if (loveReasonsModeActive) {
-                const targetR = (s === hoveredStar) ? s.baseR * 2.5 : s.baseR;
+            if (nameConstellationModeActive) {
+                const targetR = (s.text && s === hoveredStar) ? s.baseR * 2.5 : s.baseR;
                 s.r += (targetR - s.r) * 0.1;
 
                 // Add drifting motion
@@ -1366,7 +1381,7 @@ function initializeStarrySky() {
             }
         }
 
-        if (loveReasonsModeActive) {
+        if (nameConstellationModeActive) {
             // Draw name constellation with a gentle pulsing glow
             const pulseFactor = Math.sin(time) * 0.5 + 0.5; // Varies between 0 and 1
             ctx.save();
@@ -1396,18 +1411,18 @@ function initializeStarrySky() {
             });
             ctx.restore();
 
-            // Draw hovered text
-            if (textDisplay.star) {
-                ctx.save();
-                ctx.globalAlpha = textDisplay.alpha; // Use the managed alpha for fade effect
-                ctx.fillStyle = "#ffb6d5"; // Text color
-                ctx.font = "16px 'Georgia', serif";
-                ctx.textAlign = "center";
-                ctx.shadowColor = "#000";
-                ctx.shadowBlur = 5;
-                ctx.fillText(textDisplay.star.text, textDisplay.star.x, textDisplay.star.y - 20);
-                ctx.restore();
-            }
+        }
+
+        // Draw hovered text
+        if (hoveredStar && nameConstellationModeActive) {
+            ctx.save();
+            ctx.fillStyle = "#ffb6d5"; // Text color
+            ctx.font = "16px 'Georgia', serif";
+            ctx.textAlign = "center";
+            ctx.shadowColor = "#000";
+            ctx.shadowBlur = 5;
+            ctx.fillText(hoveredStar.text, hoveredStar.x, hoveredStar.y - 20);
+            ctx.restore();
         }
 
         // Draw and update shooting star
@@ -1976,4 +1991,31 @@ function startBirthdayCountdown() {
 
     updateCountdown(); // Run once immediately so it doesn't start blank
     birthdayCountdownInterval = setInterval(updateCountdown, 1000); // Update every second
+}
+
+// --- Category Navigation Functions ---
+
+function showCategory(categoryName) {
+    // Hide main categories view
+    document.getElementById('mainCategories').style.display = 'none';
+
+    // Show the selected category's buttons
+    const categoryToShow = document.getElementById(categoryName + 'Category');
+    if (categoryToShow) {
+        categoryToShow.style.display = 'flex';
+    }
+
+    // Show the back button
+    document.getElementById('backToCategories').style.display = 'block';
+}
+
+function showMainCategories() {
+    // Hide all sub-category button rows
+    const subcategories = document.querySelectorAll('#actionButtonsContainer .button-row');
+    subcategories.forEach(el => {
+        if (el.id !== 'mainCategories') el.style.display = 'none';
+    });
+
+    document.getElementById('mainCategories').style.display = 'flex';
+    document.getElementById('backToCategories').style.display = 'none';
 }

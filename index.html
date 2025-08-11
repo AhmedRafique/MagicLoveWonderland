@@ -30,21 +30,40 @@
         <source src="voice-message.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Standalone Floating Buttons -->
+    <button class="kiss-button" onclick="sendKiss()">💋</button>
+
     <div id="actionButtonsContainer" style="display: none;">
-        <button id="showProposalButton" onclick="showProposal()">Press ME</button>
-        <div class="button-row">
-            <button class="poem-button" onclick="showPoem()">Surprise</button>
-            <button class="love-reasons-button" onclick="showLoveReasons()">Reasons I Love You</button>
+        <!-- Main Categories -->
+        <div id="mainCategories" class="button-row">
+            <button class="category-button memories" onclick="showCategory('memories')">📖 Our Story & Memories</button>
+            <button class="category-button love" onclick="showCategory('love')">💌 Love & Poems</button>
+            <button class="category-button fun" onclick="showCategory('fun')">🎲 Fun & Surprises</button>
+            <button class="category-button special" onclick="showCategory('special')">✨ Special Moments</button>
+        </div>
+
+        <!-- Sub-categories (initially hidden) -->
+        <div id="memoriesCategory" class="button-row" style="display: none;">
             <button class="gallery-button" onclick="showGallery()">Our Photos</button>
             <button class="timeline-button" onclick="showTimeline()">Our Story</button>
-            <button class="letter-button" onclick="showLoveLetter()">A Letter For You</button>
-            <button class="memory-game-button" onclick="showMemoryGame()">Memory Game</button>
-            <button class="playlist-button" onclick="showPlaylist()">Our Playlist</button>
-            <button class="kiss-button" onclick="sendKiss()">💋</button>
-            <button class="gift-button" onclick="showGiftBox()">🎁 Gift</button>
-            <button class="puzzle-button" onclick="showPuzzle()">Secret Puzzle</button>
-            <button class="birthday-button" onclick="showBirthdayCountdown()">🎂 Birthday Countdown</button>
         </div>
+        <div id="loveCategory" class="button-row" style="display: none;">
+            <button class="poem-button" onclick="showPoem()">A Poem for You</button>
+            <button class="love-reasons-button" onclick="showLoveReasons()">Reasons I Love You</button>
+            <button class="letter-button" onclick="showLoveLetter()">A Letter For You</button>
+        </div>
+        <div id="funCategory" class="button-row" style="display: none;">
+            <button class="memory-game-button" onclick="showMemoryGame()">Memory Game</button>
+            <button class="puzzle-button" onclick="showPuzzle()">Secret Puzzle</button>
+            <button class="gift-button" onclick="showGiftBox()">🎁 Gift</button>
+        </div>
+        <div id="specialCategory" class="button-row" style="display: none;">
+            <button class="playlist-button" onclick="showPlaylist()">Our Playlist</button>
+            <button class="birthday-button" onclick="showBirthdayCountdown()">🎂 Birthday Countdown</button>
+            <button id="showProposalButton" onclick="showProposal()">The Big Question...</button>
+        </div>
+
+        <button id="backToCategories" onclick="showMainCategories()">⬅️ Back</button>
     </div>
 
     <div id="proposalContainer">
@@ -160,6 +179,10 @@
     <button id="closeReasonsButton" onclick="hideLoveReasons()">Back</button>
 
     <canvas id="star-canvas"></canvas>
+
+    <div id="constellationInstructions" class="constellation-instructions" style="display: none;">
+        Hover over the stars to discover the reasons I love you.
+    </div>
 
     <script src="script.js"></script>
 </body>
