@@ -577,6 +577,7 @@ h1 {
 .button-row button {
     min-width: 140px;
     flex: 1 1 180px;
+    border-radius: 20px; /* Unify border-radius for a softer look */
     font-size: 1.1em;
     margin: 0;
 }
@@ -1281,4 +1282,199 @@ body.day-mode {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
+}
+
+/* --- Theme-Aware Button Styles --- */
+
+/* --- Day Mode (Vibrant & Happy Palette) --- */
+
+/* Base style for all buttons in the action row in Day Mode */
+body.day-mode .button-row button {
+    color: white;
+    border: none;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    font-weight: bold; /* Make text stand out more */
+}
+
+body.day-mode .button-row button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    filter: brightness(1.1); /* Brighten the color on hover */
+}
+
+/* Individual button colors for Day Mode. They are now vibrant by default! */
+body.day-mode .poem-button { background-color: #b19cd9; } /* Soft Lavender */
+body.day-mode .love-reasons-button { background-color: #ff6f61; } /* Living Coral */
+body.day-mode .gallery-button { background-color: #88d8b0; } /* Mint Green */
+body.day-mode .timeline-button { background-color: #6ca0dc; } /* Soft Blue */
+body.day-mode .letter-button { background-color: #c9af98; } /* Dusty Rose */
+body.day-mode .memory-game-button { background-color: #f7d68b; } /* Pastel Yellow */
+body.day-mode .playlist-button { background-color: #d7a9e3; } /* Light Orchid */
+body.day-mode .gift-button { background-color: #ffb7c5; } /* Light Pink */
+body.day-mode .puzzle-button { background-color: #ffb347; } /* Apricot */
+body.day-mode .birthday-button { background-color: #c3aed6; } /* Lavender */
+
+/* --- Night Mode (Cosmic & Glowing Palette) --- */
+
+/* Style for all buttons in the main action row */
+body.night-mode .button-row button {
+    background-color: rgba(45, 52, 80, 0.5);
+    border: 2px solid rgba(195, 174, 214, 0.4);
+    color: #e0e0e0;
+    text-shadow: none;
+    box-shadow: 0 0 8px rgba(195, 174, 214, 0.3);
+}
+
+body.night-mode .button-row button:hover {
+    background-color: rgba(45, 52, 80, 0.8);
+    border-color: rgba(195, 174, 214, 0.8);
+    transform: scale(1.05);
+}
+
+/* Give each button a unique "glow" on hover by changing its border color */
+body.night-mode .poem-button:hover { border-color: #ff9a8b; }
+body.night-mode .love-reasons-button:hover { border-color: #f67280; }
+body.night-mode .gallery-button:hover { border-color: #c06c84; }
+body.night-mode .timeline-button:hover { border-color: #6c5b7b; }
+body.night-mode .letter-button:hover { border-color: #a7d2cb; }
+body.night-mode .memory-game-button:hover { border-color: #f8b195; }
+body.night-mode .playlist-button:hover { border-color: #8d9db6; }
+body.night-mode .gift-button:hover { border-color: #ffb6c1; }
+body.night-mode .puzzle-button:hover { border-color: #e8a87c; }
+body.night-mode .birthday-button:hover { border-color: #c3aed6; }
+
+/* Style for special buttons not in the main row */
+
+/* Day/Night Switch */
+body.night-mode #dayNightSwitch {
+    background-color: rgba(45, 52, 80, 0.5);
+    border: 2px solid rgba(195, 174, 214, 0.4);
+}
+body.day-mode #dayNightSwitch {
+    background-color: #f9d423;
+    border: none;
+    color: white;
+}
+body.day-mode #dayNightSwitch:hover { background-color: #f8c800; }
+
+/* Kiss Button */
+body.night-mode .kiss-button {
+    background: rgba(195, 174, 214, 0.3);
+    border: 1px solid rgba(195, 174, 214, 0.5);
+    border-radius: 12px;
+}
+body.night-mode .kiss-button:hover {
+    background: rgba(195, 174, 214, 0.5);
+}
+
+/* Proposal Button */
+body.night-mode #showProposalButton {
+    background-color: rgba(45, 52, 80, 0.5);
+    border: 2px solid rgba(195, 174, 214, 0.4);
+    border-radius: 5px; /* Keep its original radius */
+}
+body.night-mode #showProposalButton:hover {
+    background-color: rgba(45, 52, 80, 0.8);
+    border-color: rgba(195, 174, 214, 0.8);
+}
+
+/* Initial "Open Your Surprise" Button */
+body.night-mode #initialContent button {
+    padding: 10px 20px;
+    background-color: #4a4e69;
+    border: 1px solid #9a8c98;
+    border-radius: 12px;
+    font-size: 1.2em;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 10px #000;
+    transition: background-color 0.3s ease;
+}
+body.night-mode #initialContent button:hover { background-color: #6b7091; }
+
+/* --- Mobile Responsiveness --- */
+
+@media (max-width: 768px) {
+    /* --- General Typography & Layout --- */
+    h1 {
+        font-size: 2.2em;
+        margin-top: 3em;
+    }
+
+    .floating-message {
+        font-size: 1.1em;
+        padding: 0 10px;
+    }
+
+    #actionButtonsContainer {
+        padding: 12px 0 18px 0; /* Reduce padding on the bottom bar */
+    }
+
+    /* --- Overlays & Popups --- */
+
+    /* Poem */
+    #poemContainer .poem-title {
+        font-size: 1.5em;
+    }
+    #poemContainer p {
+        font-size: 0.9em;
+        line-height: 1.6;
+    }
+
+    /* Proposal */
+    #proposalContainer h2 {
+        font-size: 1.5em;
+    }
+
+    /* Timeline - Stack items vertically for mobile */
+    .timeline::after {
+        left: 31px; /* Move the main line to the left */
+    }
+    .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+    }
+    .timeline-item.left, .timeline-item.right {
+        left: 0; /* Reset horizontal positioning for all items */
+    }
+    .timeline-item::after {
+        left: 21px; /* Move the circle to the new line position */
+    }
+    .timeline-item.right::after {
+        left: 21px; /* Also move the right item's circle */
+    }
+
+    /* Memory Game Grid */
+    .memory-grid {
+        /* Make grid responsive instead of fixed 4 columns */
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+        padding: 0 10px;
+    }
+    .card-back {
+        font-size: 2em;
+    }
+
+    /* Love Letter */
+    .love-letter {
+        padding: 25px;
+        font-size: 1em;
+        max-width: 90vw;
+    }
+
+    /* Gift & Puzzle Boxes */
+    .gift-surprise, .puzzle-box {
+        padding: 25px;
+        min-width: 80vw;
+        max-width: 90vw;
+    }
+
+    /* Close Buttons */
+    .close-gallery, .close-timeline, .close-game, #closeReasonsButton, .close-puzzle, .close-gift, .close-countdown {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
 }
