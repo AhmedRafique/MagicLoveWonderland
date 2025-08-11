@@ -1087,10 +1087,19 @@ function hideGallery() {
             setTimeout(() => kiss.remove(), 2000);
         }
 
+        const loveLetters = [
+            "My Dearest Radwa,\n\nEvery day with you feels like a page from a beautiful story. A story I never want to end. You are the melody my heart sings, the light that guides me, and the home my soul has always searched for. I love you more than words can ever capture.\n\nForever Yours,\nAhmed Rafique",
+            "My Love, My Looza,\n\nSometimes I try to find the words to describe the feeling I get when I see you smile, but I always fall short. It's a mix of pure joy, deep peace, and an overwhelming sense of 'rightness'. Being with you feels like coming home. Thank you for being my everything.\n\nWith all my love,\nAhmed Rafique",
+            "To My Soulmate, My Looza,\n\nDid you know that before I met you, my world was in black and white? You came into my life and painted it with the most vibrant colors. You brought laughter, adventure, and a love so profound it reshaped my entire existence. I am eternally grateful for you.\n\nYours always,\nAhmed Rafique",
+            "My Darling Radwa,\n\nI often find myself just thinking about you, replaying our conversations, remembering the look in your eyes. These are the moments that I treasure most. You are more than just my love; you are my greatest adventure and my safest harbor. I can't wait to see what the next chapter of our story holds.\n\nAll my heart,\nAhmed Rafique"
+        ];
+
         function showLoveLetter() {
             const letterContainer = document.querySelector('.love-letter-container');
             const letterContent = document.getElementById('letter-content');
-            const letterText = "My Dearest Radwa,\n\nEvery day with you feels like a page from a beautiful story. A story I never want to end. You are the melody my heart sings, the light that guides me, and the home my soul has always searched for. I love you more than words can ever capture.\n\nForever Yours,\nAhmed Rafique";
+            
+            // Select a random letter from the array
+            const letterText = loveLetters[Math.floor(Math.random() * loveLetters.length)];
             
             letterContent.innerHTML = ''; // Clear previous text
             showOverlay(letterContainer);
