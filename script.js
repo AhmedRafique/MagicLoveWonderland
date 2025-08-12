@@ -2248,8 +2248,9 @@ function initAndAnimatePortrait() {
     portraitStars = []; // Clear previous stars
 
     const img = new Image();
-    // IMPORTANT: You must create a 'radwa_portrait.png' file in your 'photos' folder.
-    // A high-contrast or silhouette image on a transparent background works best.
+    // IMPORTANT: Create 'radwa_portrait.png' in your 'photos' folder.
+    // For best performance, use a smaller image (e.g., 500x500px) with a transparent background.
+    // A high-contrast silhouette is ideal.
     img.src = 'photos/radwa_portrait.png';
 
     img.onload = () => {
@@ -2274,27 +2275,36 @@ function initAndAnimatePortrait() {
         ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear after getting data
 
         const targetPoints = [];
-        const pixelStep = 4; // Check every 4th pixel to reduce star count
+        // OPTIMIZATION: Increased pixelStep to sample fewer points, making it much faster.
+        const pixelStep = 7;
 
         for (let y = 0; y < imageData.height; y += pixelStep) {
             for (let x = 0; x < imageData.width; x += pixelStep) {
-                const alphaIndex = (y * imageData.width + x) * 4 + 3;
-                if (imageData.data[alphaIndex] > 128) { // Check if pixel is not transparent
+                // Get the pixel's color and alpha components.
+                const i = (y * imageData.width + x) * 4;
+                const r = imageData.data[i];
+                const g = imageData.data[i + 1];
+                const b = imageData.data[i + 2];
+                const a = imageData.data[i + 3];
+
+                // OPTIMIZATION: Check brightness to skip black/dark spots.
+                // A pixel is part of the portrait if it's not transparent AND not too dark.
+                const brightness = r + g + b;
+                if (a > 128 && brightness > 60) { // Brightness threshold (e.g., > 60) avoids pure black.
                     targetPoints.push({ x: startX + x, y: startY + y });
                 }
             }
         }
 
-        // Create stars with random start positions
         targetPoints.forEach(point => {
             portraitStars.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
                 targetX: point.x,
                 targetY: point.y,
-                speed: Math.random() * 0.02 + 0.015,
+                speed: Math.random() * 0.05 + 0.04, // Increased base speed for faster formation
                 alpha: 0,
-                radius: Math.random() * 1.5 + 0.5
+                radius: Math.random() * 2 + 1.5 // Increased radius for a clearer, fuller portrait
             });
         });
 
