@@ -1382,7 +1382,7 @@ body.day-mode .birthday-button { background-color: #c3aed6; } /* Lavender */
 body.day-mode .daily-question-button { background-color: #f67280; } /* Coral Pink */
 
 /* Make the daily/dreams buttons stand out */
-.daily-question-button, .future-dreams-button, .map-button {
+.daily-question-button, .future-dreams-button, .map-button, .portrait-button {
     padding: 16px 25px !important;
     font-size: 1.2em !important;
     min-height: 60px;
@@ -1417,6 +1417,7 @@ body.night-mode .gift-button:hover { border-color: #ffb6c1; }
 body.night-mode .puzzle-button:hover { border-color: #e8a87c; }
 body.night-mode .birthday-button:hover { border-color: #c3aed6; }
 body.night-mode .daily-question-button:hover { border-color: #f67280; }
+body.night-mode .portrait-button:hover { border-color: #c06c84; }
 body.night-mode .map-button:hover { border-color: #45b39d; }
 body.night-mode .future-dreams-button:hover { border-color: #00B8D4; }
 
@@ -1700,6 +1701,51 @@ body.night-mode #backToCategories:hover {
     transition: background-color 0.2s;
 }
 .close-daily-question:hover { background-color: #e06870; }
+
+/* --- Star Portrait Feature Styles --- */
+
+/* New Feature Button */
+body.day-mode .portrait-button { background-color: #c06c84; }
+
+#starPortraitOverlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #0a0f1b; /* Very dark blue */
+    z-index: 10060;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s;
+    overflow: hidden;
+}
+
+#portrait-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.close-portrait {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    z-index: 10061;
+    transition: all 0.3s;
+}
+
+.close-portrait:hover {
+    background-color: #ff4757;
+    border-color: #ff4757;
+    transform: scale(1.1) rotate(90deg);
+}
 
 /* --- Our World Map Feature Styles --- */
 

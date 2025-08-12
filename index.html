@@ -46,6 +46,7 @@
         <div id="storyCategory" class="button-row" style="display: none;">
             <button class="gallery-button" onclick="showGallery()">Our Photos</button>
             <button class="timeline-button" onclick="showTimeline()">Our Story</button>
+            <button class="portrait-button" onclick="showStarPortrait()">Portrait of a Star</button>
             <button class="map-button" onclick="showOurWorld()">Explore Our World</button>
         </div>
         <div id="loveCategory" class="button-row" style="display: none;">
@@ -215,6 +216,11 @@
             <p id="mapPointDate"></p>
             <p id="mapPointDescription"></p>
         </div>
+    </div>
+
+    <div id="starPortraitOverlay" style="display:none;">
+        <button class="close-portrait" onclick="hideStarPortrait()">✖</button>
+        <canvas id="portrait-canvas"></canvas>
     </div>
 
     <button id="closeReasonsButton">Back</button>

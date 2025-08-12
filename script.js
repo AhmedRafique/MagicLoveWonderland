@@ -2217,3 +2217,132 @@ function showMapPointDetails(point) {
     document.getElementById('mapPointDescription').textContent = point.description;
     card.style.display = 'block';
 }
+
+// --- Star Portrait Feature ---
+
+let portraitAnimationId = null;
+let portraitStars = [];
+
+function showStarPortrait() {
+    document.getElementById('starPortraitOverlay').style.display = 'flex';
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+    initAndAnimatePortrait();
+}
+
+function hideStarPortrait() {
+    document.getElementById('starPortraitOverlay').style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+    if (portraitAnimationId) {
+        cancelAnimationFrame(portraitAnimationId);
+        portraitAnimationId = null;
+    }
+}
+
+function initAndAnimatePortrait() {
+    const canvas = document.getElementById('portrait-canvas');
+    const ctx = canvas.getContext('2d');
+    const overlay = document.getElementById('starPortraitOverlay');
+    canvas.width = overlay.clientWidth;
+    canvas.height = overlay.clientHeight;
+
+    portraitStars = []; // Clear previous stars
+
+    const img = new Image();
+    // IMPORTANT: You must create a 'radwa_portrait.png' file in your 'photos' folder.
+    // A high-contrast or silhouette image on a transparent background works best.
+    img.src = 'photos/radwa_portrait.png';
+
+    img.onload = () => {
+        const imgWidth = img.width;
+        const imgHeight = img.height;
+        const aspectRatio = imgWidth / imgHeight;
+
+        let drawWidth = canvas.width * 0.8;
+        let drawHeight = drawWidth / aspectRatio;
+
+        if (drawHeight > canvas.height * 0.8) {
+            drawHeight = canvas.height * 0.8;
+            drawWidth = drawHeight * aspectRatio;
+        }
+
+        const startX = (canvas.width - drawWidth) / 2;
+        const startY = (canvas.height - drawHeight) / 2;
+
+        // Draw image to get pixel data
+        ctx.drawImage(img, startX, startY, drawWidth, drawHeight);
+        const imageData = ctx.getImageData(startX, startY, drawWidth, drawHeight);
+        ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear after getting data
+
+        const targetPoints = [];
+        const pixelStep = 4; // Check every 4th pixel to reduce star count
+
+        for (let y = 0; y < imageData.height; y += pixelStep) {
+            for (let x = 0; x < imageData.width; x += pixelStep) {
+                const alphaIndex = (y * imageData.width + x) * 4 + 3;
+                if (imageData.data[alphaIndex] > 128) { // Check if pixel is not transparent
+                    targetPoints.push({ x: startX + x, y: startY + y });
+                }
+            }
+        }
+
+        // Create stars with random start positions
+        targetPoints.forEach(point => {
+            portraitStars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                targetX: point.x,
+                targetY: point.y,
+                speed: Math.random() * 0.02 + 0.015,
+                alpha: 0,
+                radius: Math.random() * 1.5 + 0.5
+            });
+        });
+
+        animatePortrait();
+    };
+    
+    img.onerror = () => {
+        ctx.fillStyle = 'white';
+        ctx.font = '20px Georgia';
+        ctx.textAlign = 'center';
+        ctx.fillText("Could not load 'radwa_portrait.png'", canvas.width / 2, canvas.height / 2);
+    };
+}
+
+function animatePortrait() {
+    const canvas = document.getElementById('portrait-canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    let allInPlace = true;
+
+    portraitStars.forEach(star => {
+        if (star.alpha < 1) star.alpha += 0.05;
+
+        const dx = star.targetX - star.x;
+        const dy = star.targetY - star.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist > 1) {
+            star.x += dx * star.speed;
+            star.y += dy * star.speed;
+            allInPlace = false;
+        } else {
+            star.x = star.targetX;
+            star.y = star.targetY;
+        }
+
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.shadowColor = `rgba(255, 182, 213, ${star.alpha * 0.7})`;
+        ctx.shadowBlur = 8;
+        ctx.fill();
+    });
+
+    ctx.shadowBlur = 0;
+
+    if (!allInPlace) {
+        portraitAnimationId = requestAnimationFrame(animatePortrait);
+    }
+}
