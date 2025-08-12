@@ -1381,8 +1381,8 @@ body.day-mode .puzzle-button { background-color: #ffb347; } /* Apricot */
 body.day-mode .birthday-button { background-color: #c3aed6; } /* Lavender */
 body.day-mode .daily-question-button { background-color: #f67280; } /* Coral Pink */
 
-/* Make the daily question button stand out */
-.daily-question-button {
+/* Make the daily/dreams buttons stand out */
+.daily-question-button, .future-dreams-button {
     padding: 16px 25px !important;
     font-size: 1.2em !important;
     min-height: 60px;
@@ -1417,6 +1417,7 @@ body.night-mode .gift-button:hover { border-color: #ffb6c1; }
 body.night-mode .puzzle-button:hover { border-color: #e8a87c; }
 body.night-mode .birthday-button:hover { border-color: #c3aed6; }
 body.night-mode .daily-question-button:hover { border-color: #f67280; }
+body.night-mode .future-dreams-button:hover { border-color: #00B8D4; }
 
 /* Style for special buttons not in the main row */
 
@@ -1571,12 +1572,14 @@ body.day-mode .category-button.love { background-color: #ff6f61; } /* Living Cor
 body.day-mode .category-button.fun { background-color: #f7d68b; } /* Pastel Yellow */
 body.day-mode .category-button.special { background-color: #b19cd9; } /* Soft Lavender */
 body.day-mode .category-button.daily { background-color: #f67280; } /* Coral Pink */
+body.day-mode .category-button.dreams { background-color: #00B8D4; } /* A hopeful teal */
 
 /* Unique hover glows for category buttons in Night Mode */
 body.night-mode .category-button.memories:hover { border-color: #6ca0dc; }
 body.night-mode .category-button.love:hover { border-color: #ff6f61; }
 body.night-mode .category-button.fun:hover { border-color: #f7d68b; }
 body.night-mode .category-button.special:hover { border-color: #b19cd9; }
+body.night-mode .category-button.dreams:hover { border-color: #00B8D4; }
 
 body.night-mode .category-button.daily:hover { border-color: #f67280; }
 
@@ -1701,4 +1704,136 @@ body.night-mode #backToCategories:hover {
     transition: background-color 0.2s;
 }
 .close-daily-question:hover { background-color: #e06870; }
+
+/* --- Future Dreams Feature Styles --- */
+
+/* New Feature Button */
+body.day-mode .future-dreams-button { background-color: #00B8D4; }
+
+/* Overlay */
+#futureDreamsOverlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(20, 10, 30, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10040;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s;
+}
+
+.dreams-board-container {
+    background: #fdf5e6; /* Parchment/corkboard color */
+    color: #5d4037;
+    width: 90vw;
+    max-width: 800px;
+    height: 90vh;
+    max-height: 700px;
+    border-radius: 20px;
+    box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.dreams-board-container h2 {
+    font-family: 'Georgia', serif;
+    color: #6c5b7b;
+    text-align: center;
+    margin: 0 0 5px 0;
+}
+
+.dreams-subtitle {
+    text-align: center;
+    margin: 0 0 20px 0;
+    font-style: italic;
+    color: #a98ec2;
+}
+
+.dreams-board {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 15px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    align-content: flex-start;
+}
+
+.dream-note {
+    background: #fffbe8; /* Light yellow sticky note */
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    font-family: 'Georgia', serif;
+    font-size: 1.1em;
+    transform: rotate(calc(var(--rotation) * 1deg)); /* Random rotation */
+    position: relative;
+    transition: transform 0.2s ease;
+    word-wrap: break-word;
+}
+
+.dream-note:hover {
+    transform: scale(1.05) rotate(0deg);
+    z-index: 10;
+}
+
+.dream-note::before {
+    content: '📌'; /* Pin emoji */
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5em;
+}
+
+.add-dream-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.add-dream-form input {
+    flex-grow: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #d2b48c;
+    font-size: 1em;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.add-dream-form button {
+    background: #6c5b7b;
+    color: white;
+    border: none;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-dream-form button:hover {
+    background: #a98ec2;
+}
+
+.close-dreams {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    color: #6c5b7b;
+    border: none;
+    font-size: 1.8em;
+    cursor: pointer;
+    line-height: 1;
+}
 }

@@ -41,6 +41,7 @@
             <button class="category-button fun" onclick="showCategory('fun')">🎲 Fun & Surprises</button>
             <button class="category-button special" onclick="showCategory('special')">✨ Special Moments</button>
             <button class="category-button daily" onclick="showCategory('daily')">💖 Daily Connection</button>
+            <button class="category-button dreams" onclick="showCategory('dreams')">🌌 Our Future Dreams</button>
         </div>
 
         <!-- Sub-categories (initially hidden) -->
@@ -66,6 +67,9 @@
         <div id="dailyCategory" class="button-row" style="display: none;">
             <button class="daily-question-button" onclick="showDailyQuestion()">Today's Question</button>
             <!-- You can add more daily features here in the future! -->
+        </div>
+        <div id="dreamsCategory" class="button-row" style="display: none;">
+            <button class="future-dreams-button" onclick="showFutureDreams()">Dream Board</button>
         </div>
 
         <button id="backToCategories" onclick="showMainCategories()">⬅️ Back</button>
@@ -186,6 +190,21 @@
             <h3>Today's Question for Us</h3>
             <p id="dailyQuestionText"></p>
             <button class="close-daily-question" onclick="hideDailyQuestion()">Close</button>
+        </div>
+    </div>
+
+    <div id="futureDreamsOverlay" style="display:none;">
+        <div class="dreams-board-container">
+            <button class="close-dreams" onclick="hideFutureDreams()">✖</button>
+            <h2>Our Future Dream Board</h2>
+            <p class="dreams-subtitle">A place for all the adventures we'll have and memories we'll make...</p>
+            <div id="dreamsBoard" class="dreams-board">
+                <!-- Dream notes will be added here by JS -->
+            </div>
+            <div class="add-dream-form">
+                <input type="text" id="dreamInput" placeholder="Add a new dream for us...">
+                <button onclick="addDream()">Add Dream ✨</button>
+            </div>
         </div>
     </div>
 

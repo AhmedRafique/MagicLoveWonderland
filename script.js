@@ -2088,3 +2088,57 @@ function hideDailyQuestion() {
     document.getElementById('dailyQuestionOverlay').style.display = 'none';
     document.getElementById('actionButtonsContainer').style.display = 'flex';
 }
+
+// --- Future Dreams Feature ---
+
+// Load dreams from localStorage or use a default set
+let futureDreams = JSON.parse(localStorage.getItem('futureDreams')) || [
+    "Travel to Japan during cherry blossom season 🌸",
+    "Travel to Turkey and visit CUKUR place ◀️⏺️⏺️⏺️▶️",
+    "Travel to Sweden and watch the northern lights together 🌌",
+    "Learn to cook a fancy Italian meal together 🍝",
+    "Build a cozy blanket fort for a movie marathon 🎬",
+    "Watch the sunrise from a hot air balloon 🎈",
+    "Write our own story book 📖"
+];
+
+function saveDreams() {
+    localStorage.setItem('futureDreams', JSON.stringify(futureDreams));
+}
+
+function renderDreams() {
+    const board = document.getElementById('dreamsBoard');
+    board.innerHTML = ''; // Clear the board first
+
+    futureDreams.forEach(dreamText => {
+        const note = document.createElement('div');
+        note.className = 'dream-note';
+        note.textContent = dreamText;
+        // Add a random rotation for the sticky note effect
+        note.style.setProperty('--rotation', Math.random() * 8 - 4);
+        board.appendChild(note);
+    });
+}
+
+function showFutureDreams() {
+    document.getElementById('futureDreamsOverlay').style.display = 'flex';
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+    renderDreams();
+}
+
+function hideFutureDreams() {
+    document.getElementById('futureDreamsOverlay').style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
+
+function addDream() {
+    const input = document.getElementById('dreamInput');
+    const newDream = input.value.trim();
+
+    if (newDream) {
+        futureDreams.push(newDream);
+        input.value = ''; // Clear the input
+        saveDreams();
+        renderDreams();
+    }
+}
