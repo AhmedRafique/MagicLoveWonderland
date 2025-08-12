@@ -2142,3 +2142,78 @@ function addDream() {
         renderDreams();
     }
 }
+
+// --- Our World Map Feature ---
+
+const mapPoints = [
+    {
+        x: 20, y: 30, type: 'memory',
+        title: "The Spark",
+        date: "08 Jan 2025",
+        description: "The place where it all began. The moment our eyes met and my heart knew its journey was starting with you.",
+        photo: "timeline-photos/photo24.jpg"
+    },
+    {
+        x: 75, y: 45, type: 'memory',
+        title: "Our First Adventure",
+        date: "15 Feb 2025",
+        description: "When we decided to choose each other, officially becoming one soul in two bodies. Our adventure started here.",
+        photo: "timeline-photos/photo10.jpg"
+    },
+    {
+        x: 40, y: 65, type: 'memory',
+        title: "The Butterfly Museum",
+        date: "07 Jun 2025",
+        description: "Surrounded by beauty, but all I could see was you. Our love had grown wings of its own.",
+        photo: "timeline-photos/IMG-20250608-WA0120.jpg"
+    },
+    {
+        x: 60, y: 15, type: 'dream',
+        title: "Northern Lights in Sweden",
+        date: "Our Future",
+        description: "One day, we'll stand under the dancing sky, wrapped in a blanket, watching the aurora together.",
+        photo: "photos/future_aurora.jfif"
+    }//,
+    //{
+    //    x: 85, y: 70, type: 'dream',
+    //    title: "Our Home",
+    //    date: "Our Future",
+    //    description: "A little place filled with laughter, love, and the smell of your favorite cooking. Our own sanctuary.",
+    //    photo: "photos/future_home.jpg" // NOTE: PENDING
+    //}
+];
+
+function showOurWorld() {
+    document.getElementById('ourWorldOverlay').style.display = 'flex';
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+    renderMapPoints();
+}
+
+function hideOurWorld() {
+    document.getElementById('ourWorldOverlay').style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+    document.getElementById('mapPointDetailCard').style.display = 'none';
+}
+
+function renderMapPoints() {
+    const container = document.querySelector('.world-map-background');
+    container.innerHTML = ''; // Clear existing points
+
+    mapPoints.forEach(point => {
+        const pointEl = document.createElement('div');
+        pointEl.className = `map-point ${point.type}`;
+        pointEl.style.left = `${point.x}%`;
+        pointEl.style.top = `${point.y}%`;
+        pointEl.onclick = () => showMapPointDetails(point);
+        container.appendChild(pointEl);
+    });
+}
+
+function showMapPointDetails(point) {
+    const card = document.getElementById('mapPointDetailCard');
+    document.getElementById('mapPointPhoto').innerHTML = `<img src="${point.photo}" alt="${point.title}" onerror="this.style.display='none'">`;
+    document.getElementById('mapPointTitle').textContent = point.title;
+    document.getElementById('mapPointDate').textContent = point.date;
+    document.getElementById('mapPointDescription').textContent = point.description;
+    card.style.display = 'block';
+}

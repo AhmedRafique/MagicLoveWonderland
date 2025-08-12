@@ -42,6 +42,7 @@
             <button class="category-button special" onclick="showCategory('special')">✨ Special Moments</button>
             <button class="category-button daily" onclick="showCategory('daily')">💖 Daily Connection</button>
             <button class="category-button dreams" onclick="showCategory('dreams')">🌌 Our Future Dreams</button>
+            <button class="category-button world" onclick="showCategory('world')">🗺️ Our World</button>
         </div>
 
         <!-- Sub-categories (initially hidden) -->
@@ -70,6 +71,9 @@
         </div>
         <div id="dreamsCategory" class="button-row" style="display: none;">
             <button class="future-dreams-button" onclick="showFutureDreams()">Dream Board</button>
+        </div>
+        <div id="worldCategory" class="button-row" style="display: none;">
+            <button class="map-button" onclick="showOurWorld()">Explore Our World</button>
         </div>
 
         <button id="backToCategories" onclick="showMainCategories()">⬅️ Back</button>
@@ -205,6 +209,21 @@
                 <input type="text" id="dreamInput" placeholder="Add a new dream for us...">
                 <button onclick="addDream()">Add Dream ✨</button>
             </div>
+        </div>
+    </div>
+
+    <div id="ourWorldOverlay" style="display:none;">
+        <button class="close-world" onclick="hideOurWorld()">✖</button>
+        <div class="world-map-container">
+            <div class="world-map-background">
+                <!-- Points of interest will be added here by JS -->
+            </div>
+        </div>
+        <div id="mapPointDetailCard" class="map-point-detail-card" style="display:none;">
+            <div id="mapPointPhoto"></div>
+            <h3 id="mapPointTitle"></h3>
+            <p id="mapPointDate"></p>
+            <p id="mapPointDescription"></p>
         </div>
     </div>
 

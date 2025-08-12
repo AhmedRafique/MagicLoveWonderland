@@ -1382,7 +1382,7 @@ body.day-mode .birthday-button { background-color: #c3aed6; } /* Lavender */
 body.day-mode .daily-question-button { background-color: #f67280; } /* Coral Pink */
 
 /* Make the daily/dreams buttons stand out */
-.daily-question-button, .future-dreams-button {
+.daily-question-button, .future-dreams-button, .map-button {
     padding: 16px 25px !important;
     font-size: 1.2em !important;
     min-height: 60px;
@@ -1417,6 +1417,7 @@ body.night-mode .gift-button:hover { border-color: #ffb6c1; }
 body.night-mode .puzzle-button:hover { border-color: #e8a87c; }
 body.night-mode .birthday-button:hover { border-color: #c3aed6; }
 body.night-mode .daily-question-button:hover { border-color: #f67280; }
+body.night-mode .map-button:hover { border-color: #45b39d; }
 body.night-mode .future-dreams-button:hover { border-color: #00B8D4; }
 
 /* Style for special buttons not in the main row */
@@ -1573,12 +1574,14 @@ body.day-mode .category-button.fun { background-color: #f7d68b; } /* Pastel Yell
 body.day-mode .category-button.special { background-color: #b19cd9; } /* Soft Lavender */
 body.day-mode .category-button.daily { background-color: #f67280; } /* Coral Pink */
 body.day-mode .category-button.dreams { background-color: #00B8D4; } /* A hopeful teal */
+body.day-mode .category-button.world { background-color: #45b39d; } /* A rich teal/green */
 
 /* Unique hover glows for category buttons in Night Mode */
 body.night-mode .category-button.memories:hover { border-color: #6ca0dc; }
 body.night-mode .category-button.love:hover { border-color: #ff6f61; }
 body.night-mode .category-button.fun:hover { border-color: #f7d68b; }
 body.night-mode .category-button.special:hover { border-color: #b19cd9; }
+body.night-mode .category-button.world:hover { border-color: #45b39d; }
 body.night-mode .category-button.dreams:hover { border-color: #00B8D4; }
 
 body.night-mode .category-button.daily:hover { border-color: #f67280; }
@@ -1704,6 +1707,129 @@ body.night-mode #backToCategories:hover {
     transition: background-color 0.2s;
 }
 .close-daily-question:hover { background-color: #e06870; }
+
+/* --- Our World Map Feature Styles --- */
+
+/* New Feature Button */
+body.day-mode .map-button { background-color: #45b39d; }
+
+/* Overlay */
+#ourWorldOverlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #1a2a3a; /* Deep night sky blue */
+    z-index: 10050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s;
+    overflow: hidden;
+}
+
+.world-map-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.world-map-background {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, #3a506b 0%, #1c2541 100%);
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><text x="50" y="50" font-size="10" fill-opacity="0.05" fill="white" text-anchor="middle" dominant-baseline="middle">✧</text></svg>');
+    position: relative;
+}
+
+.map-point {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    box-shadow: 0 0 15px, 0 0 25px;
+    animation: pulsePoint 2s infinite ease-in-out;
+}
+
+.map-point.memory {
+    background-color: #ffb6d5; /* Pink for memories */
+    box-shadow: 0 0 15px #ffb6d5, 0 0 25px #ffb6d5;
+}
+
+.map-point.dream {
+    background-color: #00B8D4; /* Teal for dreams */
+    box-shadow: 0 0 15px #00B8D4, 0 0 25px #00B8D4;
+}
+
+@keyframes pulsePoint {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
+}
+
+.map-point-detail-card {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 320px;
+    max-width: 80vw;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    color: #333;
+    z-index: 10;
+}
+
+#mapPointPhoto img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+#mapPointTitle {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    color: #6c5b7b;
+}
+
+#mapPointDate {
+    font-size: 0.9em;
+    color: #aaa;
+    margin: 5px 0 15px 0;
+    font-style: italic;
+}
+
+#mapPointDescription {
+    font-size: 1em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.close-world {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    z-index: 10051;
+    transition: all 0.3s;
+}
+.close-world:hover {
+    background-color: #ff4757;
+    border-color: #ff4757;
+    transform: scale(1.1) rotate(90deg);
+}
 
 /* --- Future Dreams Feature Styles --- */
 
