@@ -1568,23 +1568,16 @@ body.night-mode #initialContent button:hover { background-color: #6b7091; }
 }
 
 /* Unique colors for category buttons in Day Mode */
-body.day-mode .category-button.memories { background-color: #6ca0dc; } /* Soft Blue */
+body.day-mode .category-button.story { background-color: #6ca0dc; } /* Soft Blue */
 body.day-mode .category-button.love { background-color: #ff6f61; } /* Living Coral */
-body.day-mode .category-button.fun { background-color: #f7d68b; } /* Pastel Yellow */
-body.day-mode .category-button.special { background-color: #b19cd9; } /* Soft Lavender */
-body.day-mode .category-button.daily { background-color: #f67280; } /* Coral Pink */
-body.day-mode .category-button.dreams { background-color: #00B8D4; } /* A hopeful teal */
-body.day-mode .category-button.world { background-color: #45b39d; } /* A rich teal/green */
+body.day-mode .category-button.fun { background-color: #b19cd9; } /* Soft Lavender */
+body.day-mode .category-button.journey { background-color: #45b39d; } /* A rich teal/green */
 
 /* Unique hover glows for category buttons in Night Mode */
-body.night-mode .category-button.memories:hover { border-color: #6ca0dc; }
+body.night-mode .category-button.story:hover { border-color: #6ca0dc; }
 body.night-mode .category-button.love:hover { border-color: #ff6f61; }
-body.night-mode .category-button.fun:hover { border-color: #f7d68b; }
-body.night-mode .category-button.special:hover { border-color: #b19cd9; }
-body.night-mode .category-button.world:hover { border-color: #45b39d; }
-body.night-mode .category-button.dreams:hover { border-color: #00B8D4; }
-
-body.night-mode .category-button.daily:hover { border-color: #f67280; }
+body.night-mode .category-button.fun:hover { border-color: #b19cd9; }
+body.night-mode .category-button.journey:hover { border-color: #45b39d; }
 
 #backToCategories {
     margin-top: 20px; /* Space above the back button */
