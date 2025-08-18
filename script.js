@@ -1,1225 +1,1225 @@
 const loveMessages = [
-            "I love you more than words can say! ❤️",
-            "You are my sunshine on every cloudy day ☀️",
-            "Every beat of my heart whispers your name 💓",
-            "You make my world magical ✨",
-            "My heart smiles when I think of you 😊",
-            "You are my once in a lifetime love 💍",
-            "Radwa, you complete my soul 💞",
-            "With you, forever doesn't feel long enough 💫",
-            "You're my dream come true 💖",
-            "You are my everything 💕",
-            "Your love is the best thing that ever happened to me 🌹",
-            "You're the missing piece to my puzzle 🧩",
-            "My favorite place is in your arms 🤗",
-            "You stole my heart and I never want it back 💘",
-            "Loving you is my favorite thing to do 💝",
-            "You're the reason I believe in love 💑",
-            "My heart skips a beat when you smile 😍",
-            "You're my today and all of my tomorrows 🌅",
-            "I would choose you in every lifetime ♾️",
-            "Your love is my greatest treasure 💎",
-            "You make ordinary moments extraordinary ✨",
-            "I'm addicted to your love 💊",
-            "My soul recognized yours at first sight 👁️",
-            "You're the love story I always wanted to tell 📖",
-            "I love you more than yesterday but less than tomorrow 📅",
-            "You're my favorite hello and hardest goodbye 👋",
-            "Your voice is my favorite sound 🎶",
-            "You're my happy place 🏝️",
-            "I love you to the moon and back 🌙",
-            "You're my favorite what-if that came true ❓",
-            "My heart is and always will be yours 💗",
-            "You're the best decision I never made 🤔",
-            "I love you more than coffee ☕ (and that's saying a lot!)", // This is a great one!
-            "You're my favorite notification 🔔",
-            "You had me at hello 👋",
-            "I'm completely, utterly, irrevocably in love with you 💞",
-            "You're the human equivalent of a warm hug 🤗",
-            "I love you more than pizza 🍕 (and that's serious!)",
-            "You're my favorite place to go when my mind wanders 🧠",
-            "You make my heart do backflips 🤸",
-            "You're the peanut butter to my jelly 🥪",
-            "I love you more than puppies love belly rubs 🐶",
-            "You're my favorite notification 📲",
-            "I love you more than chocolate 🍫 (and that's a lot!)",
-            "You're my favorite thought 💭",
-            "I love you more than weekends 📅",
-            "You're the cheese to my macaroni 🧀",
-            "I love you more than naps 😴 (and I really love naps)",
-            "You're the password to my heart ❤️",
-            "Are you a magician? Because whenever I look at you, everyone else disappears ✨",
-            "I think you're suffering from a lack of Vitamin Me 😉",
-            "My favorite fairytale is our love story 🏰",
-            "You're my person. It's as simple and as complicated as that 👫",
-            "I'm not a photographer, but I can picture us together 📸",
-            "You're the 'nothing' when people ask me what I'm thinking about 😊",
-            "I love you more than I love hitting the snooze button 😴",
-            "You're my favorite distraction 딴짓",
-            "If you were a vegetable, you'd be a cute-cumber 🥒",
-            "You're the reason I check my phone every 5 seconds 📱",
-            "My heart does a little happy dance when I see you 💃",
-            "You're my favorite notification, always 🔔",
-            "I've fallen for you and I can't get up... and I don't want to! 🥰",
-            "You're the marshmallow in my hot chocolate ☕",
-            "Life with you is like a party that never ends 🎉",
-            "You're the highlight of my day, every day 🌟",
-            "I'm so glad you're as weird as me 🤪",
-            "You're my anchor in the stormy seas of life ⚓",
-            "I love you a latte ☕",
-            "You're the only one I want to annoy for the rest of my life 😜",
-            "You're my happy pill 💊",
-            "You're the sprinkles on my donut 🍩",
-            "I'm wearing the smile you gave me 😄",
-            "You're my favorite adventure 🗺️",
-            "You're the key to my lock 🔑",
-            "You're my lobster 🦞",
-            "I'm hooked on you 🎣",
-            "You're my sunshine, my only sunshine ☀️",
-            "You're the song my heart is always singing 🎶",
-            "You're my favorite work of art 🎨",
-            "You're my home 🏡",
-            "You're the best part of my day 💖",
-            "You're my lucky charm 🍀",
-            "You're my dream that came true 💭",
-            "You're my missing puzzle piece 🧩",
-            "You're my greatest blessing 🙏",
-            "You're my one and only 🥇",
-            "You're my forever and always ♾️",
-            "You're my everything bagel 🥯",
-            "You're the avocado to my toast 🥑",
-            "You're the beat to my heart ❤️",
-            "You're the stars in my sky ✨",
-            "You're the calm to my storm ⛈️",
-            "You're the sweet to my sour 🍬",
-            "You're the light of my life 💡",
-            "You're the butter to my bread 🧈",
-            "You're the ink to my pen ✒️",
-            "You're the icing on my cake 🎂",
-            "If I had a flower for every time I thought of you, I could walk in my garden forever. 🌸",
-            "You are the beautiful answer to every prayer I've ever had. 🙏",
-            "You're not just my love, you're my sanity. And my favorite kind of madness. 🤪",
-            "I love you more than I love finding a parking spot right by the entrance. 🚗",
-            "My day is incomplete if I don't tell you I love you. So, I love you! ❤️",
-            "You're the 'She said YES!' to my life's biggest question. 🎉",
-            "Every love song I hear, I think of you. 🎶",
-            "You're the human equivalent of a perfect, sunny day. ☀️",
-            "I must have done something right to deserve you in my life. ✨",
-            "You're my favorite person to do absolutely nothing with. 🛋️",
-            "I love you for all that you are, all that you have been, and all you're yet to be. 💖",
-            "You're my favorite notification, my favorite text, my favorite call. 📱",
-            "I didn't know I was missing anything until I met you. 🧩",
-            "You make me want to be a better man. You make me want to be the best man. 🏆",
-            "My heart does a little '!!!' every time I see you. 😍",
-            "You're the plot twist I never saw coming, and the best one of my life. 📖",
-            "I love you more than a silent room after a loud day. 🤫",
-            "You're my home, not a place, but a feeling. 🏡",
-            "I would find you in any lifetime. ♾️",
-            "You're the reason my reality is finally better than my dreams. 💭",
-            "My love for you is a journey, starting at forever and ending at never. 🗺️",
-            "You're the only one who can make my heart race and feel calm at the same time. 💓"
+    "I love you more than words can say! ❤️",
+    "You are my sunshine on every cloudy day ☀️",
+    "Every beat of my heart whispers your name 💓",
+    "You make my world magical ✨",
+    "My heart smiles when I think of you 😊",
+    "You are my once in a lifetime love 💍",
+    "Radwa, you complete my soul 💞",
+    "With you, forever doesn't feel long enough 💫",
+    "You're my dream come true 💖",
+    "You are my everything 💕",
+    "Your love is the best thing that ever happened to me 🌹",
+    "You're the missing piece to my puzzle 🧩",
+    "My favorite place is in your arms 🤗",
+    "You stole my heart and I never want it back 💘",
+    "Loving you is my favorite thing to do 💝",
+    "You're the reason I believe in love 💑",
+    "My heart skips a beat when you smile 😍",
+    "You're my today and all of my tomorrows 🌅",
+    "I would choose you in every lifetime ♾️",
+    "Your love is my greatest treasure 💎",
+    "You make ordinary moments extraordinary ✨",
+    "I'm addicted to your love 💊",
+    "My soul recognized yours at first sight 👁️",
+    "You're the love story I always wanted to tell 📖",
+    "I love you more than yesterday but less than tomorrow 📅",
+    "You're my favorite hello and hardest goodbye 👋",
+    "Your voice is my favorite sound 🎶",
+    "You're my happy place 🏝️",
+    "I love you to the moon and back 🌙",
+    "You're my favorite what-if that came true ❓",
+    "My heart is and always will be yours 💗",
+    "You're the best decision I never made 🤔",
+    "I love you more than coffee ☕ (and that's saying a lot!)",
+    "You're my favorite notification 🔔",
+    "You had me at hello 👋",
+    "I'm completely, utterly, irrevocably in love with you 💞",
+    "You're the human equivalent of a warm hug 🤗",
+    "I love you more than pizza 🍕 (and that's serious!)",
+    "You're my favorite place to go when my mind wanders 🧠",
+    "You make my heart do backflips 🤸",
+    "You're the peanut butter to my jelly 🥪",
+    "I love you more than puppies love belly rubs 🐶",
+    "You're my favorite notification 📲",
+    "I love you more than chocolate 🍫 (and that's a lot!)",
+    "You're my favorite thought 💭",
+    "I love you more than weekends 📅",
+    "You're the cheese to my macaroni 🧀",
+    "I love you more than naps 😴 (and I really love naps)",
+    "You're the password to my heart ❤️",
+    "Are you a magician? Because whenever I look at you, everyone else disappears ✨",
+    "I think you're suffering from a lack of Vitamin Me 😉",
+    "My favorite fairytale is our love story 🏰",
+    "You're my person. It's as simple and as complicated as that 👫",
+    "I'm not a photographer, but I can picture us together 📸",
+    "You're the 'nothing' when people ask me what I'm thinking about 😊",
+    "I love you more than I love hitting the snooze button 😴",
+    "You're my favorite distraction 딴짓",
+    "If you were a vegetable, you'd be a cute-cumber 🥒",
+    "You're the reason I check my phone every 5 seconds 📱",
+    "My heart does a little happy dance when I see you 💃",
+    "You're my favorite notification, always 🔔",
+    "I've fallen for you and I can't get up... and I don't want to! 🥰",
+    "You're the marshmallow in my hot chocolate ☕",
+    "Life with you is like a party that never ends 🎉",
+    "You're the highlight of my day, every day 🌟",
+    "I'm so glad you're as weird as me 🤪",
+    "You're my anchor in the stormy seas of life ⚓",
+    "I love you a latte ☕",
+    "You're the only one I want to annoy for the rest of my life 😜",
+    "You're my happy pill 💊",
+    "You're the sprinkles on my donut 🍩",
+    "I'm wearing the smile you gave me 😄",
+    "You're my favorite adventure 🗺️",
+    "You're the key to my lock 🔑",
+    "You're my lobster 🦞",
+    "I'm hooked on you 🎣",
+    "You're my sunshine, my only sunshine ☀️",
+    "You're the song my heart is always singing 🎶",
+    "You're my favorite work of art 🎨",
+    "You're my home 🏡",
+    "You're the best part of my day 💖",
+    "You're my lucky charm 🍀",
+    "You're my dream that came true 💭",
+    "You're my missing puzzle piece 🧩",
+    "You're my greatest blessing 🙏",
+    "You're my one and only 🥇",
+    "You're my forever and always ♾️",
+    "You're my everything bagel 🥯",
+    "You're the avocado to my toast 🥑",
+    "You're the beat to my heart ❤️",
+    "You're the stars in my sky ✨",
+    "You're the calm to my storm ⛈️",
+    "You're the sweet to my sour 🍬",
+    "You're the light of my life 💡",
+    "You're the butter to my bread 🧈",
+    "You're the ink to my pen ✒️",
+    "You're the icing on my cake 🎂",
+    "If I had a flower for every time I thought of you, I could walk in my garden forever. 🌸",
+    "You are the beautiful answer to every prayer I've ever had. 🙏",
+    "You're not just my love, you're my sanity. And my favorite kind of madness. 🤪",
+    "I love you more than I love finding a parking spot right by the entrance. 🚗",
+    "My day is incomplete if I don't tell you I love you. So, I love you! ❤️",
+    "You're the 'She said YES!' to my life's biggest question. 🎉",
+    "Every love song I hear, I think of you. 🎶",
+    "You're the human equivalent of a perfect, sunny day. ☀️",
+    "I must have done something right to deserve you in my life. ✨",
+    "You're my favorite person to do absolutely nothing with. 🛋️",
+    "I love you for all that you are, all that you have been, and all you're yet to be. 💖",
+    "You're my favorite notification, my favorite text, my favorite call. 📱",
+    "I didn't know I was missing anything until I met you. 🧩",
+    "You make me want to be a better man. You make me want to be the best man. 🏆",
+    "My heart does a little '!!!' every time I see you. 😍",
+    "You're the plot twist I never saw coming, and the best one of my life. 📖",
+    "I love you more than a silent room after a loud day. 🤫",
+    "You're my home, not a place, but a feeling. 🏡",
+    "I would find you in any lifetime. ♾️",
+    "You're the reason my reality is finally better than my dreams. 💭",
+    "My love for you is a journey, starting at forever and ending at never. 🗺️",
+    "You're the only one who can make my heart race and feel calm at the same time. 💓"
 ];
-        const loveReasons = [
-            "How your nose crinkles when you laugh",
-            "The way you care about tiny details",
-            "Your courage inspires me daily",
-            "The sound of your voice in the morning",
-            "How you always know what to say",
-            "Your beautiful mind and kind heart",
-            "The way you make ordinary moments special",
-            "Your strength in difficult times",
-            "How you believe in me even when I don't",
-            "Your passion for the things you love",
-            "The way you look at me like I'm magic",
-            "Your ability to make everyone feel welcome",
-            "How you challenge me to be better",
-            "Your beautiful smile that lights up rooms",
-            "The way you understand me without words",
-            "Your patience with my imperfections",
-            "How you turn every day into an adventure",
-            "Your creativity and unique perspective",
-            "The way you love with your whole heart",
-            "How you make the world more beautiful",
-            "The way you listen, not just to reply, but to understand.",
-            "Your unwavering support for my wildest dreams.",
-            "How you can make me laugh even when I'm determined to be grumpy.",
-            "Your incredible talent for making the best food.",
-            "The way you look when you're concentrating on something you love.",
-            "Your kindness to strangers.",
-            "How you remember the little things I tell you.",
-            "The feeling of your hand in mine.",
-            "Your ability to find beauty in the simplest things.",
-            "The way you're always learning and growing.",
-            "Your sense of humor that perfectly matches mine.",
-            "How you make me feel safe and protected.",
-            "The way you're not afraid to be vulnerable with me.",
-            "Your infectious enthusiasm for life.",
-            "How you always give the best advice.",
-            "The way you stand up for what you believe in.",
-            "Your gentle and calming presence.",
-            "How you make our home feel like a sanctuary.",
-            "The way you're always up for an adventure, big or small.",
-            "Your incredible work ethic and dedication.",
-            "How you make me feel like the most important person in the world.",
-            "The way you can read my mind sometimes.",
-            "Your love for animals and all living things.",
-            "How you're always honest with me, even when it's hard.",
-            "The way you celebrate my successes as if they were your own.",
-            "Your resilience in the face of challenges.",
-            "How you make me a better person just by being in my life.",
-            "The way you can make a boring day exciting.",
-            "Your impeccable taste in music and movies.",
-            "How you're always my biggest cheerleader.",
-            "The way you comfort me when I'm sad.",
-            "Your intelligence and the way you see the world.",
-            "How you're both my best friend and my soulmate.",
-            "The way you're so thoughtful and considerate of others.",
-            "Your beautiful, expressive eyes.",
-            "How you're always willing to try new things with me.",
-            "The way you make me feel cherished and adored.",
-            "Your generosity of spirit.",
-            "How you always know how to make me feel better.",
-            "The way you're so passionate about your hobbies.",
-            "Your ability to forgive and not hold grudges.",
-            "How you make me feel like I can accomplish anything.",
-            "The way you're so patient and understanding.",
-            "Your beautiful soul, inside and out.",
-            "How you're always my rock.",
-            "The way you make me feel so loved and appreciated.",
-            "Your adventurous spirit.",
-            "How you always put our relationship first.",
-            "The way you make me feel like I'm home.",
-            "Because you are you, and that's more than enough.",
-            "The way you hum when you're happy.",
-            "How you're fiercely protective of the people you love.",
-            "Your ability to see the good in everyone.",
-            "The way you make our house feel like a home.",
-            "Your ambition and how you chase your dreams.",
-            "How you can be both strong and gentle at the same time.",
-            "The way you get excited about the little things in life.",
-            "Your incredible sense of style.",
-            "How you always smell so good."
-        ];
-        const nameStarMessages = [
-            "For your Radiant smile that lights up my world.",
-            "For your Amazing heart, so full of kindness.",
-            "For your Dazzling personality that captivates me.",
-            "For the Wonderful way you make me feel loved.",
-            "For the Awesome adventures we share together.",
-            "Because you are Resilient and strong.",
-            "Because you are Admirable in every way.",
-            "Because you are my Dearest friend.",
-            "Because you are my greatest Wonder.",
-            "Because you are Absolutely perfect for me.",
-            "Your laugh is my favorite sound.",
-            "You make my world a better place.",
-            "You are the 'R' in my reality.",
-            "You are the 'A' in my always.",
-            "You are the 'D' in my destiny.",
-            "You are the 'W' in my world.",
-            "And 'A' for being Absolutely everything to me.",
-            "My heart belongs to you.",
-            "You are my dream come true.",
-            "My forever and always."
-        ];
+const loveReasons = [
+    "How your nose crinkles when you laugh",
+    "The way you care about tiny details",
+    "Your courage inspires me daily",
+    "The sound of your voice in the morning",
+    "How you always know what to say",
+    "Your beautiful mind and kind heart",
+    "The way you make ordinary moments special",
+    "Your strength in difficult times",
+    "How you believe in me even when I don't",
+    "Your passion for the things you love",
+    "The way you look at me like I'm magic",
+    "Your ability to make everyone feel welcome",
+    "How you challenge me to be better",
+    "Your beautiful smile that lights up rooms",
+    "The way you understand me without words",
+    "Your patience with my imperfections",
+    "How you turn every day into an adventure",
+    "Your creativity and unique perspective",
+    "The way you love with your whole heart",
+    "How you make the world more beautiful",
+    "The way you listen, not just to reply, but to understand.",
+    "Your unwavering support for my wildest dreams.",
+    "How you can make me laugh even when I'm determined to be grumpy.",
+    "Your incredible talent for making the best food.",
+    "The way you look when you're concentrating on something you love.",
+    "Your kindness to strangers.",
+    "How you remember the little things I tell you.",
+    "The feeling of your hand in mine.",
+    "Your ability to find beauty in the simplest things.",
+    "The way you're always learning and growing.",
+    "Your sense of humor that perfectly matches mine.",
+    "How you make me feel safe and protected.",
+    "The way you're not afraid to be vulnerable with me.",
+    "Your infectious enthusiasm for life.",
+    "How you always give the best advice.",
+    "The way you stand up for what you believe in.",
+    "Your gentle and calming presence.",
+    "How you make our home feel like a sanctuary.",
+    "The way you're always up for an adventure, big or small.",
+    "Your incredible work ethic and dedication.",
+    "How you make me feel like the most important person in the world.",
+    "The way you can read my mind sometimes.",
+    "Your love for animals and all living things.",
+    "How you're always honest with me, even when it's hard.",
+    "The way you celebrate my successes as if they were your own.",
+    "Your resilience in the face of challenges.",
+    "How you make me a better person just by being in my life.",
+    "The way you can make a boring day exciting.",
+    "Your impeccable taste in music and movies.",
+    "How you're always my biggest cheerleader.",
+    "The way you comfort me when I'm sad.",
+    "Your intelligence and the way you see the world.",
+    "How you're both my best friend and my soulmate.",
+    "The way you're so thoughtful and considerate of others.",
+    "Your beautiful, expressive eyes.",
+    "How you're always willing to try new things with me.",
+    "The way you make me feel cherished and adored.",
+    "Your generosity of spirit.",
+    "How you always know how to make me feel better.",
+    "The way you're so passionate about your hobbies.",
+    "Your ability to forgive and not hold grudges.",
+    "How you make me feel like I can accomplish anything.",
+    "The way you're so patient and understanding.",
+    "Your beautiful soul, inside and out.",
+    "How you're always my rock.",
+    "The way you make me feel so loved and appreciated.",
+    "Your adventurous spirit.",
+    "How you always put our relationship first.",
+    "The way you make me feel like I'm home.",
+    "Because you are you, and that's more than enough.",
+    "The way you hum when you're happy.",
+    "How you're fiercely protective of the people you love.",
+    "Your ability to see the good in everyone.",
+    "The way you make our house feel like a home.",
+    "Your ambition and how you chase your dreams.",
+    "How you can be both strong and gentle at the same time.",
+    "The way you get excited about the little things in life.",
+    "Your incredible sense of style.",
+    "How you always smell so good."
+];
+const nameStarMessages = [
+    "For your Radiant smile that lights up my world.",
+    "For your Amazing heart, so full of kindness.",
+    "For your Dazzling personality that captivates me.",
+    "For the Wonderful way you make me feel loved.",
+    "For the Awesome adventures we share together.",
+    "Because you are Resilient and strong.",
+    "Because you are Admirable in every way.",
+    "Because you are my Dearest friend.",
+    "Because you are my greatest Wonder.",
+    "Because you are Absolutely perfect for me.",
+    "Your laugh is my favorite sound.",
+    "You make my world a better place.",
+    "You are the 'R' in my reality.",
+    "You are the 'A' in my always.",
+    "You are the 'D' in my destiny.",
+    "You are the 'W' in my world.",
+    "And 'A' for being Absolutely everything to me.",
+    "My heart belongs to you.",
+    "You are my dream come true.",
+    "My forever and always."
+];
 
-        const timelineEvents = [
-            {
-                date: "08 Jan 2025",
-                title: "The Spark",
-                description: "The moment our eyes met and my heart knew something special was beginning.",
-                photo: "photo24.jpg",
-                side: "left"
-            },
-            {
-                date: "28 Jan 2025",
-                title: "Coffee and Conversations",
-                description: "That ordinary moment when I suddenly realized I couldn't imagine life without you.",
-                photo: "photostart.jpg",
-                side: "right"
-            },
-            {
-                date: "01 Feb 2025",
-                title: "I met your family",
-                description: "That perfect moment when the world disappeared and it was just us.",
-                photo: "photo25.jpg",
-                side: "left"
-            },
-            {
-                date: "15 Feb 2025",
-                title: "Start of our Adventure Together",
-                description: "When we officially become 1 soul in 2 bodies, when we decided to choose each other.",
-                photo: "photo10.jpg",
-                side: "right"
-            },
-            {
-                date: "26 Feb 2025",
-                title: "Buying our Jewelery",
-                description: "That magical night when our hearts were bouncing, and dancing inside our bodies, and our wings could not fit inside our rooms.",
-                photo: "photo22.jpg",
-                side: "left"
-            },
-            {
-                date: "17 Mar 2025",
-                title: "First Place and Palace",
-                description: "Buying my Engagement suit and visiting the palace where we decided to hold our Engagement photosession in, when I realized that my butterfly is much more beautiful than these butterflies.",
-                photo: "photo18.jpg",
-                side: "right"
-            },
-            {
-                date: "25 Mar 2025",
-                title: "My Happiest Birthday Ever",
-                description: "One of the warmest moment I felt in my entire life, being with my second family.",
-                photo: "photo15.jpg",
-                side: "left"
-            },
-            {
-                date: "12 Apr 2025",
-                title: "I Was Yours Forever",
-                description: "When my soul finally had some rest in its home, fireworks in my heart, and calmness in my mind.",
-                photo: "photo3.jpg",
-                side: "right"
-            },
-            {
-                date: "2 May 2025",
-                title: "First Occasion Together",
-                description: "Anywhere, anytime, My heart will always be only yours.",
-                photo: "photo26.jpg",
-                side: "left"
-            },
-            {
-                date: "3 May 2025",
-                title: "Creating Memories Together",
-                description: "You are my pride, you are my light in the darkness. You are my beautiful flower.",
-                photo: "photo27.jpg",
-                side: "right"
-            },
-            {
-                date: "07 Jun 2025",
-                title: "Butterfly Museum Revisited",
-                description: "Returning to the place of butterflies, but this time our love had grown wings of its own, soaring higher and more beautifully than ever before.",
-                photo: "IMG-20250608-WA0120.jpg",
-                side: "left"
-            },
-            {
-                date: "09 Jun 2025",
-                title: "A Perfect Night Out",
-                description: "A night of movies and fine dining, where every detail was as perfect as the woman sitting next to me. You make every moment feel like a scene from a classic romance.",
-                photo: "IMG-20250609-WA0054.jpg",
-                side: "right"
-            },
-            {
-                date: "12 Jun 2025",
-                title: "Closing One Chapter",
-                description: "The end of one journey is simply the beginning of another. Watching you bravely close this chapter filled me with immense pride and excitement for what's next.",
-                photo: "IMG-20250613-WA0036.jpg",
-                side: "left"
-            },
-            {
-                date: "16 Jun 2025",
-                title: "A New Beginning",
-                description: "You stepped into a new chapter with grace and courage. I am so incredibly proud of you and will always be your biggest supporter, cheering you on every step of the way.",
-                photo: "IMG-20250630-WA0072.jpg",
-                side: "right"
-            },
-            {
-                date: "20 Jul 2025",
-                title: "Building Our Nest",
-                description: "Choosing the pieces that will build our home, our sanctuary. With every choice, I wasn't just seeing furniture; I was seeing our future, and it felt like I was floating on clouds.",
-                photo: "IMG_20250720_202600.jpg",
-                side: "left"
-            }
-        ];
+const timelineEvents = [
+    {
+        date: "08 Jan 2025",
+        title: "The Spark",
+        description: "The moment our eyes met and my heart knew something special was beginning.",
+        photo: "photo24.jpg",
+        side: "left"
+    },
+    {
+        date: "28 Jan 2025",
+        title: "Coffee and Conversations",
+        description: "That ordinary moment when I suddenly realized I couldn't imagine life without you.",
+        photo: "photostart.jpg",
+        side: "right"
+    },
+    {
+        date: "01 Feb 2025",
+        title: "I met your family",
+        description: "That perfect moment when the world disappeared and it was just us.",
+        photo: "photo25.jpg",
+        side: "left"
+    },
+    {
+        date: "15 Feb 2025",
+        title: "Start of our Adventure Together",
+        description: "When we officially become 1 soul in 2 bodies, when we decided to choose each other.",
+        photo: "photo10.jpg",
+        side: "right"
+    },
+    {
+        date: "26 Feb 2025",
+        title: "Buying our Jewelery",
+        description: "That magical night when our hearts were bouncing, and dancing inside our bodies, and our wings could not fit inside our rooms.",
+        photo: "photo22.jpg",
+        side: "left"
+    },
+    {
+        date: "17 Mar 2025",
+        title: "First Place and Palace",
+        description: "Buying my Engagement suit and visiting the palace where we decided to hold our Engagement photosession in, when I realized that my butterfly is much more beautiful than these butterflies.",
+        photo: "photo18.jpg",
+        side: "right"
+    },
+    {
+        date: "25 Mar 2025",
+        title: "My Happiest Birthday Ever",
+        description: "One of the warmest moment I felt in my entire life, being with my second family.",
+        photo: "photo15.jpg",
+        side: "left"
+    },
+    {
+        date: "12 Apr 2025",
+        title: "I Was Yours Forever",
+        description: "When my soul finally had some rest in its home, fireworks in my heart, and calmness in my mind.",
+        photo: "photo3.jpg",
+        side: "right"
+    },
+    {
+        date: "2 May 2025",
+        title: "First Occasion Together",
+        description: "Anywhere, anytime, My heart will always be only yours.",
+        photo: "photo26.jpg",
+        side: "left"
+    },
+    {
+        date: "3 May 2025",
+        title: "Creating Memories Together",
+        description: "You are my pride, you are my light in the darkness. You are my beautiful flower.",
+        photo: "photo27.jpg",
+        side: "right"
+    },
+    {
+        date: "07 Jun 2025",
+        title: "Butterfly Museum Revisited",
+        description: "Returning to the place of butterflies, but this time our love had grown wings of its own, soaring higher and more beautifully than ever before.",
+        photo: "IMG-20250608-WA0120.jpg",
+        side: "left"
+    },
+    {
+        date: "09 Jun 2025",
+        title: "A Perfect Night Out",
+        description: "A night of movies and fine dining, where every detail was as perfect as the woman sitting next to me. You make every moment feel like a scene from a classic romance.",
+        photo: "IMG-20250609-WA0054.jpg",
+        side: "right"
+    },
+    {
+        date: "12 Jun 2025",
+        title: "Closing One Chapter",
+        description: "The end of one journey is simply the beginning of another. Watching you bravely close this chapter filled me with immense pride and excitement for what's next.",
+        photo: "IMG-20250613-WA0036.jpg",
+        side: "left"
+    },
+    {
+        date: "16 Jun 2025",
+        title: "A New Beginning",
+        description: "You stepped into a new chapter with grace and courage. I am so incredibly proud of you and will always be your biggest supporter, cheering you on every step of the way.",
+        photo: "IMG-20250630-WA0072.jpg",
+        side: "right"
+    },
+    {
+        date: "20 Jul 2025",
+        title: "Building Our Nest",
+        description: "Choosing the pieces that will build our home, our sanctuary. With every choice, I wasn't just seeing furniture; I was seeing our future, and it felt like I was floating on clouds.",
+        photo: "IMG_20250720_202600.jpg",
+        side: "left"
+    }
+];
 
-        const galleryPhotos = [
-            "IMG-20250530-WA0043.jpg",
-            "IMG-20250605-WA0062.jpg",
-            "IMG-20250608-WA0120.jpg",
-            "IMG-20250608-WA0184.jpg",
-            "IMG-20250609-WA0054.jpg",
-            "IMG-20250610-WA0056.jpg",
-            "IMG-20250610-WA0059.jpg",
-            "IMG-20250610-WA0060.jpg",
-            "IMG-20250610-WA0079.jpg",
-            "IMG-20250613-WA0036.jpg",
-            "IMG-20250630-WA0035.jpg",
-            "IMG-20250630-WA0072.jpg",
-            "IMG-20250704-WA0020.jpg",
-            "IMG-20250719-WA0016.jpg",
-            "IMG_20250703_184702.jpg",
-            "IMG_20250706_110051.jpg",
-            "IMG_20250707_141754.jpg",
-            "IMG_20250720_202600.jpg",
-            "IMG_20250722_105230.jpg",
-            "photo1.jpg",
-            "photo10.jpg",
-            "photo11.jpg",
-            "photo12.jpg",
-            "photo13.jpg",
-            "photo14.jpg",
-            "photo15.jpg",
-            "photo16.jpg",
-            "photo17.jpg",
-            "photo18.jpg",
-            "photo19.jpg",
-            "photo2.jpg",
-            "photo20.jpg",
-            "photo21.jpg",
-            "photo22.jpg",
-            "photo23.jpg",
-            "photo24.jpg",
-            "photo25.jpg",
-            "photo26.jpg",
-            "photo27.jpg",
-            "photo3.jpg",
-            "photo4.jpg",
-            "photo5.jpg",
-            "photo6.jpg",
-            "photo7.jpg",
-            "photo8.jpg",
-            "photo9.jpg",
-            "photostart.jpg"
-        ];
+const galleryPhotos = [
+    "IMG-20250530-WA0043.jpg",
+    "IMG-20250605-WA0062.jpg",
+    "IMG-20250608-WA0120.jpg",
+    "IMG-20250608-WA0184.jpg",
+    "IMG-20250609-WA0054.jpg",
+    "IMG-20250610-WA0056.jpg",
+    "IMG-20250610-WA0059.jpg",
+    "IMG-20250610-WA0060.jpg",
+    "IMG-20250610-WA0079.jpg",
+    "IMG-20250613-WA0036.jpg",
+    "IMG-20250630-WA0035.jpg",
+    "IMG-20250630-WA0072.jpg",
+    "IMG-20250704-WA0020.jpg",
+    "IMG-20250719-WA0016.jpg",
+    "IMG_20250703_184702.jpg",
+    "IMG_20250706_110051.jpg",
+    "IMG_20250707_141754.jpg",
+    "IMG_20250720_202600.jpg",
+    "IMG_20250722_105230.jpg",
+    "photo1.jpg",
+    "photo10.jpg",
+    "photo11.jpg",
+    "photo12.jpg",
+    "photo13.jpg",
+    "photo14.jpg",
+    "photo15.jpg",
+    "photo16.jpg",
+    "photo17.jpg",
+    "photo18.jpg",
+    "photo19.jpg",
+    "photo2.jpg",
+    "photo20.jpg",
+    "photo21.jpg",
+    "photo22.jpg",
+    "photo23.jpg",
+    "photo24.jpg",
+    "photo25.jpg",
+    "photo26.jpg",
+    "photo27.jpg",
+    "photo3.jpg",
+    "photo4.jpg",
+    "photo5.jpg",
+    "photo6.jpg",
+    "photo7.jpg",
+    "photo8.jpg",
+    "photo9.jpg",
+    "photostart.jpg"
+];
 
-        let wonderlandInitiated = false;
-        let poemVisible = false;
-        let proposalVisible = false;
+let wonderlandInitiated = false;
+let poemVisible = false;
+let proposalVisible = false;
 
-        let heartInterval;
-        let nameConstellationModeActive = false;
-        let reasonStars = [];
-        let nameConstellation = { stars: [], lines: [] };
-        let hoveredStar = null;
-        const LETTER_MAP = {
-            R: [[10,100],[10,0],[60,0],[70,10],[75,30],[70,45],[60,50],[10,50],null,[60,50],[80,100]],
-            A: [[0,100],[25,0],[50,100],null,[12,60],[38,60]],
-            D: [[0,0],[0,100],[50,80],[50,20],[0,0]],
-            W: [[0,0],[15,100],[25,60],[35,100],[50,0]],
-        };
+let heartInterval;
+let nameConstellationModeActive = false;
+let reasonStars = [];
+let nameConstellation = { stars: [], lines: [] };
+let hoveredStar = null;
+const LETTER_MAP = {
+    R: [[10,100],[10,0],[60,0],[70,10],[75,30],[70,45],[60,50],[10,50],null,[60,50],[80,100]],
+    A: [[0,100],[25,0],[50,100],null,[12,60],[38,60]],
+    D: [[0,0],[0,100],[50,80],[50,20],[0,0]],
+    W: [[0,0],[15,100],[25,60],[35,100],[50,0]],
+};
 
 
 
-        let giftInterval;
-        let randomHeartInterval;
-        let petalInterval;
-        let reasonShowerInterval;
+let giftInterval;
+let randomHeartInterval;
+let petalInterval;
+let reasonShowerInterval;
 
-        // Check if she's been here before
-        if (localStorage.getItem('radwaVisited')) {
-            document.querySelector('h1').textContent += ' Welcome back, my love!';
-        } else {
-            localStorage.setItem('radwaVisited', 'true');
-        }
+// Check if she's been here before
+if (localStorage.getItem('radwaVisited')) {
+    document.querySelector('h1').textContent += ' Welcome back, my love!';
+} else {
+    localStorage.setItem('radwaVisited', 'true');
+}
 
-        function showOverlay(elementToShow) {
-            // Hide all overlays first
-            document.querySelectorAll('.photo-gallery, .timeline-container, .constellation-container, #poemContainer, .love-letter-container, .memory-game-container').forEach(el => {
-                if (el.id === 'poemContainer') {
-                    // Reset poem container to its hidden state using opacity for transitions
-                    el.style.opacity = '0';
-                    el.style.visibility = 'hidden';
-                } else {
-                    // Hide other overlays
-                    el.style.display = 'none';
-                }
-            });
-
-            // Hide action buttons
-            document.getElementById('actionButtonsContainer').style.display = 'none';
-
-            // Show the target overlay
-            if (elementToShow) {
-                if (elementToShow.id === 'poemContainer') {
-                    // Show poem container with its fade effect
-                    elementToShow.style.opacity = '1';
-                    elementToShow.style.visibility = 'visible';
-                } else {
-                    // Show other overlays by setting display
-                    elementToShow.style.display = 'block';
-                }
-            }
-        }
-
-        function initiateLoveWonderland() {
-            if (wonderlandInitiated) return;
-            wonderlandInitiated = true;
-
-            document.getElementById('initialContent').style.display = 'none';
-            document.querySelector('.sparkle').style.display = 'block';
-            document.querySelector('.moon').style.display = 'block';
-            document.querySelector('h1').style.display = 'block';
-            document.querySelector('.floating-message').style.display = 'block';
-            document.getElementById('actionButtonsContainer').style.display = 'flex';
-
-            // Start creating petals
-            createPetals();
-
-            // Start creating hearts on mouse/touch movement
-            document.addEventListener('mousemove', createHeartAtPosition);
-            document.addEventListener('touchmove', handleTouchMove);
-
-            // Start random hearts floating up
-            heartInterval = setInterval(createRandomHeart, 800);
-            
-            // Start showing random messages from floating hearts
-            randomHeartInterval = setInterval(createMessageHeart, 3000);
-            
-            // Start creating gifts
-            giftInterval = setInterval(createGift, 10000);
-
-            // Try to play music (with error handling)
-            const music = document.getElementById('bg-music');
-            music.volume = 0.3;
-            music.play().catch(e => console.log("Audio play prevented:", e));
-        }
-
-        function createPetals() {
-            const petals = ['🌸', '🌹', '🍂', '💮'];
-            petalInterval = setInterval(() => {
-                const petal = document.createElement('div');
-                petal.className = 'petal';
-                petal.textContent = petals[Math.floor(Math.random() * petals.length)];
-                petal.style.left = Math.random() * window.innerWidth + 'px';
-                petal.style.animationDuration = (10 + Math.random() * 10) + 's';
-                document.body.appendChild(petal);
-                setTimeout(() => petal.remove(), 15000);
-            }, 300);
-        }
-
-        function createHeartAtPosition(e) {
-            if (nameConstellationModeActive) return; // Don't create hearts in constellation view
-            createHeart(e.clientX, e.clientY, false);
-        }
-
-        function handleTouchMove(e) {
-            if (nameConstellationModeActive) return; // Don't create hearts in constellation view
-            e.preventDefault();
-            for (let touch of e.touches) {
-                createHeart(touch.clientX, touch.clientY, false);
-            }
-        }
-
-        function createRandomHeart() {
-            const x = Math.random() * window.innerWidth;
-            const y = window.innerHeight + 20;
-            createHeart(x, y, true);
-        }
-
-        function createMessageHeart() {
-            const x = Math.random() * window.innerWidth;
-            const y = window.innerHeight + 20;
-            const heart = createHeart(x, y, true);
-            
-            // Show message after a delay when heart is halfway up
-            setTimeout(() => {
-                if (Math.random() < 0.7) { // 70% chance to show message
-                    showLoveMessage(x, window.innerHeight / 2);
-                }
-            }, 3000);
-        }
-
-        function showLoveMessage(x, y, customMessage) {
-            const message = customMessage || loveMessages[Math.floor(Math.random() * loveMessages.length)];
-            const msgElem = document.createElement('div');
-            msgElem.className = 'message';
-            msgElem.textContent = message;
-            msgElem.style.left = `${x}px`;
-            msgElem.style.top = `${y}px`;
-            document.body.appendChild(msgElem);
-            
-            // Auto-remove after animation
-            setTimeout(() => {
-                if (msgElem.parentNode) {
-                    msgElem.parentNode.removeChild(msgElem);
-                }
-            }, 2500);
-        }
-
-        function createHeart(x, y, isRandom = false) {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.style.left = `${x}px`;
-            heart.style.top = `${y}px`;
-            document.body.appendChild(heart);
-
-            // Make hearts clickable to show messages
-            heart.addEventListener('click', (e) => {
-                e.stopPropagation();
-                showLoveMessage(x, y);
-            });
-
-            // Auto-remove after animation
-            setTimeout(() => {
-                if (heart.parentNode) {
-                    heart.parentNode.removeChild(heart);
-                }
-            }, 6000);
-
-            return heart;
-        }
-
-        function createGift() {
-            const gifts = ['💍', '💌', '🌹'];
-            const gift = document.createElement('div');
-            gift.className = 'gift';
-            gift.textContent = gifts[Math.floor(Math.random() * gifts.length)];
-            gift.style.left = `${Math.random() * window.innerWidth}px`;
-            gift.style.top = `${window.innerHeight}px`;
-            document.body.appendChild(gift);
-            
-            // Make gifts clickable to show messages
-            gift.addEventListener('click', (e) => {
-                e.stopPropagation();
-                showLoveMessage(parseInt(gift.style.left), parseInt(gift.style.top));
-            });
-
-            // Auto-remove after animation
-            setTimeout(() => {
-                if (gift.parentNode) {
-                    gift.parentNode.removeChild(gift);
-                }
-            }, 8000);
-        }
-
-        function moonSurprise() {
-            const flash = document.createElement('div');
-            flash.className = 'flash';
-            document.body.appendChild(flash);
-            setTimeout(() => flash.remove(), 1000);
-            // Show the name constellation view
-            showNameConstellation();
-        }
-
-        function showProposal() {
-            proposalVisible = true;
-            document.getElementById('proposalContainer').style.opacity = '1';
-            document.getElementById('proposalContainer').style.visibility = 'visible';
-            initiateLoveWonderland();
-        }
-
-        function toggleMusic() {
-            const music = document.getElementById('bg-music');
-            if (music.paused) {
-                music.play().catch(e => console.log("Audio play failed:", e));
-            } else {
-                music.pause();
-            }
-        }
-
-        function acceptProposal() {
-    // Clear background animation intervals to prevent memory leaks
-    clearInterval(heartInterval);
-    clearInterval(giftInterval);
-    clearInterval(randomHeartInterval);
-    clearInterval(petalInterval);
-
-    document.getElementById('proposalContainer').style.display = 'none';
-
-    // Create voice message heart (as before)
-    createVoiceHeart();
-
-    // --- Celebration Animation ---
-
-    // 1. Fireworks
-    createFireworks(20); // Reduced for better performance
-
-    // 2. Heart Shower (more intense)
-    for (let i = 0; i < 50; i++) { // Increased number of hearts
-        setTimeout(() => {
-            createRandomHeart();
-        }, i * 100); // Faster heart generation
+function showOverlay(elementToShow) {
+    // Hide all overlays first by using a common class like 'overlay-content'.
+    // This makes the function more maintainable if you add new overlays.
+    // You would need to add class="overlay-content" to each overlay div in your HTML.
+    document.querySelectorAll('.overlay-content').forEach(el => {
+        el.style.display = 'none';
+    });
+    // Special handling for poem container as it uses opacity for transitions
+    const poemContainer = document.getElementById('poemContainer');
+    if (poemContainer) {
+        poemContainer.style.opacity = '0';
+        poemContainer.style.visibility = 'hidden';
     }
 
-    // 3. Congratulatory Message
-    showCelebrationMessage("She said YES! ❤️🎉");
+    // Hide action buttons
+    document.getElementById('actionButtonsContainer').style.display = 'none';
 
-    // 4. Sound Effect
-    playCelebrationSound();
+    // Show the target overlay
+    if (elementToShow) {
+        if (elementToShow.id === 'poemContainer') {
+            // Show poem container with its fade effect
+            elementToShow.style.opacity = '1';
+            elementToShow.style.visibility = 'visible';
+        } else {
+            // Show other overlays by setting display
+            elementToShow.style.display = 'block';
+        }
+    }
+}
 
-    // (Removed the alert)
-    // alert("She said YES! ❤️🎉");
+function initiateLoveWonderland() {
+    if (wonderlandInitiated) return;
+    wonderlandInitiated = true;
+
+    document.getElementById('initialContent').style.display = 'none';
+    document.querySelector('.sparkle').style.display = 'block';
+    document.querySelector('.moon').style.display = 'block';
+    document.querySelector('h1').style.display = 'block';
+    document.querySelector('.floating-message').style.display = 'block';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+
+    // Start creating petals
+    createPetals();
+
+    // Start creating hearts on mouse/touch movement
+    document.addEventListener('mousemove', createHeartAtPosition);
+    document.addEventListener('touchmove', handleTouchMove);
+
+    // Start random hearts floating up
+    heartInterval = setInterval(createRandomHeart, 800);
+    
+    // Start showing random messages from floating hearts
+    randomHeartInterval = setInterval(createMessageHeart, 3000);
+    
+    // Start creating gifts
+    giftInterval = setInterval(createGift, 10000);
+
+    // Try to play music (with error handling)
+    const music = document.getElementById('bg-music');
+    music.volume = 0.3;
+    music.play().catch(e => console.log("Audio play prevented:", e));
+}
+
+function createPetals() {
+    const petals = ['🌸', '🌹', '🍂', '💮'];
+    petalInterval = setInterval(() => {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+        petal.style.left = Math.random() * window.innerWidth + 'px';
+        petal.style.animationDuration = (10 + Math.random() * 10) + 's';
+        document.body.appendChild(petal);
+        setTimeout(() => petal.remove(), 15000);
+    }, 300);
+}
+
+function createHeartAtPosition(e) {
+    if (nameConstellationModeActive) return; // Don't create hearts in constellation view
+    createHeart(e.clientX, e.clientY, false);
+}
+
+function handleTouchMove(e) {
+    if (nameConstellationModeActive) return; // Don't create hearts in constellation view
+    e.preventDefault();
+    for (let touch of e.touches) {
+        createHeart(touch.clientX, touch.clientY, false);
+    }
+}
+
+function createRandomHeart() {
+    const x = Math.random() * window.innerWidth;
+    const y = window.innerHeight + 20;
+    createHeart(x, y, true);
+}
+
+function createMessageHeart() {
+    const x = Math.random() * window.innerWidth;
+    const y = window.innerHeight + 20;
+    const heart = createHeart(x, y, true);
+    
+    // Show message after a delay when heart is halfway up
+    setTimeout(() => {
+        if (Math.random() < 0.7) { // 70% chance to show message
+            showLoveMessage(x, window.innerHeight / 2);
+        }
+    }, 3000);
+}
+
+function showLoveMessage(x, y, customMessage) {
+    const message = customMessage || loveMessages[Math.floor(Math.random() * loveMessages.length)];
+    const msgElem = document.createElement('div');
+    msgElem.className = 'message';
+    msgElem.textContent = message;
+    msgElem.style.left = `${x}px`;
+    msgElem.style.top = `${y}px`;
+    document.body.appendChild(msgElem);
+    
+    // Auto-remove after animation
+    setTimeout(() => {
+        if (msgElem.parentNode) {
+            msgElem.parentNode.removeChild(msgElem);
+        }
+    }, 2500);
+}
+
+function createHeart(x, y, isRandom = false) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.style.left = `${x}px`;
+    heart.style.top = `${y}px`;
+    document.body.appendChild(heart);
+
+    // Make hearts clickable to show messages
+    heart.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showLoveMessage(x, y);
+    });
+
+    // Auto-remove after animation
+    setTimeout(() => {
+        if (heart.parentNode) {
+            heart.parentNode.removeChild(heart);
+        }
+    }, 6000);
+
+    return heart;
+}
+
+function createGift() {
+    const gifts = ['💍', '💌', '🌹'];
+    const gift = document.createElement('div');
+    gift.className = 'gift';
+    gift.textContent = gifts[Math.floor(Math.random() * gifts.length)];
+    gift.style.left = `${Math.random() * window.innerWidth}px`;
+    gift.style.top = `${window.innerHeight}px`;
+    document.body.appendChild(gift);
+    
+    // Make gifts clickable to show messages
+    gift.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showLoveMessage(parseInt(gift.style.left), parseInt(gift.style.top));
+    });
+
+    // Auto-remove after animation
+    setTimeout(() => {
+        if (gift.parentNode) {
+            gift.parentNode.removeChild(gift);
+        }
+    }, 8000);
+}
+
+function moonSurprise() {
+    const flash = document.createElement('div');
+    flash.className = 'flash';
+    document.body.appendChild(flash);
+    setTimeout(() => flash.remove(), 1000);
+    // Show the name constellation view
+    showNameConstellation();
+}
+
+function showProposal() {
+    proposalVisible = true;
+    document.getElementById('proposalContainer').style.opacity = '1';
+    document.getElementById('proposalContainer').style.visibility = 'visible';
+    initiateLoveWonderland();
+}
+
+function toggleMusic() {
+    const music = document.getElementById('bg-music');
+    if (music.paused) {
+        music.play().catch(e => console.log("Audio play failed:", e));
+    } else {
+        music.pause();
+    }
+}
+
+function acceptProposal() {
+// Clear background animation intervals to prevent memory leaks
+clearInterval(heartInterval);
+clearInterval(giftInterval);
+clearInterval(randomHeartInterval);
+clearInterval(petalInterval);
+
+document.getElementById('proposalContainer').style.display = 'none';
+
+// Create voice message heart (as before)
+createVoiceHeart();
+
+// --- Celebration Animation ---
+
+// 1. Fireworks
+createFireworks(20); // Reduced for better performance
+
+// 2. Heart Shower (more intense)
+for (let i = 0; i < 50; i++) { // Increased number of hearts
+    setTimeout(() => {
+        createRandomHeart();
+    }, i * 100); // Faster heart generation
+}
+
+// 3. Congratulatory Message
+showCelebrationMessage("She said YES! ❤️🎉");
+
+// 4. Sound Effect
+playCelebrationSound();
+
+// (Removed the alert)
+// alert("She said YES! ❤️🎉");
 }
 
 // --- Helper Functions ---
 
 function createFireworks(numFireworks) {
-    for (let i = 0; i < numFireworks; i++) {
-        setTimeout(() => {
-            createFirework();
-        }, i * 150); // Increased stagger for smoother performance
-    }
+for (let i = 0; i < numFireworks; i++) {
+    setTimeout(() => {
+        createFirework();
+    }, i * 150); // Increased stagger for smoother performance
+}
 }
 
 function createFirework() {
-    const firework = document.createElement('div');
-    firework.className = 'firework';
-    firework.style.left = Math.random() * window.innerWidth + 'px';
-    firework.style.top = Math.random() * window.innerHeight + 'px';
-    document.body.appendChild(firework);
+const firework = document.createElement('div');
+firework.className = 'firework';
+firework.style.left = Math.random() * window.innerWidth + 'px';
+firework.style.top = Math.random() * window.innerHeight + 'px';
+document.body.appendChild(firework);
 
-    // Create particles for the firework
-    for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'firework-particle';
-        particle.style.backgroundColor = getRandomColor();
-        firework.appendChild(particle);
+// Create particles for the firework
+for (let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'firework-particle';
+    particle.style.backgroundColor = getRandomColor();
+    firework.appendChild(particle);
 
-        // Apply animation with random direction and speed
-        const angle = Math.random() * 360;
-        const distance = Math.random() * 100 + 50; // Distance particles travel
-        const speed = Math.random() * 1 + 0.5; // Speed of particles
+    // Apply animation with random direction and speed
+    const angle = Math.random() * 360;
+    const distance = Math.random() * 100 + 50; // Distance particles travel
+    const speed = Math.random() * 1 + 0.5; // Speed of particles
 
-        particle.style.animation = `fireworkExplode ${speed}s ease-out forwards`;
-        particle.style.transform = `rotate(${angle}deg) translate(${distance}px) rotate(-${angle}deg)`;
-    }
-
-    // Remove firework after animation
-    setTimeout(() => {
-        firework.remove();
-    }, 1500); // Increased to match the maximum possible particle animation duration
+    particle.style.animation = `fireworkExplode ${speed}s ease-out forwards`;
+    particle.style.transform = `rotate(${angle}deg) translate(${distance}px) rotate(-${angle}deg)`;
 }
 
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
+// Remove firework after animation
+setTimeout(() => {
+    firework.remove();
+}, 1500); // Increased to match the maximum possible particle animation duration
+}
 
-        function showCelebrationMessage(message) {
-            const msgElem = document.createElement('div');
-            msgElem.className = 'celebration-message';
-            msgElem.textContent = message;
-            document.body.appendChild(msgElem);
-        
-            // Remove message after a delay
-            setTimeout(() => {
-                msgElem.remove();
-            }, 3000);
-        }
-
-        function playCelebrationSound() {
-            const sound = new Audio('celebration.mp3'); // Replace with your sound file
-            sound.play().catch(e => console.error("Celebration sound failed:", e));
-        }
-
-
-        function createVoiceHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '💌'; // Love letter emoji
-            heart.style.position = 'fixed';
-            heart.style.fontSize = '2em';
-            heart.style.cursor = 'pointer';
-            heart.style.left = '50%';
-            heart.style.top = '30%';
-            heart.style.transform = 'translateX(-50%)';
-            heart.style.zIndex = '1001';
-            heart.onclick = () => {
-                document.getElementById('voice-message').play();
-                heart.innerHTML = 'I LOVE YOU!';
-                setTimeout(() => heart.remove(), 2000);
-            };
-            document.body.appendChild(heart);
-        }
-
-    // Define your poems as an array of objects
-    const poems = [
-    {
-        title: "A Love Poem for Radwa",
-        text: [
-            "In fields of dreams, where love takes flight,",
-            "You shine, my Radwa, a radiant light.",
-            "Your eyes, like stars, in twilight's grace,",
-            "A gentle smile upon your face.",
-            "Your laughter echoes, a sweet refrain,",
-            "Easing my heart from every pain.",
-            "With every beat, my love grows strong,",
-            "In your embrace, is where I belong.",
-            "Through passing time, my love will be,",
-            "Forever bound to you, eternally."
-        ]
-    },
-    {
-        title: "My Dearest Radwa",
-        text: [
-            "Your love's a flame, forever bright,",
-            "Guiding me through the darkest night.",
-            "Your smile, a sunrise, warm and true,",
-            "My heart beats only, love, for you.",
-            "Through laughter shared and tears we've cried,",
-            "Our bond unbreakable, side by side.",
-            "With every passing day, I find,",
-            "My love for you, of a special kind.",
-            "Forever yours, my soulmate dear,",
-            "With you, my future's crystal clear."
-        ]
-    },
-    {
-        title: "Radwa, My Guiding Star",
-        text: [
-            "Like a star, you light my way,",
-            "Chasing shadows far away.",
-            "In your eyes, a universe I see,",
-            "My Radwa, you're everything to me.",
-            "Through stormy weather, you're my peace,",
-            "My love for you will never cease.",
-            "With every breath, I whisper low,",
-            "My heart's devotion starts to grow.",
-            "Forever bound, our souls entwined,",
-            "A love like ours, so hard to find."
-        ]
-    },
-    {
-        title: "To Radwa, My Heart's Desire",
-        text: [
-            "You paint my world in colors bright,",
-            "Filling my days with pure delight.",
-            "Your touch, a spark, ignites my soul,",
-            "Making me happy, making me whole.",
-            "With you, each moment's a sweet embrace,",
-            "A love that time cannot erase.",
-            "My Radwa, you're my dream come true,",
-            "My love, my life, I give to you.",
-            "Eternally, my heart will stay,",
-            "Forever yours, come what may."
-        ]
-    },
-    {
-        title: "Radwa's Embrace",
-        text: [
-            "In Radwa's embrace, I find my peace,",
-            "A love so deep, it will never cease.",
-            "Her laughter rings, a melody sweet,",
-            "A rhythm that makes my heart complete.",
-            "Her eyes, like pools, reflect the sky,",
-            "A love so vast, it makes me fly.",
-            "With every touch, a gentle spark,",
-            "Igniting flames within the dark.",
-            "My Radwa, my love, my guiding light,",
-            "Forever with you, my future's bright."
-        ]
-    },
-    {
-        title: "A Symphony of Love",
-        text: [
-            "Our love's a symphony, a sweet refrain,",
-            "A melody that washes away the pain.",
-            "Each note a moment, precious and true,",
-            "A testament to me and you.",
-            "Your voice, a harmony, soft and clear,",
-            "Whispering words I long to hear.",
-            "Our hearts in rhythm, a perfect beat,",
-            "A love so strong, it can't be beat.",
-            "Forever playing, this song of ours,",
-            "A love that blooms like fragrant flowers."
-        ]
-    },
-    {
-        title: "Radwa, My Everything",
-        text: [
-            "You are the sun that warms my day,",
-            "The moon that guides me on my way.",
-            "The stars that twinkle in the night,",
-            "My Radwa, you're my guiding light.",
-            "The air I breathe, the ground I tread,",
-            "The thoughts that linger in my head.",
-            "My everything, my heart's desire,",
-            "A love that sets my soul on fire.",
-            "Forever grateful, for all you are,",
-            "My shining star, both near and far."
-        ]
-    },
-    {
-        title: "A Love Unending",
-        text: [
-            "Like the ocean's waves, our love expands,",
-            "Reaching shores of distant lands.",
-            "A love unending, vast and deep,",
-            "Secrets our hearts forever keep.",
-            "Through changing tides and stormy seas,",
-            "Our love remains, a gentle breeze.",
-            "A beacon bright, in darkest night,",
-            "Guiding us towards the morning light.",
-            "Forever bound, our souls entwined,",
-            "A love like ours, so hard to find."
-        ]
-    },
-    {
-        title: "Radwa's Magic",
-        text: [
-            "In Radwa's eyes, a magic lies,",
-            "A spell that captivates and mesmerizes.",
-            "Her touch, a whisper, soft and light,",
-            "Chasing away the darkest night.",
-            "Her smile, a potion, sweet and rare,",
-            "Healing wounds and banishing care.",
-            "A love so potent, strong and true,",
-            "My heart enchanted, forever with you.",
-            "Forever under Radwa's spell,",
-            "A love story, I'll always tell."
-        ]
-    },
-    {
-        title: "To My Beloved Radwa",
-        text: [
-            "My beloved Radwa, my heart's delight,",
-            "You fill my world with colors bright.",
-            "Your laughter dances, a joyful sound,",
-            "The sweetest music can be found.",
-            "Your presence, a gift, a treasure rare,",
-            "A love beyond compare.",
-            "With every glance, my spirit soars,",
-            "To heights unknown, to distant shores.",
-            "Forever yours, my love, my life,",
-            "My cherished Radwa, my faithful wife."
-        ]
-    },
-    {
-        title: "Our Future's Tapestry",
-        text: [
-            "I see a future, woven bright,",
-            "With threads of laughter, pure and light.",
-            "Each strand a day, with you, my dear,",
-            "Dispelling every doubt and fear.",
-            "A tapestry of moments, bold and new,",
-            "A lifetime spent, in love with you.",
-            "From morning's sun to evening's grace,",
-            "Our love's the pattern time can't erase."
-        ]
-    },
-    {
-        title: "The Quiet Moments",
-        text: [
-            "It's not the grand, the loud, the bold,",
-            "But quiet stories, softly told.",
-            "A knowing glance, a gentle hand,",
-            "A language only we understand.",
-            "The peaceful silence, side-by-side,",
-            "Where all our deepest feelings hide.",
-            "In these small moments, love is vast,",
-            "A quiet magic, built to last."
-        ]
-    },
-    {
-        title: "Your Inner Light",
-        text: [
-            "Some loves are drawn to fleeting grace,",
-            "A pretty smile, a lovely face.",
-            "But I was captured, from the start,",
-            "By the stunning beauty of your heart.",
-            "Your kindness shines, a radiant gleam,",
-            "Fulfilling my most cherished dream.",
-            "It is your soul, so pure and true,",
-            "That makes me fall in love with you."
-        ]
-    },
-    {
-        title: "My Compass, My North",
-        text: [
-            "When I am lost, and skies are grey,",
-            "You are the compass showing me the way.",
-            "You are the anchor in the storm,",
-            "You are the fire that keeps me warm.",
-            "My constant star, my truest guide,",
-            "With you, I have nothing left to hide.",
-            "My destination, journey's end,",
-            "My love, my home, my dearest friend."
-        ]
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
     }
+    return color;
+}
+
+function showCelebrationMessage(message) {
+    const msgElem = document.createElement('div');
+    msgElem.className = 'celebration-message';
+    msgElem.textContent = message;
+    document.body.appendChild(msgElem);
+
+    // Remove message after a delay
+    setTimeout(() => {
+        msgElem.remove();
+    }, 3000);
+}
+
+function playCelebrationSound() {
+    const sound = new Audio('celebration.mp3'); // Replace with your sound file
+    sound.play().catch(e => console.error("Celebration sound failed:", e));
+}
+
+
+function createVoiceHeart() {
+    const heart = document.createElement('div');
+    heart.innerHTML = '💌'; // Love letter emoji
+    heart.style.position = 'fixed';
+    heart.style.fontSize = '2em';
+    heart.style.cursor = 'pointer';
+    heart.style.left = '50%';
+    heart.style.top = '30%';
+    heart.style.transform = 'translateX(-50%)';
+    heart.style.zIndex = '1001';
+    heart.onclick = () => {
+        document.getElementById('voice-message').play();
+        heart.innerHTML = 'I LOVE YOU!';
+        setTimeout(() => heart.remove(), 2000);
+    };
+    document.body.appendChild(heart);
+}
+
+// Define your poems as an array of objects
+const poems = [
+{
+    title: "A Love Poem for Radwa",
+    text: [
+        "In fields of dreams, where love takes flight,",
+        "You shine, my Radwa, a radiant light.",
+        "Your eyes, like stars, in twilight's grace,",
+        "A gentle smile upon your face.",
+        "Your laughter echoes, a sweet refrain,",
+        "Easing my heart from every pain.",
+        "With every beat, my love grows strong,",
+        "In your embrace, is where I belong.",
+        "Through passing time, my love will be,",
+        "Forever bound to you, eternally."
+    ]
+},
+{
+    title: "My Dearest Radwa",
+    text: [
+        "Your love's a flame, forever bright,",
+        "Guiding me through the darkest night.",
+        "Your smile, a sunrise, warm and true,",
+        "My heart beats only, love, for you.",
+        "Through laughter shared and tears we've cried,",
+        "Our bond unbreakable, side by side.",
+        "With every passing day, I find,",
+        "My love for you, of a special kind.",
+        "Forever yours, my soulmate dear,",
+        "With you, my future's crystal clear."
+    ]
+},
+{
+    title: "Radwa, My Guiding Star",
+    text: [
+        "Like a star, you light my way,",
+        "Chasing shadows far away.",
+        "In your eyes, a universe I see,",
+        "My Radwa, you're everything to me.",
+        "Through stormy weather, you're my peace,",
+        "My love for you will never cease.",
+        "With every breath, I whisper low,",
+        "My heart's devotion starts to grow.",
+        "Forever bound, our souls entwined,",
+        "A love like ours, so hard to find."
+    ]
+},
+{
+    title: "To Radwa, My Heart's Desire",
+    text: [
+        "You paint my world in colors bright,",
+        "Filling my days with pure delight.",
+        "Your touch, a spark, ignites my soul,",
+        "Making me happy, making me whole.",
+        "With you, each moment's a sweet embrace,",
+        "A love that time cannot erase.",
+        "My Radwa, you're my dream come true,",
+        "My love, my life, I give to you.",
+        "Eternally, my heart will stay,",
+        "Forever yours, come what may."
+    ]
+},
+{
+    title: "Radwa's Embrace",
+    text: [
+        "In Radwa's embrace, I find my peace,",
+        "A love so deep, it will never cease.",
+        "Her laughter rings, a melody sweet,",
+        "A rhythm that makes my heart complete.",
+        "Her eyes, like pools, reflect the sky,",
+        "A love so vast, it makes me fly.",
+        "With every touch, a gentle spark,",
+        "Igniting flames within the dark.",
+        "My Radwa, my love, my guiding light,",
+        "Forever with you, my future's bright."
+    ]
+},
+{
+    title: "A Symphony of Love",
+    text: [
+        "Our love's a symphony, a sweet refrain,",
+        "A melody that washes away the pain.",
+        "Each note a moment, precious and true,",
+        "A testament to me and you.",
+        "Your voice, a harmony, soft and clear,",
+        "Whispering words I long to hear.",
+        "Our hearts in rhythm, a perfect beat,",
+        "A love so strong, it can't be beat.",
+        "Forever playing, this song of ours,",
+        "A love that blooms like fragrant flowers."
+    ]
+},
+{
+    title: "Radwa, My Everything",
+    text: [
+        "You are the sun that warms my day,",
+        "The moon that guides me on my way.",
+        "The stars that twinkle in the night,",
+        "My Radwa, you're my guiding light.",
+        "The air I breathe, the ground I tread,",
+        "The thoughts that linger in my head.",
+        "My everything, my heart's desire,",
+        "A love that sets my soul on fire.",
+        "Forever grateful, for all you are,",
+        "My shining star, both near and far."
+    ]
+},
+{
+    title: "A Love Unending",
+    text: [
+        "Like the ocean's waves, our love expands,",
+        "Reaching shores of distant lands.",
+        "A love unending, vast and deep,",
+        "Secrets our hearts forever keep.",
+        "Through changing tides and stormy seas,",
+        "Our love remains, a gentle breeze.",
+        "A beacon bright, in darkest night,",
+        "Guiding us towards the morning light.",
+        "Forever bound, our souls entwined,",
+        "A love like ours, so hard to find."
+    ]
+},
+{
+    title: "Radwa's Magic",
+    text: [
+        "In Radwa's eyes, a magic lies,",
+        "A spell that captivates and mesmerizes.",
+        "Her touch, a whisper, soft and light,",
+        "Chasing away the darkest night.",
+        "Her smile, a potion, sweet and rare,",
+        "Healing wounds and banishing care.",
+        "A love so potent, strong and true,",
+        "My heart enchanted, forever with you.",
+        "Forever under Radwa's spell,",
+        "A love story, I'll always tell."
+    ]
+},
+{
+    title: "To My Beloved Radwa",
+    text: [
+        "My beloved Radwa, my heart's delight,",
+        "You fill my world with colors bright.",
+        "Your laughter dances, a joyful sound,",
+        "The sweetest music can be found.",
+        "Your presence, a gift, a treasure rare,",
+        "A love beyond compare.",
+        "With every glance, my spirit soars,",
+        "To heights unknown, to distant shores.",
+        "Forever yours, my love, my life,",
+        "My cherished Radwa, my faithful wife."
+    ]
+},
+{
+    title: "Our Future's Tapestry",
+    text: [
+        "I see a future, woven bright,",
+        "With threads of laughter, pure and light.",
+        "Each strand a day, with you, my dear,",
+        "Dispelling every doubt and fear.",
+        "A tapestry of moments, bold and new,",
+        "A lifetime spent, in love with you.",
+        "From morning's sun to evening's grace,",
+        "Our love's the pattern time can't erase."
+    ]
+},
+{
+    title: "The Quiet Moments",
+    text: [
+        "It's not the grand, the loud, the bold,",
+        "But quiet stories, softly told.",
+        "A knowing glance, a gentle hand,",
+        "A language only we understand.",
+        "The peaceful silence, side-by-side,",
+        "Where all our deepest feelings hide.",
+        "In these small moments, love is vast,",
+        "A quiet magic, built to last."
+    ]
+},
+{
+    title: "Your Inner Light",
+    text: [
+        "Some loves are drawn to fleeting grace,",
+        "A pretty smile, a lovely face.",
+        "But I was captured, from the start,",
+        "By the stunning beauty of your heart.",
+        "Your kindness shines, a radiant gleam,",
+        "Fulfilling my most cherished dream.",
+        "It is your soul, so pure and true,",
+        "That makes me fall in love with you."
+    ]
+},
+{
+    title: "My Compass, My North",
+    text: [
+        "When I am lost, and skies are grey,",
+        "You are the compass showing me the way.",
+        "You are the anchor in the storm,",
+        "You are the fire that keeps me warm.",
+        "My constant star, my truest guide,",
+        "With you, I have nothing left to hide.",
+        "My destination, journey's end,",
+        "My love, my home, my dearest friend."
+    ]
+}
 ];
 
-    function showPoem() {
-    const poemContainer = document.getElementById('poemContainer');
-    const poemContent = poemContainer.querySelector('.poem-content');
+function showPoem() {
+const poemContainer = document.getElementById('poemContainer');
+const poemContent = poemContainer.querySelector('.poem-content');
 
-    // Select a random poem
-    const randomIndex = Math.floor(Math.random() * poems.length);
-    const selectedPoem = poems[randomIndex];
+// Select a random poem
+const randomIndex = Math.floor(Math.random() * poems.length);
+const selectedPoem = poems[randomIndex];
 
-    // Replace the entire content, including the title
-    poemContent.innerHTML = `<p class="poem-title">${selectedPoem.title}</p>${selectedPoem.text.map(line => `<p>${line}</p>`).join('')}`;
+// Replace the entire content, including the title
+poemContent.innerHTML = `<p class="poem-title">${selectedPoem.title}</p>${selectedPoem.text.map(line => `<p>${line}</p>`).join('')}`;
 
-    showOverlay(poemContainer);
+showOverlay(poemContainer);
 }
 
 
-    function hidePoem() {
-        const poemContainer = document.getElementById('poemContainer');
-        poemContainer.style.opacity = '0';
-        poemContainer.style.visibility = 'hidden';
-        document.getElementById('actionButtonsContainer').style.display = 'flex';
-    }
+function hidePoem() {
+    const poemContainer = document.getElementById('poemContainer');
+    poemContainer.style.opacity = '0';
+    poemContainer.style.visibility = 'hidden';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
 
-    function showLoveReasons() {
-        document.getElementById('actionButtonsContainer').style.display = 'none';
-        const closeButton = document.getElementById('closeReasonsButton');
-        closeButton.style.display = 'block';
-        closeButton.onclick = hideLoveReasons; // Assign correct hide function
+function showLoveReasons() {
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+    const closeButton = document.getElementById('closeReasonsButton');
+    closeButton.style.display = 'block';
+    closeButton.onclick = hideLoveReasons; // Assign correct hide function
 
-        // Start showering reasons across the screen
-        reasonShowerInterval = setInterval(createFloatingReason, 700); // A new reason appears every 0.7s
-    }
+    // Start showering reasons across the screen
+    reasonShowerInterval = setInterval(createFloatingReason, 700); // A new reason appears every 0.7s
+}
 
-    function createFloatingReason() {
-        const reason = loveReasons[Math.floor(Math.random() * loveReasons.length)];
-        const msgElem = document.createElement('div');
-        msgElem.className = 'love-reason-message'; // Use the new class
-        msgElem.textContent = reason;
+function createFloatingReason() {
+    const reason = loveReasons[Math.floor(Math.random() * loveReasons.length)];
+    const msgElem = document.createElement('div');
+    msgElem.className = 'love-reason-message'; // Use the new class
+    msgElem.textContent = reason;
 
-        // Random horizontal start position and animation properties
-        msgElem.style.left = `${Math.random() * 90}vw`;
-        msgElem.style.setProperty('--sway', Math.random() * 2 - 1);
-        msgElem.style.animationDuration = `${10 + Math.random() * 5}s`;
+    // Random horizontal start position and animation properties
+    msgElem.style.left = `${Math.random() * 90}vw`;
+    msgElem.style.setProperty('--sway', Math.random() * 2 - 1);
+    msgElem.style.animationDuration = `${10 + Math.random() * 5}s`;
 
-        document.body.appendChild(msgElem);
+    document.body.appendChild(msgElem);
 
-        // Auto-remove after animation to prevent buildup
-        setTimeout(() => {
-            msgElem.remove();
-        }, 15000);
-    }
+    // Auto-remove after animation to prevent buildup
+    setTimeout(() => {
+        msgElem.remove();
+    }, 15000);
+}
 
-    function showNameConstellation() {
-        nameConstellationModeActive = true;
-        document.body.classList.add('starry-night-active');
-        
-        // Ensure night mode is on for the effect
-        if (document.body.classList.contains("day-mode")) {
-            document.body.classList.remove("day-mode");
-            document.body.classList.add("night-mode");
-            document.getElementById("dayNightSwitch").innerHTML = "🌙 Night";
-        }
-
-        document.getElementById('actionButtonsContainer').style.display = 'none';
-        const closeButton = document.getElementById('closeReasonsButton');
-        closeButton.style.display = 'block';
-        closeButton.onclick = hideNameConstellation; // Assign correct hide function
-
-        document.getElementById('star-canvas').style.pointerEvents = 'auto';
-        
-        const instructions = document.getElementById('constellationInstructions');
-        // Update instructions for this specific view
-        instructions.textContent = "Hover over the stars of her name to see a secret message.";
-        instructions.style.display = 'block';
-    }
-
-          function showGallery() {
-    const gallery = document.querySelector('.photo-gallery');
-    const grid = document.querySelector('.photo-grid');
-    showOverlay(gallery);
-    // Clear previous photos
-    grid.innerHTML = '';
+function showNameConstellation() {
+    nameConstellationModeActive = true;
+    document.body.classList.add('starry-night-active');
     
-    // Add photos to gallery
-    galleryPhotos.forEach((photo, index) => {
-        const item = document.createElement('div');
-        item.className = 'photo-item';
-        
-        const img = new Image();
-        img.src = `photos/${photo}`;
-        img.alt = `Our memory ${index + 1}`;
-        img.onerror = function() {
-            this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23ff4d88"><rect width="100" height="100"/><text x="50" y="50" font-size="8" fill="white" text-anchor="middle" dominant-baseline="middle">Photo ${index+1}</text></svg>';
-        };
-        
-        item.appendChild(img);
-        grid.appendChild(item);
-    });
+    // Ensure night mode is on for the effect
+    if (document.body.classList.contains("day-mode")) {
+        document.body.classList.remove("day-mode");
+        document.body.classList.add("night-mode");
+        document.getElementById("dayNightSwitch").innerHTML = "🌙 Night";
+    }
+
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+    const closeButton = document.getElementById('closeReasonsButton');
+    closeButton.style.display = 'block';
+    closeButton.onclick = hideNameConstellation; // Assign correct hide function
+
+    document.getElementById('star-canvas').style.pointerEvents = 'auto';
+    
+    const instructions = document.getElementById('constellationInstructions');
+    // Update instructions for this specific view
+    instructions.textContent = "Hover over the stars of her name to see a secret message.";
+    instructions.style.display = 'block';
+}
+
+function showGallery() {
+const gallery = document.querySelector('.photo-gallery');
+const grid = document.querySelector('.photo-grid');
+showOverlay(gallery);
+// Clear previous photos
+grid.innerHTML = '';
+
+// Add photos to gallery
+galleryPhotos.forEach((photo, index) => {
+    const item = document.createElement('div');
+    item.className = 'photo-item';
+    
+    const img = new Image();
+    img.src = `photos/${photo}`;
+    img.alt = `Our memory ${index + 1}`;
+    img.onerror = function() {
+        this.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23ff4d88"><rect width="100" height="100"/><text x="50" y="50" font-size="8" fill="white" text-anchor="middle" dominant-baseline="middle">Photo ${index+1}</text></svg>';
+    };
+    
+    item.appendChild(img);
+    grid.appendChild(item);
+});
 }
 
 function hideGallery() {
     document.querySelector('.photo-gallery').style.display = 'none';
     document.getElementById('actionButtonsContainer').style.display = 'flex';
 }
+  
+
+function showTimeline() {
+    const timelineContainer = document.querySelector('.timeline-container');
+    const timeline = document.querySelector('.timeline');
     
-          
+    // Clear previous timeline items
+    timeline.innerHTML = '';
 
-        function showTimeline() {
-            const timelineContainer = document.querySelector('.timeline-container');
-            const timeline = document.querySelector('.timeline');
-            
-            // Clear previous timeline items
-            timeline.innerHTML = '';
-
-            showOverlay(timelineContainer);
-            
-            // Add events to timeline
-            timelineEvents.forEach(event => {
-                const item = document.createElement('div');
-                item.className = `timeline-item ${event.side}`;
-                
-                const content = document.createElement('div');
-                content.className = 'timeline-content';
-                content.innerHTML = `
-                    <div class="timeline-date">${event.date}</div>
-                    <h3>${event.title}</h3>
-                    <p class="timeline-text">${event.description}</p>
-                `;
-                
-                // Add photo if available
-                if (event.photo) {
-                    // Added alt text for accessibility and an onerror handler for robustness
-                    const imgHTML = `<img src="timeline-photos/${event.photo}" class="timeline-photo" alt="${event.title}" onerror="this.style.display='none'; this.onerror=null;">`;
-                    content.innerHTML += imgHTML;
-                }
-                
-                item.appendChild(content);
-                timeline.appendChild(item);
-            });
+    showOverlay(timelineContainer);
+    
+    // Add events to timeline
+    timelineEvents.forEach(event => {
+        const item = document.createElement('div');
+        item.className = `timeline-item ${event.side}`;
+        
+        const content = document.createElement('div');
+        content.className = 'timeline-content';
+        content.innerHTML = `
+            <div class="timeline-date">${event.date}</div>
+            <h3>${event.title}</h3>
+            <p class="timeline-text">${event.description}</p>
+        `;
+        
+        // Add photo if available
+        if (event.photo) {
+            // Added alt text for accessibility and an onerror handler for robustness
+            const imgHTML = `<img src="timeline-photos/${event.photo}" class="timeline-photo" alt="${event.title}" onerror="this.style.display='none'; this.onerror=null;">`;
+            content.innerHTML += imgHTML;
         }
+        
+        item.appendChild(content);
+        timeline.appendChild(item);
+    });
+}
 
-        function hideTimeline() {
-            document.querySelector('.timeline-container').style.display = 'none';
-            document.getElementById('actionButtonsContainer').style.display = 'flex';
+function hideTimeline() {
+    document.querySelector('.timeline-container').style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
+
+function sendKiss() {
+    const kiss = document.createElement('div');
+    kiss.textContent = '💋';
+    kiss.style.position = 'fixed';
+    kiss.style.fontSize = '2em';
+    kiss.style.left = Math.random() * window.innerWidth + 'px';
+    kiss.style.top = Math.random() * window.innerHeight + 'px';
+    kiss.style.animation = 'fadeOut 2s forwards';
+    document.body.appendChild(kiss);
+    setTimeout(() => kiss.remove(), 2000);
+}
+
+const loveLetters = [
+    "My Dearest Radwa,\n\nEvery day with you feels like a page from a beautiful story. A story I never want to end. You are the melody my heart sings, the light that guides me, and the home my soul has always searched for. I love you more than words can ever capture.\n\nForever Yours,\nAhmed Rafique",
+    "My Love, My Looza,\n\nSometimes I try to find the words to describe the feeling I get when I see you smile, but I always fall short. It's a mix of pure joy, deep peace, and an overwhelming sense of 'rightness'. Being with you feels like coming home. Thank you for being my everything.\n\nWith all my love,\nAhmed Rafique",
+    "To My Soulmate, My Looza,\n\nDid you know that before I met you, my world was in black and white? You came into my life and painted it with the most vibrant colors. You brought laughter, adventure, and a love so profound it reshaped my entire existence. I am eternally grateful for you.\n\nYours always,\nAhmed Rafique",
+    "My Darling Radwa,\n\nI often find myself just thinking about you, replaying our conversations, remembering the look in your eyes. These are the moments that I treasure most. You are more than just my love; you are my greatest adventure and my safest harbor. I can't wait to see what the next chapter of our story holds.\n\nAll my heart,\nAhmed Rafique"
+];
+
+function showLoveLetter() {
+    const letterContainer = document.querySelector('.love-letter-container');
+    const letterContent = document.getElementById('letter-content');
+    
+    // Select a random letter from the array
+    const letterText = loveLetters[Math.floor(Math.random() * loveLetters.length)];
+    
+    letterContent.innerHTML = ''; // Clear previous text
+    showOverlay(letterContainer);
+    letterContainer.style.display = 'flex'; // Use flex to center the letter
+
+    let i = 0;
+    function typeWriter() {
+        if (i < letterText.length) {
+            // Replace newline characters with <br> tags
+            if (letterText.charAt(i) === '\n') {
+                letterContent.innerHTML += '<br>';
+            } else {
+                letterContent.innerHTML += letterText.charAt(i);
+            }
+            i++;
+            setTimeout(typeWriter, 50); // Adjust typing speed here
         }
+    }
+    typeWriter();
+}
 
-        function sendKiss() {
-            const kiss = document.createElement('div');
-            kiss.textContent = '💋';
-            kiss.style.position = 'fixed';
-            kiss.style.fontSize = '2em';
-            kiss.style.left = Math.random() * window.innerWidth + 'px';
-            kiss.style.top = Math.random() * window.innerHeight + 'px';
-            kiss.style.animation = 'fadeOut 2s forwards';
-            document.body.appendChild(kiss);
-            setTimeout(() => kiss.remove(), 2000);
-        }
+function hideLoveLetter() {
+    document.querySelector('.love-letter-container').style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
 
-        const loveLetters = [
-            "My Dearest Radwa,\n\nEvery day with you feels like a page from a beautiful story. A story I never want to end. You are the melody my heart sings, the light that guides me, and the home my soul has always searched for. I love you more than words can ever capture.\n\nForever Yours,\nAhmed Rafique",
-            "My Love, My Looza,\n\nSometimes I try to find the words to describe the feeling I get when I see you smile, but I always fall short. It's a mix of pure joy, deep peace, and an overwhelming sense of 'rightness'. Being with you feels like coming home. Thank you for being my everything.\n\nWith all my love,\nAhmed Rafique",
-            "To My Soulmate, My Looza,\n\nDid you know that before I met you, my world was in black and white? You came into my life and painted it with the most vibrant colors. You brought laughter, adventure, and a love so profound it reshaped my entire existence. I am eternally grateful for you.\n\nYours always,\nAhmed Rafique",
-            "My Darling Radwa,\n\nI often find myself just thinking about you, replaying our conversations, remembering the look in your eyes. These are the moments that I treasure most. You are more than just my love; you are my greatest adventure and my safest harbor. I can't wait to see what the next chapter of our story holds.\n\nAll my heart,\nAhmed Rafique"
-        ];
+function hideLoveReasons() {
+    // Stop the shower of reasons
+    clearInterval(reasonShowerInterval);
 
-        function showLoveLetter() {
-            const letterContainer = document.querySelector('.love-letter-container');
-            const letterContent = document.getElementById('letter-content');
-            
-            // Select a random letter from the array
-            const letterText = loveLetters[Math.floor(Math.random() * loveLetters.length)];
-            
-            letterContent.innerHTML = ''; // Clear previous text
-            showOverlay(letterContainer);
-            letterContainer.style.display = 'flex'; // Use flex to center the letter
+    // Clean up any remaining messages on screen
+    document.querySelectorAll('.love-reason-message').forEach(el => el.remove());
 
-            let i = 0;
-            function typeWriter() {
-                if (i < letterText.length) {
-                    // Replace newline characters with <br> tags
-                    if (letterText.charAt(i) === '\n') {
-                        letterContent.innerHTML += '<br>';
-                    } else {
-                        letterContent.innerHTML += letterText.charAt(i);
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+    document.getElementById('closeReasonsButton').style.display = 'none';
+}
+
+function hideNameConstellation() {
+    nameConstellationModeActive = false;
+    document.body.classList.remove('starry-night-active');
+    hoveredStar = null;
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+    document.getElementById('closeReasonsButton').style.display = 'none';
+    document.getElementById('star-canvas').style.pointerEvents = 'none';
+    document.getElementById('constellationInstructions').style.display = 'none';
+}
+
+function showMemoryGame() {
+    const gameContainer = document.querySelector('.memory-game-container');
+    const grid = document.querySelector('.memory-grid');
+    showOverlay(gameContainer);
+    grid.innerHTML = ''; // Clear previous game
+
+    // Use 8 photos for a 16-card game (4x4 grid)
+    // Ensure we don't try to slice more photos than available
+    const photoCount = Math.min(galleryPhotos.length, 8);
+    if (photoCount < 2) {
+        grid.innerHTML = "<p style='color:white; text-align:center;'>Not enough photos for a game!</p>";
+        return;
+    }
+    const shuffled = [...galleryPhotos].sort(() => 0.5 - Math.random());
+    const gamePhotos = shuffled.slice(0, photoCount);
+    const cardSet = [...gamePhotos, ...gamePhotos]; // Duplicate for pairs
+
+    // Shuffle the cards
+    cardSet.sort(() => 0.5 - Math.random());
+
+    let flippedCards = [];
+    let lockBoard = false;
+    let matchesFound = 0;
+
+    cardSet.forEach(photoName => {
+        const card = document.createElement('div');
+        card.className = 'memory-card';
+        card.dataset.photo = photoName;
+
+        card.innerHTML = `
+            <div class="card-face card-front">
+                <img src="photos/${photoName}" alt="Memory Photo">
+            </div>
+            <div class="card-face card-back">?</div>
+        `;
+        grid.appendChild(card);
+
+        card.addEventListener('click', () => {
+            if (lockBoard || card.classList.contains('flip') || card.classList.contains('matched')) return;
+
+            card.classList.add('flip');
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                lockBoard = true;
+                // Check for match
+                if (flippedCards[0].dataset.photo === flippedCards[1].dataset.photo) {
+                    // It's a match!
+                    flippedCards.forEach(c => c.classList.add('matched'));
+                    matchesFound++;
+                    flippedCards = [];
+                    lockBoard = false;
+
+                    if (matchesFound === photoCount) {
+                        setTimeout(() => showCelebrationMessage("You found all the memories! ❤️"), 500);
                     }
-                    i++;
-                    setTimeout(typeWriter, 50); // Adjust typing speed here
+                } else {
+                    // Not a match, flip back
+                    setTimeout(() => {
+                        flippedCards.forEach(c => c.classList.remove('flip'));
+                        flippedCards = [];
+                        lockBoard = false;
+                    }, 1200);
                 }
             }
-            typeWriter();
-        }
+        });
+    });
+}
 
-        function hideLoveLetter() {
-            document.querySelector('.love-letter-container').style.display = 'none';
-            document.getElementById('actionButtonsContainer').style.display = 'flex';
-        }
-
-        function hideLoveReasons() {
-            // Stop the shower of reasons
-            clearInterval(reasonShowerInterval);
-
-            // Clean up any remaining messages on screen
-            document.querySelectorAll('.love-reason-message').forEach(el => el.remove());
-
-            document.getElementById('actionButtonsContainer').style.display = 'flex';
-            document.getElementById('closeReasonsButton').style.display = 'none';
-        }
-
-        function hideNameConstellation() {
-            nameConstellationModeActive = false;
-            document.body.classList.remove('starry-night-active');
-            hoveredStar = null;
-            document.getElementById('actionButtonsContainer').style.display = 'flex';
-            document.getElementById('closeReasonsButton').style.display = 'none';
-            document.getElementById('star-canvas').style.pointerEvents = 'none';
-            document.getElementById('constellationInstructions').style.display = 'none';
-        }
-
-        function showMemoryGame() {
-            const gameContainer = document.querySelector('.memory-game-container');
-            const grid = document.querySelector('.memory-grid');
-            showOverlay(gameContainer);
-            grid.innerHTML = ''; // Clear previous game
-
-            // Use 8 photos for a 16-card game (4x4 grid)
-            // Ensure we don't try to slice more photos than available
-            const photoCount = Math.min(galleryPhotos.length, 8);
-            if (photoCount < 2) {
-                grid.innerHTML = "<p style='color:white; text-align:center;'>Not enough photos for a game!</p>";
-                return;
-            }
-            const shuffled = [...galleryPhotos].sort(() => 0.5 - Math.random());
-            const gamePhotos = shuffled.slice(0, photoCount);
-            const cardSet = [...gamePhotos, ...gamePhotos]; // Duplicate for pairs
-
-            // Shuffle the cards
-            cardSet.sort(() => 0.5 - Math.random());
-
-            let flippedCards = [];
-            let lockBoard = false;
-            let matchesFound = 0;
-
-            cardSet.forEach(photoName => {
-                const card = document.createElement('div');
-                card.className = 'memory-card';
-                card.dataset.photo = photoName;
-
-                card.innerHTML = `
-                    <div class="card-face card-front">
-                        <img src="photos/${photoName}" alt="Memory Photo">
-                    </div>
-                    <div class="card-face card-back">?</div>
-                `;
-                grid.appendChild(card);
-
-                card.addEventListener('click', () => {
-                    if (lockBoard || card.classList.contains('flip') || card.classList.contains('matched')) return;
-
-                    card.classList.add('flip');
-                    flippedCards.push(card);
-
-                    if (flippedCards.length === 2) {
-                        lockBoard = true;
-                        // Check for match
-                        if (flippedCards[0].dataset.photo === flippedCards[1].dataset.photo) {
-                            // It's a match!
-                            flippedCards.forEach(c => c.classList.add('matched'));
-                            matchesFound++;
-                            flippedCards = [];
-                            lockBoard = false;
-
-                            if (matchesFound === photoCount) {
-                                setTimeout(() => showCelebrationMessage("You found all the memories! ❤️"), 500);
-                            }
-                        } else {
-                            // Not a match, flip back
-                            setTimeout(() => {
-                                flippedCards.forEach(c => c.classList.remove('flip'));
-                                flippedCards = [];
-                                lockBoard = false;
-                            }, 1200);
-                        }
-                    }
-                });
-            });
-        }
-
-        function hideMemoryGame() {
-            document.querySelector('.memory-game-container').style.display = 'none';
-            document.getElementById('actionButtonsContainer').style.display = 'flex';
-        }
+function hideMemoryGame() {
+    document.querySelector('.memory-game-container').style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
 
 function initializeStarrySky() {
     const canvas = document.getElementById('star-canvas');
@@ -1587,7 +1587,33 @@ function getDailyLoveNote() {
 
 document.addEventListener("DOMContentLoaded", function() {
     initializeStarrySky();
+    
+    // This function robustly handles the initialization of the celestial map feature.
+    // It actively waits for the external library to be ready, preventing race conditions.
+    function initializeCelestialFeature() {
+        const celestialButton = document.getElementById('celestialButton');
+        if (!celestialButton) return;
 
+        let attempts = 0;
+        const maxAttempts = 50; // Try for 5 seconds (50 * 100ms)
+
+        const checkInterval = setInterval(() => {
+            // Check if the Celestial library is now available on the window object.
+            if (typeof Celestial !== 'undefined') {
+                clearInterval(checkInterval); // Stop checking.
+                celestialButton.disabled = false;
+                celestialButton.title = "See the stars on our special day";
+                celestialButton.addEventListener('click', showCelestialMap);
+            } else if (attempts++ > maxAttempts) {
+                clearInterval(checkInterval); // Stop trying.
+                celestialButton.title = "Star map is currently unavailable.";
+                console.error("Celestial library failed to load. The 'Our Night Sky' button has been disabled.");
+            }
+        }, 100); // Check every 100 milliseconds.
+    }
+
+    initializeCelestialFeature();
+    
     // Music button toggle
     const musicBtn = document.getElementById("musicButton");
     const bgMusic = document.getElementById("bg-music");
@@ -1724,39 +1750,39 @@ document.addEventListener('DOMContentLoaded', function() {
 let currentPuzzleSurprise = null;
 
 const puzzleSurprises = [
-    { 
-        type: 'message', 
+    {
+        type: 'message',
         title: '💌 A Secret Note',
-        content: "You've unlocked my heart... again! I love you more than all the stars in the sky." 
+        content: "You've unlocked my heart... again! I love you more than all the stars in the sky."
     },
-    { 
-        type: 'message', 
+    {
+        type: 'message',
         title: '🤫 My Biggest Secret',
-        content: "My biggest secret is that every day, I somehow manage to fall in love with you even more." 
+        content: "My biggest secret is that every day, I somehow manage to fall in love with you even more."
     },
-    { 
-        type: 'photo', 
+    {
+        type: 'photo',
         title: '📷 A Secret Memory',
         content: 'secret_photo.jpeg',
-        caption: "A secret smile, captured just for you." 
+        caption: "A secret smile, captured just for you."
     },
-    { 
-        type: 'voucher', 
+    {
+        type: 'voucher',
         title: '🎟️ Love Voucher',
-        content: 'One Uninterrupted Cuddle Session', 
-        emoji: '🤗' 
+        content: 'One Uninterrupted Cuddle Session',
+        emoji: '🤗'
     },
-    { 
-        type: 'voucher', 
+    {
+        type: 'voucher',
         title: '🎟️ Love Voucher',
-        content: 'One Movie Night (Your Pick!)', 
-        emoji: '🎬' 
+        content: 'One Movie Night (Your Pick!)',
+        emoji: '🎬'
     },
-    { 
-        type: 'riddle', 
+    {
+        type: 'riddle',
         title: '🤔 A Little Riddle',
-        question: "I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?", 
-        answer: "A Map! (And all my roads lead to you.)" 
+        question: "I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?",
+        answer: "A Map! (And all my roads lead to you.)"
     },
     {
         type: 'message',
@@ -2354,5 +2380,95 @@ function animatePortrait() {
 
     if (!allInPlace) {
         portraitAnimationId = requestAnimationFrame(animatePortrait);
+    }
+}
+
+function showCelestialMap() {
+    document.getElementById('celestialOverlay').style.display = 'flex';
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+    // Wait for the next animation frame to ensure the overlay is visible
+    // and has dimensions before we try to draw the map.
+    requestAnimationFrame(generateStarMap);
+}
+
+// Flag to check if the celestial map has been initialized
+let celestialMapInitialized = false;
+
+function hideCelestialMap() {
+    document.getElementById('celestialOverlay').style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+    // Clear the map content when hiding to free up resources.
+    const mapContainer = document.getElementById("celestial-map");
+    if (mapContainer) mapContainer.innerHTML = "";
+    celestialMapInitialized = false; // Reset the flag so the map is re-initialized next time
+}
+
+function generateStarMap() {
+    // The modern library creates an uppercase 'Celestial' object.
+    // This check is our safeguard.
+    if (typeof Celestial === 'undefined') {
+        console.error("Celestial library not loaded. Make sure celestial.min.js and its D3.js v3 dependencies are correct.");
+        alert("The Celestial library is missing or corrupt. The star map cannot be generated.");
+        return;
+    }
+
+    const dateValue = document.getElementById('specialDate').value;
+    // Correctly parse the date to avoid timezone issues.
+    // By adding 'T12:00:00Z', we specify midday UTC, which prevents the date from shifting
+    // due to the user's local timezone.
+    const date = dateValue ? new Date(dateValue + 'T12:00:00Z') : new Date();
+
+    // Base configuration is the same for both initial display and updates.
+    const config = {
+        width: 0, // Set to 0 for a full-width map that fills the container.
+        projection: "stereographic",
+        datapath: "data/", // Path to data files
+        date: date,
+        transform: "equatorial",
+        center: [31.2357, 30.0444], // [longitude, latitude] for Cairo, Egypt.
+        background: { fill: "#0a0f1b", stroke: "#ffb6d5", opacity: 1 },
+        stars: {
+            colors: true,
+            names: true,
+            style: { fill: "#ffffff", opacity: 1 },
+            limit: 6,
+            size: 5
+        },
+        constellations: {
+            names: true,
+            nameStyle: { fill: "#ffb6d5", align: "center", baseline: "middle", opacity: 0.8 },
+            lines: true,
+            lineStyle: { stroke: "#ffb6d5", width: 1, opacity: 0.6 }
+        },
+        mw: {
+            show: true, // Show the Milky Way band.
+            style: { fill: "#ffffff", opacity: 0.15 }
+        },
+        planets: { show: false },
+        horizon: { show: false },
+        daylight: { show: false }
+    };
+
+    if (celestialMapInitialized) {
+        // If map is already displayed, just apply the new config to update it
+        Celestial.apply(config);
+    } else {
+        // This is the first time, so we need to initialize the map
+        const mapContainer = document.getElementById("celestial-map");
+        if (!mapContainer) {
+            console.error("The '#celestial-map' container was not found.");
+            return;
+        }
+        if (mapContainer.clientHeight === 0) {
+            mapContainer.style.height = "100%";
+        }
+        config.container = "celestial-map"; // Add container ID for initialization
+        try {
+            Celestial.display(config);
+            celestialMapInitialized = true; // Set the flag
+        } catch (e) {
+            console.error("Error displaying celestial map:", e);
+            alert("There was an error generating the star map. Please try again later.");
+        }
     }
 }

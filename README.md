@@ -1,7 +1,7 @@
 ✨ Magic Love Wonderland ✨
 =========================
 
-A deeply personal and interactive web experience designed to celebrate love through a collection of magical, animated features. This project transforms a simple webpage into an immersive wonderland, perfect for anniversaries, proposals, or just as a special surprise for Radwa.
+A deeply personal and interactive web experience designed as a digital wonderland to celebrate love. This project, built for Radwa, is packed with magical, animated features, games, and shared memories, making it perfect for anniversaries, proposals, or a special surprise.
 
 ---
 
@@ -15,50 +15,51 @@ A deeply personal and interactive web experience designed to celebrate love thro
 
 ### 🚀 Features
 
-This application is packed with a variety of unique and interactive modules:
+This application is navigated through a central, two-tiered menu and is packed with a variety of unique modules:
 
-*   **💖 Main Wonderland:**
-    *   **Dynamic Welcome:** A personalized welcome message for a returning visitor (using `localStorage`).
-    *   **Daily Love Note:** A unique, heartfelt message is presented to the user each day upon entry.
-    *   **Interactive Background:** A living background with floating hearts, falling petals, and sparkling effects that respond to mouse movement.
-    *   **Day/Night Mode:** A beautiful toggle that switches between a warm day-themed gradient and a serene, animated night sky.
+*   **✨ Core Experience:**
+    *   **Daily Love Note:** A unique, heartfelt message is presented in a popup each day upon entry.
+    *   **Day/Night Mode:** A beautiful toggle that switches between a warm, vibrant day theme and a serene, animated night sky with drifting stars.
+    *   **Interactive Background:** A living background with floating hearts and falling petals.
+    *   **Music & Sound:** Looping, ambient background music with an easy-to-use toggle button.
 
-*   **🌌 "Why I Love You" Starry Night Sky:**
-    *   An artistic and serene mode with a beautiful night sky background.
-    *   **Constellation of Love:** Each star represents a unique reason for love, revealing a poetic sentence on hover.
-    *   **Her Name in the Stars:** A centerpiece constellation forms the name "RADWA", with each star holding its own special message.
-    *   **Dynamic Sky:** Features gently drifting stars, a pulsing name constellation, and random shooting stars for added magic.
-
-*   **💍 The Proposal:**
-    *   A heart-pounding "Will you marry me?" prompt.
-    *   Upon clicking "Yes", the screen erupts in a **celebratory explosion of fireworks**, a heart shower, a congratulatory message, and a special voice message.
-
-*   **💌 Interactive Surprises:**
-    *   **Poem Unveiling:** Displays a random, beautifully formatted love poem from a large, customizable collection.
-    *   **Our Story Timeline:** A vertical, scrollable timeline showcasing key moments of a relationship with dates, descriptions, and photos.
+*   **📖 Our Story Category:**
     *   **Photo Gallery:** A responsive grid gallery that dynamically loads and displays cherished photos.
-    *   **Memory Game:** A classic card-matching game using the couple's photos to test their memory lane.
-    *   **Typing Love Letter:** A full-screen, elegant love letter that appears with a classic typewriter effect.
-    *   **Secret Puzzle:** A "slide-to-unlock" puzzle that reveals a hidden, romantic message.
-    *   **Gift Box:** A clickable gift box that unwraps to reveal a random surprise: a poem, a special message, a photo, or even a video.
+    *   **Our Story Timeline:** A vertical, scrollable timeline showcasing key moments of the relationship with dates, descriptions, and photos.
+    *   **Portrait of a Star:** A stunning animation where hundreds of stars fly into place to form a silhouette portrait of Radwa.
+    *   **Explore Our World:** An interactive map displaying points of interest that represent past memories and future dreams, each with details and a photo.
+    *   **Our Night Sky:** Generates an accurate, beautiful star map of the night sky from any meaningful date (e.g., the night you met).
 
-*   **🎶 Music & Sound:**
-    *   **Background Music:** Looping, ambient background music with an easy-to-use toggle button.
-    *   **Curated Playlist:** An overlay that presents a list of meaningful songs, with links to listen on YouTube.
+*   **� Love & Poems Category:**
+    *   **A Poem for You:** Displays a random, beautifully formatted love poem from a large, customizable collection.
+    *   **Reasons I Love You:** A serene, full-screen view where the background becomes a starry night sky. Hovering over stars reveals different reasons "why I love you."
+    *   **A Letter For You:** A full-screen, elegant love letter that appears with a classic typewriter effect.
+
+*   **🎲 Our Time (Fun & Games) Category:**
+    *   **Memory Game:** A classic card-matching game using the couple's photos to test their memory lane.
+    *   **Secret Puzzle:** A "slide-to-unlock" puzzle that reveals a hidden, romantic message.
+    *   **Gift Box:** A clickable, animated gift box that unwraps to reveal a random surprise: a poem, a special message, a photo, or a video.
+    *   **Our Playlist:** An overlay that presents a curated list of meaningful songs, with links to listen on YouTube.
+    *   **Birthday Countdown:** A full-screen overlay that counts down to the next birthday and displays the current age in years, months, and days.
+
+*   **🚀 Our Journey Category:**
+    *   **Today's Question:** Presents a unique, thought-provoking question for the couple each day.
+    *   **Dream Board:** A virtual corkboard displaying future dreams and adventures. New dreams can be added and are saved locally.
+    *   **The Big Question...:** A heart-pounding "Will you marry me?" prompt. Upon clicking "Yes," the screen erupts in a celebratory explosion of fireworks, a congratulatory message, and plays a special voice message.
 
 ---
 
 ### 🛠️ Tech Stack
 
 *   **Frontend:** HTML5, CSS3, JavaScript (ES6+)
-*   **Animations:** CSS Keyframes and JavaScript's `requestAnimationFrame` for smooth canvas animations.
+*   **Libraries:** d3.js (v3) and d3-celestial.js for the star map generation.
+*   **Animations:** Advanced CSS Keyframes and JavaScript's `requestAnimationFrame` for smooth, performant canvas animations (starry sky, portrait).
+*   **Storage:** `localStorage` is used to remember a user's visit and save their "Dream Board" entries.
 *   **No frameworks, no libraries, just pure magic!**
 
 ---
 
 ### 📂 File Structure
-
-The project is organized into a clear and simple structure:
 
 ```
 MagicLoveWonderland/

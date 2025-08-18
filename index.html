@@ -30,11 +30,9 @@
         <source src="voice-message.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Standalone Floating Buttons -->
     <button class="kiss-button" onclick="sendKiss()">💋</button>
 
     <div id="actionButtonsContainer" style="display: none;">
-        <!-- Main Categories -->
         <div id="mainCategories" class="button-row">
             <button class="category-button story" onclick="showCategory('story')">📖 Our Story</button>
             <button class="category-button love" onclick="showCategory('love')">💌 Love & Poems</button>
@@ -42,12 +40,12 @@
             <button class="category-button journey" onclick="showCategory('journey')">🚀 Our Journey</button>
         </div>
 
-        <!-- Sub-categories (initially hidden) -->
         <div id="storyCategory" class="button-row" style="display: none;">
             <button class="gallery-button" onclick="showGallery()">Our Photos</button>
             <button class="timeline-button" onclick="showTimeline()">Our Story</button>
             <button class="portrait-button" onclick="showStarPortrait()">Portrait of a Star</button>
             <button class="map-button" onclick="showOurWorld()">Explore Our World</button>
+            <button id="celestialButton" class="celestial-button" disabled title="Loading star map...">Our Night Sky</button>
         </div>
         <div id="loveCategory" class="button-row" style="display: none;">
             <button class="poem-button" onclick="showPoem()">A Poem for You</button>
@@ -90,16 +88,14 @@
         <button class="close-gallery" onclick="hideGallery()">Close</button>
         <h2>Our Beautiful Moments</h2>
         <div class="photo-grid">
-            <!-- Photos will be added dynamically -->
-        </div>
+            </div>
     </div>
 
     <div class="timeline-container">
         <button class="close-timeline" onclick="hideTimeline()">Close</button>
         <h2>Our Love Story</h2>
         <div class="timeline">
-            <!-- Timeline items will be added dynamically -->
-        </div>
+            </div>
     </div>
 
     <div class="memory-game-container">
@@ -194,8 +190,7 @@
             <h2>Our Future Dream Board</h2>
             <p class="dreams-subtitle">A place for all the adventures we'll have and memories we'll make...</p>
             <div id="dreamsBoard" class="dreams-board">
-                <!-- Dream notes will be added here by JS -->
-            </div>
+                </div>
             <div class="add-dream-form">
                 <input type="text" id="dreamInput" placeholder="Add a new dream for us...">
                 <button onclick="addDream()">Add Dream ✨</button>
@@ -207,8 +202,7 @@
         <button class="close-world" onclick="hideOurWorld()">✖</button>
         <div class="world-map-container">
             <div class="world-map-background">
-                <!-- Points of interest will be added here by JS -->
-            </div>
+                </div>
         </div>
         <div id="mapPointDetailCard" class="map-point-detail-card" style="display:none;">
             <div id="mapPointPhoto"></div>
@@ -231,6 +225,28 @@
         Hover over the stars to discover the reasons I love you.
     </div>
 
-    <script src="script.js"></script>
+    <div id="celestialOverlay" style="display:none;">
+        <div class="celestial-container">
+            <button class="close-celestial" onclick="hideCelestialMap()">✖</button>
+            <div id="celestial-map"></div>
+            <div class="celestial-form">
+                <h3>The Stars on a Special Night</h3>
+                <input type="date" id="specialDate" value="2025-01-08">
+                <button type="button" onclick="generateStarMap()">Generate Sky</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The 'defer' attribute ensures scripts are executed in order after the document is parsed, preventing race conditions. -->
+    <!-- Remove the incompatible D3.js v7 and its projection plugin. -->
+    <!-- <script defer src="d3.v7.min.js"></script> -->
+    <!-- <script defer src="d3.geo.projection.min.js"></script> -->
+    <!-- Load the correct D3v3 libraries bundled with d3-celestial, in this specific order. -->
+    <script defer src="d3-celestial/lib/d3.min.js"></script>
+    <script defer src="d3-celestial/lib/d3.geo.projection.min.js"></script>
+    <script defer src="celestial.min.js"></script>
+    <!-- Your main script, which is already correct -->
+    <script defer src="script.js"></script>
+
 </body>
 </html>

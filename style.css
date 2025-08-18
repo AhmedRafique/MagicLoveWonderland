@@ -1380,6 +1380,8 @@ body.day-mode .gift-button { background-color: #ffb7c5; } /* Light Pink */
 body.day-mode .puzzle-button { background-color: #ffb347; } /* Apricot */
 body.day-mode .birthday-button { background-color: #c3aed6; } /* Lavender */
 body.day-mode .daily-question-button { background-color: #f67280; } /* Coral Pink */
+body.day-mode .celestial-button { background-color: #3d5a80; } /* Dark Blue/Gray */
+
 
 /* Make the daily/dreams buttons stand out */
 .daily-question-button, .future-dreams-button, .map-button, .portrait-button {
@@ -1420,6 +1422,7 @@ body.night-mode .daily-question-button:hover { border-color: #f67280; }
 body.night-mode .portrait-button:hover { border-color: #c06c84; }
 body.night-mode .map-button:hover { border-color: #45b39d; }
 body.night-mode .future-dreams-button:hover { border-color: #00B8D4; }
+body.night-mode .celestial-button:hover { border-color: #3d5a80; }
 
 /* Style for special buttons not in the main row */
 
@@ -2001,4 +2004,90 @@ body.day-mode .future-dreams-button { background-color: #00B8D4; }
     cursor: pointer;
     line-height: 1;
 }
+
+/* --- Celestial Map Styles --- */
+#celestialOverlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #0a0f1b; /* Very dark blue */
+    z-index: 10070; /* High z-index */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s;
+    overflow: hidden;
+}
+
+.celestial-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#celestial-map {
+    width: 100%;
+    height: 100%;
+}
+
+.celestial-form {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    padding: 15px 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 10;
+}
+
+.celestial-form h3 {
+    margin: 0;
+    font-size: 1em;
+    color: #ffb6d5;
+    white-space: nowrap;
+}
+
+.celestial-form input[type="date"] {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid #ffb6d5;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.celestial-form button {
+    background: #ffb6d5;
+    color: #0a0f1b;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.close-celestial {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    z-index: 10071;
+    transition: all 0.3s;
+}
+.close-celestial:hover {
+    background-color: #ff4757;
+    border-color: #ff4757;
+    transform: scale(1.1) rotate(90deg);
 }
