@@ -45,7 +45,7 @@
             <button class="timeline-button" onclick="showTimeline()">Our Story</button>
             <button class="portrait-button" onclick="showStarPortrait()">Portrait of a Star</button>
             <button class="map-button" onclick="showOurWorld()">Explore Our World</button>
-            <button id="celestialButton" class="celestial-button" disabled title="Loading star map...">Our Night Sky</button>
+            <button id="celestialButton" class="celestial-button" onclick="showCelestialMap()">Our Night Sky</button>
         </div>
         <div id="loveCategory" class="button-row" style="display: none;">
             <button class="poem-button" onclick="showPoem()">A Poem for You</button>
@@ -242,8 +242,8 @@
     <!-- <script defer src="d3.v7.min.js"></script> -->
     <!-- <script defer src="d3.geo.projection.min.js"></script> -->
     <!-- Load the correct D3v3 libraries bundled with d3-celestial, in this specific order. -->
-    <script defer src="d3-celestial/lib/d3.min.js"></script>
-    <script defer src="d3-celestial/lib/d3.geo.projection.min.js"></script>
+    <script defer src="https://d3js.org/d3.v3.min.js"></script>
+    <script defer src="https://d3js.org/d3.geo.projection.v0.min.js"></script>
     <script defer src="celestial.min.js"></script>
     <!-- Your main script, which is already correct -->
     <script defer src="script.js"></script>

@@ -2404,8 +2404,6 @@ function hideCelestialMap() {
 }
 
 function generateStarMap() {
-    // The modern library creates an uppercase 'Celestial' object.
-    // This check is our safeguard.
     if (typeof Celestial === 'undefined') {
         console.error("Celestial library not loaded. Make sure celestial.min.js and its D3.js v3 dependencies are correct.");
         alert("The Celestial library is missing or corrupt. The star map cannot be generated.");
@@ -2413,47 +2411,53 @@ function generateStarMap() {
     }
 
     const dateValue = document.getElementById('specialDate').value;
-    // Correctly parse the date to avoid timezone issues.
-    // By adding 'T12:00:00Z', we specify midday UTC, which prevents the date from shifting
-    // due to the user's local timezone.
     const date = dateValue ? new Date(dateValue + 'T12:00:00Z') : new Date();
 
-    // Base configuration is the same for both initial display and updates.
-    const config = {
-        width: 0, // Set to 0 for a full-width map that fills the container.
-        projection: "stereographic",
-        datapath: "data/", // Path to data files
-        date: date,
-        transform: "equatorial",
-        center: [31.2357, 30.0444], // [longitude, latitude] for Cairo, Egypt.
-        background: { fill: "#0a0f1b", stroke: "#ffb6d5", opacity: 1 },
-        stars: {
-            colors: true,
-            names: true,
-            style: { fill: "#ffffff", opacity: 1 },
-            limit: 6,
-            size: 5
-        },
-        constellations: {
-            names: true,
-            nameStyle: { fill: "#ffb6d5", align: "center", baseline: "middle", opacity: 0.8 },
-            lines: true,
-            lineStyle: { stroke: "#ffb6d5", width: 1, opacity: 0.6 }
-        },
-        mw: {
-            show: true, // Show the Milky Way band.
-            style: { fill: "#ffffff", opacity: 0.15 }
-        },
-        planets: { show: false },
-        horizon: { show: false },
-        daylight: { show: false }
-    };
-
     if (celestialMapInitialized) {
-        // If map is already displayed, just apply the new config to update it
-        Celestial.apply(config);
+        // If map is already displayed, just update the date and redraw.
+        // The skyview function is the correct way to do this for location-based maps.
+        Celestial.skyview({ date: date });
     } else {
-        // This is the first time, so we need to initialize the map
+        // This is the first time, so we need to initialize the map with a full configuration.
+        const config = {
+            width: 0, // Set to 0 for a full-width map that fills the container.
+            projection: "stereographic",
+            transform: "equatorial", // This is the coordinate system of the data
+            location: true, // This enables location-based features
+            geopos: [30.0444, 31.2357], // [lat, lon] for Cairo, Egypt
+            // By removing 'center', the map will now center on the zenith for the given time/location
+            datapath: "data/", // Path to data files
+            date: date,
+            background: { fill: "#0a0f1b", stroke: "#ffb6d5", opacity: 1 },
+            stars: {
+                colors: true,
+                names: true,
+                style: { fill: "#ffffff", opacity: 1 },
+                limit: 6,
+                size: 5
+            },
+            constellations: {
+                names: true,
+                nameStyle: { fill: "#ffb6d5", align: "center", baseline: "middle", opacity: 0.8 },
+                lines: true,
+                lineStyle: { stroke: "#ffb6d5", width: 1, opacity: 0.6 }
+            },
+            mw: {
+                show: true, // Show the Milky Way band.
+                style: { fill: "#ffffff", opacity: 0.15 }
+            },
+            planets: { show: false },
+            // Show horizon and daylight for a more dynamic view
+            horizon: { 
+                show: true, 
+                stroke: "#ffb6d5", 
+                width: 1.0, 
+                fill: "#000000",
+                opacity: 0.4 
+            },
+            daylight: { show: true }
+        };
+        
         const mapContainer = document.getElementById("celestial-map");
         if (!mapContainer) {
             console.error("The '#celestial-map' container was not found.");
