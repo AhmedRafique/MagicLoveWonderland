@@ -1613,6 +1613,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     initializeCelestialFeature();
+    initializePiano();
+    initializePiano();
     
     // Music button toggle
     const musicBtn = document.getElementById("musicButton");
@@ -2474,5 +2476,104 @@ function generateStarMap() {
             console.error("Error displaying celestial map:", e);
             alert("There was an error generating the star map. Please try again later.");
         }
+    }
+}
+
+
+// --- Piano Feature ---
+let audioContext;
+const notes = {
+    'C4': 261.63, 'C#4': 277.18, 'D4': 293.66, 'D#4': 311.13, 'E4': 329.63,
+    'F4': 349.23, 'F#4': 369.99, 'G4': 392.00, 'G#4': 415.30, 'A4': 440.00,
+    'A#4': 466.16, 'B4': 493.88, 'C5': 523.25
+};
+const secretMelody = ['C4', 'C4', 'G4', 'G4', 'A4', 'A4', 'G4'];
+let playedNotes = [];
+
+function showPiano() {
+    console.log("showPiano called");
+    const overlay = document.getElementById('pianoOverlay');
+    if (overlay) {
+        overlay.style.display = 'flex';
+        document.getElementById('actionButtonsContainer').style.display = 'none';
+        // Initialize AudioContext on user interaction
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+    }
+}
+
+function hidePiano() {
+    const overlay = document.getElementById('pianoOverlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+        document.getElementById('actionButtonsContainer').style.display = 'flex';
+        playedNotes = []; // Reset progress
+        const messageEl = document.getElementById('piano-message');
+        if (messageEl) {
+            messageEl.style.display = 'none';
+        }
+    }
+}
+
+function playNote(note) {
+    if (!audioContext) return;
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.type = 'sine'; // A simple, clean tone
+    oscillator.frequency.setValueAtTime(notes[note], audioContext.currentTime);
+
+    gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.5);
+}
+
+function handleKeyClick(e) {
+    console.log("handleKeyClick called");
+    const note = e.target.dataset.note;
+    if (note) {
+        console.log("Note played:", note);
+        playNote(note);
+        playedNotes.push(note);
+        checkMelody();
+    }
+}
+
+function checkMelody() {
+    // If playedNotes is longer than secretMelody, trim it
+    if (playedNotes.length > secretMelody.length) {
+        playedNotes = playedNotes.slice(playedNotes.length - secretMelody.length);
+    }
+
+    if (playedNotes.join(',') === secretMelody.join(',')) {
+        const messageEl = document.getElementById('piano-message');
+        if (messageEl) {
+            messageEl.textContent = "You found the secret melody! It's the song of my heart for you. ❤️";
+            messageEl.style.display = 'block';
+        }
+        // Reset after a delay so they can play again
+        setTimeout(() => {
+            playedNotes = [];
+            if (messageEl) {
+                messageEl.style.display = 'none';
+            }
+        }, 5000);
+    }
+}
+
+function initializePiano() {
+    console.log("initializePiano called");
+    const piano = document.querySelector('.piano');
+    if (piano) {
+        console.log("Piano element found, adding listener.");
+        piano.addEventListener('click', handleKeyClick);
+    } else {
+        console.error("Piano element not found!");
     }
 }

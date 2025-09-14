@@ -68,7 +68,8 @@ body.starry-night-active {
 .gallery-button,
 .timeline-button,
 .letter-button,
-.memory-game-button {
+.memory-game-button,
+.piano-button {
     padding: 10px 20px;
     background-color: #ff4d88;
     border: none;
@@ -1998,79 +1999,25 @@ body.day-mode .future-dreams-button { background-color: #00B8D4; }
     top: 15px;
     right: 15px;
     background: transparent;
-    color: #6c5b7b;
-    border: none;
-    font-size: 1.8em;
-    cursor: pointer;
-    line-height: 1;
 }
 
-/* --- Celestial Map Styles --- */
-#celestialOverlay {
+/* --- Piano Feature Styles --- */
+.piano-overlay {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
-    background: #0a0f1b; /* Very dark blue */
-    z-index: 10070; /* High z-index */
+    background: rgba(20, 10, 30, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10070;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     animation: fadeIn 0.5s;
-    overflow: hidden;
-}
-
-.celestial-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-#celestial-map {
-    width: 100%;
-    height: 100%;
-}
-
-.celestial-form {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    padding: 15px 20px;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: 10;
-}
-
-.celestial-form h3 {
-    margin: 0;
-    font-size: 1em;
-    color: #ffb6d5;
-    white-space: nowrap;
-}
-
-.celestial-form input[type="date"] {
-    background: rgba(0,0,0,0.3);
-    border: 1px solid #ffb6d5;
     color: white;
-    padding: 8px;
-    border-radius: 8px;
-    font-family: inherit;
 }
 
-.celestial-form button {
-    background: #ffb6d5;
-    color: #0a0f1b;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.close-celestial {
+.close-piano {
     position: absolute;
     top: 20px;
     right: 20px;
@@ -2083,11 +2030,86 @@ body.day-mode .future-dreams-button { background-color: #00B8D4; }
     cursor: pointer;
     font-size: 1.2em;
     font-weight: bold;
-    z-index: 10071;
     transition: all 0.3s;
 }
-.close-celestial:hover {
+
+.close-piano:hover {
     background-color: #ff4757;
     border-color: #ff4757;
     transform: scale(1.1) rotate(90deg);
 }
+
+.piano-overlay h2 {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: #ffc0cb;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #ffc0cb;
+}
+
+.piano-overlay p {
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.piano {
+    display: flex;
+    position: relative;
+    height: 200px;
+    width: 400px;
+    margin: 20px auto;
+    border: 2px solid #ffc0cb;
+    border-radius: 5px;
+}
+
+.key {
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+.key.white {
+    width: 50px;
+    height: 200px;
+    background-color: white;
+    z-index: 1;
+}
+
+.key.black {
+    width: 30px;
+    height: 120px;
+    background-color: black;
+    position: absolute;
+    z-index: 2;
+}
+
+/* Positioning black keys */
+.key[data-note="C#4"] { left: 35px; }
+.key[data-note="D#4"] { left: 85px; }
+.key[data-note="F#4"] { left: 185px; }
+.key[data-note="G#4"] { left: 235px; }
+.key[data-note="A#4"] { left: 285px; }
+
+
+.key.white:active {
+    background-color: #eee;
+}
+
+.key.black:active {
+    background-color: #333;
+}
+
+.piano-message {
+    margin-top: 30px;
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #d6336c;
+    border-radius: 15px;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-align: center;
+    animation: pulse 1.5s infinite alternate;
+}
+
+body.day-mode .piano-button { background-color: #f7d68b; }
+body.night-mode .piano-button:hover { border-color: #f7d68b; }
