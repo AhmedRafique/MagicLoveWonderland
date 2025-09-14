@@ -2624,15 +2624,7 @@ function initializePiano() {
     }
 }
 
-function showSongbook() {
-    document.getElementById('songbookOverlay').style.display = 'flex';
-    document.getElementById('actionButtonsContainer').style.display = 'none';
-}
 
-function hideSongbook() {
-    document.getElementById('songbookOverlay').style.display = 'none';
-    document.getElementById('actionButtonsContainer').style.display = 'flex';
-}
 
 function showSong(songId) {
     const song = songbook[songId];

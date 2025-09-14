@@ -59,7 +59,6 @@
             <button class="playlist-button" onclick="showPlaylist()">Our Playlist</button>
             <button class="birthday-button" onclick="showBirthdayCountdown()">🎂 Birthday Countdown</button>
             <button class="piano-button" onclick="showPiano()">🎹 Play Our Song</button>
-            <button class="songbook-button" onclick="showSongbook()">🎼 Songbook</button>
         </div>
         <div id="journeyCategory" class="button-row" style="display: none;">
             <button class="daily-question-button" onclick="showDailyQuestion()">Today's Question</button>
@@ -241,52 +240,54 @@
 
     <div id="pianoOverlay" class="piano-overlay" style="display:none;">
         <button class="close-piano" onclick="hidePiano()">Close</button>
-        <h2>Play Our Song</h2>
-        <p>Can you figure out the melody?</p>
-        <div class="piano">
-            <!-- Octave 4 -->
-            <div class="key white" data-note="C4"><span>C4</span></div>
-            <div class="key black" data-note="C#4"><span>C#4</span></div>
-            <div class="key white" data-note="D4"><span>D4</span></div>
-            <div class="key black" data-note="D#4"><span>D#4</span></div>
-            <div class="key white" data-note="E4"><span>E4</span></div>
-            <div class="key white" data-note="F4"><span>F4</span></div>
-            <div class="key black" data-note="F#4"><span>F#4</span></div>
-            <div class="key white" data-note="G4"><span>G4</span></div>
-            <div class="key black" data-note="G#4"><span>G#4</span></div>
-            <div class="key white" data-note="A4"><span>A4</span></div>
-            <div class="key black" data-note="A#4"><span>A#4</span></div>
-            <div class="key white" data-note="B4"><span>B4</span></div>
-            <!-- Octave 5 -->
-            <div class="key white" data-note="C5"><span>C5</span></div>
-            <div class="key black" data-note="C#5"><span>C#5</span></div>
-            <div class="key white" data-note="D5"><span>D5</span></div>
-            <div class="key black" data-note="D#5"><span>D#5</span></div>
-            <div class="key white" data-note="E5"><span>E5</span></div>
-            <div class="key white" data-note="F5"><span>F5</span></div>
-            <div class="key black" data-note="F#5"><span>F#5</span></div>
-            <div class="key white" data-note="G5"><span>G5</span></div>
-            <div class="key black" data-note="G#5"><span>G#5</span></div>
-            <div class="key white" data-note="A5"><span>A5</span></div>
-            <div class="key black" data-note="A#5"><span>A#5</span></div>
-            <div class="key white" data-note="B5"><span>B5</span></div>
-            <div class="key white" data-note="C6"><span>C6</span></div>
-        </div>
-        <div id="piano-message" class="piano-message" style="display:none;"></div>
-    </div>
-
-    <div id="songbookOverlay" class="songbook-overlay" style="display:none;">
-        <button class="close-songbook" onclick="hideSongbook()">Close</button>
-        <h2>Piano Songbook</h2>
-        <div class="song-list">
-            <button onclick="showSong('fur-elise')">Für Elise</button>
-            <button onclick="showSong('turkish-march')">Turkish March</button>
-            <button onclick="showSong('you-can-fly')">You Can Fly! (Tinker Bell)</button>
-            <button onclick="showSong('our-song')">Our Song (for Ahmed & Radwa)</button>
-        </div>
-        <div class="song-sheet">
-            <h3 id="song-title"></h3>
-            <div id="song-notes"></div>
+        <div class="piano-container">
+            <div class="piano-left">
+                <h2>Play Our Song</h2>
+                <p>Can you figure out the melody?</p>
+                <div class="piano">
+                    <!-- Octave 4 -->
+                    <div class="key white" data-note="C4"><span>C4</span></div>
+                    <div class="key black" data-note="C#4"><span>C#4</span></div>
+                    <div class="key white" data-note="D4"><span>D4</span></div>
+                    <div class="key black" data-note="D#4"><span>D#4</span></div>
+                    <div class="key white" data-note="E4"><span>E4</span></div>
+                    <div class="key white" data-note="F4"><span>F4</span></div>
+                    <div class="key black" data-note="F#4"><span>F#4</span></div>
+                    <div class="key white" data-note="G4"><span>G4</span></div>
+                    <div class="key black" data-note="G#4"><span>G#4</span></div>
+                    <div class="key white" data-note="A4"><span>A4</span></div>
+                    <div class="key black" data-note="A#4"><span>A#4</span></div>
+                    <div class="key white" data-note="B4"><span>B4</span></div>
+                    <!-- Octave 5 -->
+                    <div class="key white" data-note="C5"><span>C5</span></div>
+                    <div class="key black" data-note="C#5"><span>C#5</span></div>
+                    <div class="key white" data-note="D5"><span>D5</span></div>
+                    <div class="key black" data-note="D#5"><span>D#5</span></div>
+                    <div class="key white" data-note="E5"><span>E5</span></div>
+                    <div class="key white" data-note="F5"><span>F5</span></div>
+                    <div class="key black" data-note="F#5"><span>F#5</span></div>
+                    <div class="key white" data-note="G5"><span>G5</span></div>
+                    <div class="key black" data-note="G#5"><span>G#5</span></div>
+                    <div class="key white" data-note="A5"><span>A5</span></div>
+                    <div class="key black" data-note="A#5"><span>A#5</span></div>
+                    <div class="key white" data-note="B5"><span>B5</span></div>
+                    <div class="key white" data-note="C6"><span>C6</span></div>
+                </div>
+                <div id="piano-message" class="piano-message" style="display:none;"></div>
+            </div>
+            <div id="songbookContainer" class="songbook-container">
+                <h2>Piano Songbook</h2>
+                <div class="song-list">
+                    <button onclick="showSong('fur-elise')">Für Elise</button>
+                    <button onclick="showSong('turkish-march')">Turkish March</button>
+                    <button onclick="showSong('you-can-fly')">You Can Fly!</button>
+                    <button onclick="showSong('our-song')">Our Song</button>
+                </div>
+                <div class="song-sheet">
+                    <h3 id="song-title"></h3>
+                    <div id="song-notes"></div>
+                </div>
+            </div>
         </div>
     </div>
 
