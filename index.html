@@ -59,6 +59,7 @@
             <button class="playlist-button" onclick="showPlaylist()">Our Playlist</button>
             <button class="birthday-button" onclick="showBirthdayCountdown()">🎂 Birthday Countdown</button>
             <button class="piano-button" onclick="showPiano()">🎹 Play Our Song</button>
+            <button class="songbook-button" onclick="showSongbook()">🎼 Songbook</button>
         </div>
         <div id="journeyCategory" class="button-row" style="display: none;">
             <button class="daily-question-button" onclick="showDailyQuestion()">Today's Question</button>
@@ -272,6 +273,21 @@
             <div class="key white" data-note="C6"><span>C</span></div>
         </div>
         <div id="piano-message" class="piano-message" style="display:none;"></div>
+    </div>
+
+    <div id="songbookOverlay" class="songbook-overlay" style="display:none;">
+        <button class="close-songbook" onclick="hideSongbook()">Close</button>
+        <h2>Piano Songbook</h2>
+        <div class="song-list">
+            <button onclick="showSong('fur-elise')">Für Elise</button>
+            <button onclick="showSong('turkish-march')">Turkish March</button>
+            <button onclick="showSong('you-can-fly')">You Can Fly! (Tinker Bell)</button>
+            <button onclick="showSong('our-song')">Our Song (for Ahmed & Radwa)</button>
+        </div>
+        <div class="song-sheet">
+            <h3 id="song-title"></h3>
+            <div id="song-notes"></div>
+        </div>
     </div>
 
     <!-- The 'defer' attribute ensures scripts are executed in order after the document is parsed, preventing race conditions. -->

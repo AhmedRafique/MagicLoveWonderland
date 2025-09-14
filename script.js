@@ -2505,6 +2505,25 @@ const keyMap = {
      '9': 'A#5',  '1':'B5', '2':'C6'
 };
 
+const songbook = {
+    'fur-elise': {
+        title: 'Für Elise',
+        notes: 'E5 D#5 E5 D#5 E5 B4 D5 C5 A4 | C4 E4 A4 B4 | E4 G#4 B4 C5'
+    },
+    'turkish-march': {
+        title: 'Turkish March',
+        notes: 'A5 G#5 A5 B5 C6 B5 A5 G#5 | F#5 G#5 A5 G#5 F#5 E5 | F#5 E5 F#5 G#5 A5 G#5 F#5 E5'
+    },
+    'you-can-fly': {
+        title: 'You Can Fly!',
+        notes: 'G4 C5 C5 | G4 C5 C5 | G4 C5 D5 E5 F5 | E5 D5 C5'
+    },
+    'our-song': {
+        title: 'Our Song (Ahmed & Radwa)',
+        notes: 'C4 G4 A4 G4 | C4 G4 A4 G4 | C5 C5 B4 A4 G4 | F4 G4 A4 G4'
+    }
+};
+
 function showPiano() {
     console.log("showPiano called");
     const overlay = document.getElementById('pianoOverlay');
@@ -2602,5 +2621,23 @@ function initializePiano() {
     const piano = document.querySelector('.piano');
     if (piano) {
         piano.addEventListener('click', handleKeyClick);
+    }
+}
+
+function showSongbook() {
+    document.getElementById('songbookOverlay').style.display = 'flex';
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+}
+
+function hideSongbook() {
+    document.getElementById('songbookOverlay').style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
+
+function showSong(songId) {
+    const song = songbook[songId];
+    if (song) {
+        document.getElementById('song-title').textContent = song.title;
+        document.getElementById('song-notes').textContent = song.notes;
     }
 }
