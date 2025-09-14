@@ -1586,6 +1586,11 @@ function getDailyLoveNote() {
 }
 
 document.addEventListener("DOMContentLoaded", function() {
+    const openSurpriseBtn = document.getElementById('openSurpriseBtn');
+    if (openSurpriseBtn) {
+        openSurpriseBtn.addEventListener('click', initiateLoveWonderland);
+    }
+
     initializeStarrySky();
     
     // This function robustly handles the initialization of the celestial map feature.
@@ -1613,7 +1618,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     initializeCelestialFeature();
-    initializePiano();
     initializePiano();
     
     // Music button toggle
@@ -1653,16 +1657,15 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Daily Love Note popup
-    const openSurpriseBtn = document.getElementById('openSurpriseBtn');
-    const popup = document.getElementById("dailyLoveNotePopup");
-    const content = popup ? popup.querySelector(".daily-love-note-content") : null;
-    if (openSurpriseBtn && popup && content) {
+    const dailyLoveNotePopup = document.getElementById("dailyLoveNotePopup");
+    const content = dailyLoveNotePopup ? dailyLoveNotePopup.querySelector(".daily-love-note-content") : null;
+    if (openSurpriseBtn && dailyLoveNotePopup && content) {
         openSurpriseBtn.addEventListener('click', function() {
             content.textContent = getDailyLoveNote();
-            popup.style.display = "flex";
+            dailyLoveNotePopup.style.display = "flex";
         });
         // Close popup when clicking outside the note
-        popup.addEventListener("click", function(e) {
+        dailyLoveNotePopup.addEventListener("click", function(e) {
             if (e.target === this) {
                 this.style.display = "none";
             }
@@ -2485,10 +2488,22 @@ let audioContext;
 const notes = {
     'C4': 261.63, 'C#4': 277.18, 'D4': 293.66, 'D#4': 311.13, 'E4': 329.63,
     'F4': 349.23, 'F#4': 369.99, 'G4': 392.00, 'G#4': 415.30, 'A4': 440.00,
-    'A#4': 466.16, 'B4': 493.88, 'C5': 523.25
+    'A#4': 466.16, 'B4': 493.88,
+    'C5': 523.25, 'C#5': 554.37, 'D5': 587.33, 'D#5': 622.25, 'E5': 659.25,
+    'F5': 698.46, 'F#5': 739.99, 'G5': 783.99, 'G#5': 830.61, 'A5': 880.00,
+    'A#5': 932.33, 'B5': 987.77, 'C6': 1046.50
 };
 const secretMelody = ['C4', 'C4', 'G4', 'G4', 'A4', 'A4', 'G4'];
 let playedNotes = [];
+
+const keyMap = {
+    'a': 'C4', 'w': 'C#4', 's': 'D4', 'e': 'D#4', 'd': 'E4',
+    'f': 'F4', 't': 'F#4', 'g': 'G4', 'y': 'G#4', 'h': 'A4',
+    'u': 'A#4', 'j': 'B4',
+    'k': 'C5', 'o': 'C#5', 'l': 'D5', 'p': 'D#5', ';': 'E5',
+    "'": 'F5',  '4':'G5',  '8':'G#5', '5':'A5',
+     '9': 'A#5',  '1':'B5', '2':'C6'
+};
 
 function showPiano() {
     console.log("showPiano called");
@@ -2500,6 +2515,7 @@ function showPiano() {
         if (!audioContext) {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
         }
+        document.addEventListener('keydown', handleKeyDown);
     }
 }
 
@@ -2513,11 +2529,12 @@ function hidePiano() {
         if (messageEl) {
             messageEl.style.display = 'none';
         }
+        document.removeEventListener('keydown', handleKeyDown);
     }
 }
 
 function playNote(note) {
-    if (!audioContext) return;
+    if (!audioContext || !notes[note]) return;
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -2532,13 +2549,27 @@ function playNote(note) {
 
     oscillator.start(audioContext.currentTime);
     oscillator.stop(audioContext.currentTime + 0.5);
+
+    // Visual feedback
+    const keyElement = document.querySelector(`.key[data-note="${note}"]`);
+    if (keyElement) {
+        keyElement.classList.add('active');
+        setTimeout(() => keyElement.classList.remove('active'), 200);
+    }
 }
 
 function handleKeyClick(e) {
-    console.log("handleKeyClick called");
     const note = e.target.dataset.note;
     if (note) {
-        console.log("Note played:", note);
+        playNote(note);
+        playedNotes.push(note);
+        checkMelody();
+    }
+}
+
+function handleKeyDown(e) {
+    const note = keyMap[e.key];
+    if (note) {
         playNote(note);
         playedNotes.push(note);
         checkMelody();
@@ -2568,12 +2599,8 @@ function checkMelody() {
 }
 
 function initializePiano() {
-    console.log("initializePiano called");
     const piano = document.querySelector('.piano');
     if (piano) {
-        console.log("Piano element found, adding listener.");
         piano.addEventListener('click', handleKeyClick);
-    } else {
-        console.error("Piano element not found!");
     }
 }

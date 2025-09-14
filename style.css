@@ -2056,7 +2056,7 @@ body.day-mode .future-dreams-button { background-color: #00B8D4; }
     display: flex;
     position: relative;
     height: 200px;
-    width: 400px;
+    width: 750px; /* 15 white keys * 50px */
     margin: 20px auto;
     border: 2px solid #ffc0cb;
     border-radius: 5px;
@@ -2066,6 +2066,16 @@ body.day-mode .future-dreams-button { background-color: #00B8D4; }
     border: 1px solid #000;
     cursor: pointer;
     transition: background-color 0.1s;
+    color: black;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.key span {
+    pointer-events: none; /* Make sure the span doesn't capture click events */
 }
 
 .key.white {
@@ -2081,6 +2091,9 @@ body.day-mode .future-dreams-button { background-color: #00B8D4; }
     background-color: black;
     position: absolute;
     z-index: 2;
+    color: white;
+    align-items: center;
+    padding-bottom: 0;
 }
 
 /* Positioning black keys */
@@ -2089,6 +2102,11 @@ body.day-mode .future-dreams-button { background-color: #00B8D4; }
 .key[data-note="F#4"] { left: 185px; }
 .key[data-note="G#4"] { left: 235px; }
 .key[data-note="A#4"] { left: 285px; }
+.key[data-note="C#5"] { left: 385px; }
+.key[data-note="D#5"] { left: 435px; }
+.key[data-note="F#5"] { left: 535px; }
+.key[data-note="G#5"] { left: 585px; }
+.key[data-note="A#5"] { left: 635px; }
 
 
 .key.white:active {
@@ -2113,3 +2131,7 @@ body.day-mode .future-dreams-button { background-color: #00B8D4; }
 
 body.day-mode .piano-button { background-color: #f7d68b; }
 body.night-mode .piano-button:hover { border-color: #f7d68b; }
+
+.key.active {
+    background-color: #ffb6d5;
+}
