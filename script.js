@@ -2486,43 +2486,89 @@ function generateStarMap() {
 // --- Piano Feature ---
 let audioContext;
 const notes = {
+    'C3': 130.81, 'C#3': 138.59, 'D3': 146.83, 'D#3': 155.56, 'E3': 164.81,
+    'F3': 174.61, 'F#3': 185.00, 'G3': 196.00, 'G#3': 207.65, 'A3': 220.00,
+    'A#3': 233.08, 'B3': 246.94,
     'C4': 261.63, 'C#4': 277.18, 'D4': 293.66, 'D#4': 311.13, 'E4': 329.63,
     'F4': 349.23, 'F#4': 369.99, 'G4': 392.00, 'G#4': 415.30, 'A4': 440.00,
     'A#4': 466.16, 'B4': 493.88,
     'C5': 523.25, 'C#5': 554.37, 'D5': 587.33, 'D#5': 622.25, 'E5': 659.25,
     'F5': 698.46, 'F#5': 739.99, 'G5': 783.99, 'G#5': 830.61, 'A5': 880.00,
-    'A#5': 932.33, 'B5': 987.77, 'C6': 1046.50
+    'A#5': 932.33, 'B5': 987.77,
+    'C6': 1046.50, 'C#6': 1108.73, 'D6': 1174.66, 'D#6': 1244.51, 'E6': 1318.51,
+    'F6': 1396.91, 'F#6': 1479.98, 'G6': 1567.98, 'G#6': 1661.22, 'A6': 1760.00,
+    'A#6': 1864.66, 'B6': 1975.53, 'C7': 2093.00
 };
-const secretMelody = ['C4', 'C4', 'G4', 'G4', 'A4', 'A4', 'G4'];
-let playedNotes = [];
 
 const keyMap = {
+    'z': 'C3', 's': 'C#3', 'x': 'D3', 'd': 'D#3', 'c': 'E3',
+    'v': 'F3', 'g': 'F#3', 'b': 'G3', 'h': 'G#3', 'n': 'A3',
+    'j': 'A#3', 'm': 'B3',
     'a': 'C4', 'w': 'C#4', 's': 'D4', 'e': 'D#4', 'd': 'E4',
     'f': 'F4', 't': 'F#4', 'g': 'G4', 'y': 'G#4', 'h': 'A4',
     'u': 'A#4', 'j': 'B4',
     'k': 'C5', 'o': 'C#5', 'l': 'D5', 'p': 'D#5', ';': 'E5',
-    "'": 'F5',  '4':'G5',  '8':'G#5', '5':'A5',
-     '9': 'A#5',  '1':'B5', '2':'C6'
+    "'": 'F5', '[': 'F#5', ']': 'G5',
+    'q': 'C6', '2': 'C#6', 'w': 'D6', '3': 'D#6', 'e': 'E6',
+    'r': 'F6', '5': 'F#6', 't': 'G6', '6': 'G#6', 'y': 'A6',
+    '7': 'A#6', 'u': 'B6', 'i': 'C7'
 };
 
+
 const songbook = {
+    'ode-to-joy': {
+        title: 'Ode to Joy',
+        notes: 'E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 P E4 D4 D4 E4 E4 F4 G4 G4 F4 E4 D4 C4 C4 D4 E4 D4 C4 C4 D4 D4 E4 C4 D4 E4 F4 E4 C4 D4 E4 F4 E4 D4 C4 D4 G3'
+    },
+    'baa-baa-black-sheep': {
+        title: 'Baa Baa Black Sheep',
+        notes: 'C4 C4 G4 G4 A4 A4 G4 P F4 F4 E4 E4 D4 D4 C4 P G4 G4 F4 F4 E4 E4 D4 P G4 G4 F4 F4 E4 E4 D4 P C4 C4 G4 G4 A4 A4 G4 P F4 F4 E4 E4 D4 D4 C4'
+    },
+    'chopsticks': {
+        title: 'Chopsticks',
+        notes: 'F4 G4 F4 G4 F4 G4 F4 G4 F4 G4 F4 G4 E4 G4 E4 G4 E4 G4 E4 G4 E4 G4 E4 G4 D4 B4 D4 B4 D4 B4 D4 B4 D4 B4 D4 B4 C4 C5 C4 C5 C4 C5'
+    },
+    'brother-john': {
+        title: 'Brother John',
+        notes: 'C4 D4 E4 C4 P C4 D4 E4 C4 P E4 F4 G4 P E4 F4 G4 P G4 A4 G4 F4 E4 C4 P G4 A4 G4 F4 E4 C4 P C4 G3 C4 P C4 G3 C4'
+    },
+    'mary-had-a-little-lamb': {
+        title: 'Mary Had a Little Lamb',
+        notes: 'E4 D4 C4 D4 E4 E4 E4 P D4 D4 D4 P E4 G4 G4 P E4 D4 C4 D4 E4 E4 E4 P E4 D4 D4 E4 D4 C4'
+    },
+    'twinkle-twinkle': {
+        title: 'Twinkle Twinkle Little Star',
+        notes: 'C4 C4 G4 G4 A4 A4 G4 P F4 F4 E4 E4 D4 D4 C4 P G4 G4 F4 F4 E4 E4 D4 P G4 G4 F4 F4 E4 E4 D4 P C4 C4 G4 G4 A4 A4 G4 P F4 F4 E4 E4 D4 D4 C4'
+    },
+    'happy-birthday': {
+        title: 'Happy Birthday',
+        notes: 'G4 G4 A4 G4 C5 B4 P G4 G4 A4 G4 D5 C5 P G4 G4 G5 E5 C5 B4 A4 P F5 F5 E5 C5 D5 C5'
+    },
     'fur-elise': {
         title: 'Für Elise',
-        notes: 'E5 D#5 E5 D#5 E5 B4 D5 C5 A4 | C4 E4 A4 B4 | E4 G#4 B4 C5'
+        notes: 'E5 D#5 E5 D#5 E5 B4 D5 C5 A4 P C4 E4 A4 B4 P E4 G#4 B4 C5 P E5 D#5 E5 D#5 E5 B4 D5 C5 A4 P C4 E4 A4 B4 P E4 C5 B4 A4 P B4 C5 D5 E5 P G4 F5 E5 D5 P C5 E4 D4 C4 B3'
     },
     'turkish-march': {
         title: 'Turkish March',
-        notes: 'A5 G#5 A5 B5 C6 B5 A5 G#5 | F#5 G#5 A5 G#5 F#5 E5 | F#5 E5 F#5 G#5 A5 G#5 F#5 E5'
-    },
-    'you-can-fly': {
-        title: 'You Can Fly!',
-        notes: 'G4 C5 C5 | G4 C5 C5 | G4 C5 D5 E5 F5 | E5 D5 C5'
+        notes: 'A5 B5 C#6 A5 B5 C#6 P E6 D#6 C#6 B5 A5 G#5 F#5 E5 P F#5 G#5 A5 G#5 F#5 E5 D#5 E5 P F#5 G#5 A5 B5 C#6 B5 A5 G#5 P A5 B5 C#6 B5 A5 G#5 P A5 B5 C#6 B5 A5 G#5 F#5 E5 D#5 C#5 B4 A4 G#4 F#4 E4 F#4 G#4 A4 B4 C#5 D#5 E5 F#5 G#5 A5'
     },
     'our-song': {
-        title: 'Our Song (Ahmed & Radwa)',
-        notes: 'C4 G4 A4 G4 | C4 G4 A4 G4 | C5 C5 B4 A4 G4 | F4 G4 A4 G4'
+        title: 'Our Song (A Masterpiece for Radwa)',
+        notes: 'C4 G4 E4 G4 P C5 G4 E4 G4 P F4 C5 A4 F4 P D5 B4 G4 D4 P C5 G5 E5 G5 P F5 D5 B4 G4 P A4 F5 D5 B4 P G4 E5 C5 A4 P C4 G4 E4 G4 P C5 G4 E4 G4 P F4 C5 A4 F4 P D5 B4 G4 D4 P C5 G5 E5 G5 P F5 D5 B4 G4 P A4 F5 D5 B4 P G4 E5 C5 A4 P A4 E5 C5 E5 P D5 B4 G4 B4 P C5 A4 F#4 G#4 P A4 B4 C#5 D#5 P C5 G5 E5 G5 P F5 D5 B4 G4 P A4 F5 D5 B4 P G4 E5 C5 A4 P C4 G4 E4 G4 C5'
+    },
+    'canon-in-d': {
+        title: 'Canon in D',
+        notes: 'F#5 E5 D5 C#5 B4 A4 B4 C#5 P D5 E5 F#5 G5 F#5 E5 D5 P C#5 B4 C#5 D5 E5 D5 C#5 B4 A4 P A4 G4 F#4 E4 D4 C#4 D4 E4'
+    },
+    'river-flows-in-you': {
+        title: 'River Flows in You',
+        notes: 'F#4 A4 C#5 P E4 A4 C#5 P D4 A4 C#5 P C#4 A4 C#5 P A4 C#5 E5 A5 G#5 A5 G#5 A5 E5 A5 D5 P A4 C#5 E5 A5 G#5 A5 G#5 A5 E5 A5 D5'
     }
 };
+
+const secretMelody = ['C4', 'C4', 'G4', 'G4', 'A4', 'A4', 'G4'];
+let playedNotes = [];
+
 
 function showPiano() {
     console.log("showPiano called");
@@ -2557,17 +2603,19 @@ function playNote(note) {
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
-    oscillator.type = 'sine'; // A simple, clean tone
+    oscillator.type = 'triangle'; // A softer, more pleasant tone than sine
     oscillator.frequency.setValueAtTime(notes[note], audioContext.currentTime);
 
-    gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.5);
+    // Piano-like envelope: sharp attack, then decay
+    gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+    gainNode.gain.linearRampToValueAtTime(0.5, audioContext.currentTime + 0.05); // Quick attack
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.75); // Slower decay
 
     oscillator.connect(gainNode);
     gainNode.connect(audioContext.destination);
 
     oscillator.start(audioContext.currentTime);
-    oscillator.stop(audioContext.currentTime + 0.5);
+    oscillator.stop(audioContext.currentTime + 1); // Let the note ring a bit longer
 
     // Visual feedback
     const keyElement = document.querySelector(`.key[data-note="${note}"]`);
@@ -2589,6 +2637,7 @@ function handleKeyClick(e) {
 function handleKeyDown(e) {
     const note = keyMap[e.key];
     if (note) {
+        e.preventDefault(); // Prevent default browser action for keys like 'space' or '/'
         playNote(note);
         playedNotes.push(note);
         checkMelody();
@@ -2619,9 +2668,43 @@ function checkMelody() {
 
 function initializePiano() {
     const piano = document.querySelector('.piano');
-    if (piano) {
-        piano.addEventListener('click', handleKeyClick);
-    }
+    if (!piano) return;
+
+    piano.innerHTML = ''; // Clear existing keys
+
+    const octaves = [3, 4, 5, 6];
+    const allNotes = [];
+    octaves.forEach(octaveNum => {
+        const octaveNotes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+        octaveNotes.forEach(noteName => {
+            allNotes.push(noteName + octaveNum);
+        });
+    });
+    allNotes.push('C7');
+
+    let whiteKeyIndex = 0;
+    allNotes.forEach(note => {
+        const key = document.createElement('div');
+        const isBlack = note.includes('#');
+        key.className = `key ${isBlack ? 'black' : 'white'}`;
+        key.dataset.note = note;
+        
+        const keyText = document.createElement('span');
+        keyText.textContent = note;
+        key.appendChild(keyText);
+
+        piano.appendChild(key);
+
+        if (isBlack) {
+            // Position black key relative to the previous white key
+            key.style.left = `${(whiteKeyIndex * 50) - 15}px`;
+        } else {
+            whiteKeyIndex++;
+        }
+    });
+
+    piano.style.width = `${whiteKeyIndex * 50}px`;
+    piano.addEventListener('click', handleKeyClick);
 }
 
 
@@ -2629,7 +2712,32 @@ function initializePiano() {
 function showSong(songId) {
     const song = songbook[songId];
     if (song) {
-        document.getElementById('song-title').textContent = song.title;
+        document.getElementById('song-title').innerHTML = `${song.title} <button class="play-song-btn" onclick="playSong('${songId}')">▶️ Play</button>`;
         document.getElementById('song-notes').textContent = song.notes;
     }
+}
+
+async function playSong(songId) {
+    const song = songbook[songId];
+    if (!song) return;
+
+    const notesArray = song.notes.replace(/\|/g, '').split(/\s+/).filter(n => n);
+    const noteDuration = 300; // ms per note
+    const pauseDuration = 100; // ms between notes
+
+    // Disable play button
+    const playButton = document.querySelector('.play-song-btn');
+    if(playButton) playButton.disabled = true;
+
+    for (const note of notesArray) {
+        if (note === 'P') {
+            await new Promise(resolve => setTimeout(resolve, noteDuration));
+        } else {
+            playNote(note);
+            await new Promise(resolve => setTimeout(resolve, noteDuration + pauseDuration));
+        }
+    }
+
+    // Re-enable play button
+    if(playButton) playButton.disabled = false;
 }
