@@ -2450,7 +2450,7 @@ function generateStarMap() {
     } else {
         // This is the first time, so we need to initialize the map with a full configuration.
         const config = {
-            width: 0, // Set to 0 for a full-width map that fills the container.
+            width: 1024, // Set to a larger value for more detail
             projection: "stereographic",
             transform: "equatorial", // This is the coordinate system of the data
             location: true, // This enables location-based features
@@ -2463,7 +2463,7 @@ function generateStarMap() {
                 colors: true,
                 names: true,
                 style: { fill: "#ffffff", opacity: 1 },
-                limit: 6,
+                limit: 8, // Increased from 6 to show more stars
                 size: 5
             },
             constellations: {
