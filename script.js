@@ -1585,6 +1585,27 @@ function getDailyLoveNote() {
     return loveMessages[randomIndex];
 }
 
+function createFloatingOrbs() {
+    const container = document.body;
+    for (let i = 0; i < 15; i++) {
+        const orb = document.createElement('div');
+        orb.classList.add('floating-orb');
+        const size = Math.random() * 100 + 20;
+        orb.style.width = `${size}px`;
+        orb.style.height = `${size}px`;
+        orb.style.left = `${Math.random() * 100}vw`;
+        orb.style.top = `${Math.random() * 100}vh`;
+        orb.style.animationDuration = `${Math.random() * 20 + 15}s`;
+        orb.style.animationDelay = `${Math.random() * 10}s`;
+        container.appendChild(orb);
+    }
+}
+
+function removeFloatingOrbs() {
+    const orbs = document.querySelectorAll('.floating-orb');
+    orbs.forEach(orb => orb.remove());
+}
+
 document.addEventListener("DOMContentLoaded", function() {
     const openSurpriseBtn = document.getElementById('openSurpriseBtn');
     if (openSurpriseBtn) {
@@ -1643,15 +1664,19 @@ document.addEventListener("DOMContentLoaded", function() {
     if (switchBtn) {
         document.body.classList.add("day-mode");
         switchBtn.innerHTML = "🌞 Day";
+        createFloatingOrbs(); // Create orbs on initial load (if day mode is default)
+
         switchBtn.onclick = function() {
             if (document.body.classList.contains("day-mode")) {
                 document.body.classList.remove("day-mode");
                 document.body.classList.add("night-mode");
                 switchBtn.innerHTML = "🌙 Night";
+                removeFloatingOrbs();
             } else {
                 document.body.classList.remove("night-mode");
                 document.body.classList.add("day-mode");
                 switchBtn.innerHTML = "🌞 Day";
+                createFloatingOrbs();
             }
         };
     }

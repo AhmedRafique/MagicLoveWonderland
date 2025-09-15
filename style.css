@@ -869,9 +869,23 @@ body.night-mode #star-canvas {
     opacity: 1 !important;
 }
 body.day-mode {
-    background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     color: #fff;
     transition: background 0.8s;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 .daily-love-note {
     margin: 30px auto 10px auto;
@@ -2198,4 +2212,26 @@ body.night-mode .piano-button:hover { border-color: #f7d68b; }
 .play-song-btn:disabled {
     background-color: #cccccc;
     cursor: not-allowed;
+}
+
+.floating-orb {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    animation: floatOrb 20s infinite ease-in-out;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes floatOrb {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+    50% {
+        transform: translateY(-50vh) translateX(20vw);
+    }
+    100% {
+        transform: translateY(0) translateX(0);
+    }
 }
