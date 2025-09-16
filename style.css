@@ -1438,6 +1438,8 @@ body.day-mode .puzzle-button { background-color: #ffb347; } /* Apricot */
 body.day-mode .birthday-button { background-color: #c3aed6; } /* Lavender */
 body.day-mode .daily-question-button { background-color: #f67280; } /* Coral Pink */
 body.day-mode .celestial-button { background-color: #3d5a80; } /* Dark Blue/Gray */
+body.day-mode .fairytale-button { background-color: #8c73a5; } /* Dusty Purple */
+body.day-mode .fairytale-button { background-color: #8c73a5; } /* Dusty Purple */
 
 
 /* Make the daily/dreams buttons stand out */
@@ -1480,6 +1482,8 @@ body.night-mode .portrait-button:hover { border-color: #c06c84; }
 body.night-mode .map-button:hover { border-color: #45b39d; }
 body.night-mode .future-dreams-button:hover { border-color: #00B8D4; }
 body.night-mode .celestial-button:hover { border-color: #3d5a80; }
+body.night-mode .fairytale-button:hover { border-color: #8c73a5; }
+body.night-mode .fairytale-button:hover { border-color: #8c73a5; }
 
 /* Style for special buttons not in the main row */
 
@@ -2351,4 +2355,125 @@ body.day-mode .aurora {
         transform: scale(1);
         box-shadow: 0 0 15px #ff4d88, 0 0 25px #ff4d88;
     }
+}
+
+/* --- Fairytale Feature Styles --- */
+body.day-mode .fairytale-button { background-color: #a092b7; }
+body.night-mode .fairytale-button:hover { border-color: #a092b7; }
+
+.fairytale-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 10080;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s;
+}
+
+.fairytale-book {
+    width: 90vw;
+    max-width: 800px;
+    height: 85vh;
+    max-height: 600px;
+    background: #fdf5e6; /* Parchment color */
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    border: 3px solid #d2b48c;
+    position: relative;
+}
+
+.fairytale-content {
+    padding: 30px 40px;
+    flex-grow: 1;
+    overflow-y: auto;
+    color: #5d4037;
+}
+
+.fairytale-content h2 {
+    text-align: center;
+    color: #6c5b7b;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#storyText p {
+    font-size: 1.2em;
+    line-height: 1.7;
+    margin-bottom: 1em;
+    text-indent: 2em; /* Indent first line of each paragraph */
+}
+
+#storyText p::first-letter {
+    font-size: 2.5em;
+    color: #6c5b7b;
+    float: left;
+    line-height: 1;
+    margin-right: 0.1em;
+    margin-top: 0.1em;
+}
+
+
+.continue-story-btn {
+    background-color: #6c5b7b;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-top: 2px solid #d2b48c;
+    transition: background-color 0.3s;
+    font-family: 'Georgia', serif;
+}
+
+.continue-story-btn:hover {
+    background-color: #564a63;
+}
+
+.continue-story-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.close-fairytale {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    color: #5d4037;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.fairytale-audio-controls {
+    padding: 10px;
+    text-align: center;
+    border-top: 2px solid #d2b48c;
+    background: #f8f0e0;
+}
+
+.fairytale-audio-controls button {
+    background: transparent;
+    border: 2px solid #6c5b7b;
+    color: #6c5b7b;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: all 0.2s;
+}
+
+.fairytale-audio-controls button:hover {
+    background: #6c5b7b;
+    color: white;
 }

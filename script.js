@@ -1745,6 +1745,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // --- Fairytale Audio Controls ---
+    const playBtn = document.getElementById('fairytalePlayBtn');
+    const pauseBtn = document.getElementById('fairytalePauseBtn');
+    const stopBtn = document.getElementById('fairytaleStopBtn');
+
+    if (playBtn) playBtn.addEventListener('click', playNarration);
+    if (pauseBtn) pauseBtn.addEventListener('click', pauseNarration);
+    if (stopBtn) stopBtn.addEventListener('click', stopNarration);
+
     // --- Voice Control Initialization ---
     const voiceControlBtn = document.getElementById('voiceControlBtn');
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -2920,4 +2929,157 @@ async function playSong(songId) {
 
     // Re-enable play button
     if(playButton) playButton.disabled = false;
+}
+
+// --- Fairytale Narration ---
+let fairytaleUtterance = null;
+let fairytaleVoice = null;
+
+// Load voices and select a soothing one
+window.speechSynthesis.onvoiceschanged = () => {
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoices = [
+        'Google UK English Female',
+        'Microsoft Zira Desktop - English (United States)',
+        'Samantha',
+        'Google US English',
+        'Tessa'
+    ];
+    
+    fairytaleVoice = voices.find(v => preferredVoices.includes(v.name));
+
+    if (!fairytaleVoice) {
+        fairytaleVoice = voices.find(voice => voice.lang === 'en-US' && voice.name.includes('Female')) || 
+                         voices.find(voice => voice.lang === 'en-GB' && voice.name.includes('Female')) ||
+                         voices.find(voice => voice.lang.startsWith('en-')) ||
+                         voices[0];
+    }
+    console.log("Selected fairytale voice:", fairytaleVoice ? fairytaleVoice.name : "None");
+};
+
+function speakText(text) {
+    if (!window.speechSynthesis) return;
+    if (!fairytaleVoice) {
+        setTimeout(() => speakText(text), 100);
+        return;
+    }
+    window.speechSynthesis.cancel();
+
+    // Phonetic replacements for narration
+    const narrationText = text.replace(/Radwa/gi, 'Rah-dwah').replace(/Ahmed/gi, 'Ah-mad');
+
+    fairytaleUtterance = new SpeechSynthesisUtterance(narrationText);
+    fairytaleUtterance.voice = fairytaleVoice;
+    fairytaleUtterance.rate = 0.9;
+    fairytaleUtterance.pitch = 1;
+    window.speechSynthesis.speak(fairytaleUtterance);
+}
+
+function playNarration() {
+    if (window.speechSynthesis.paused && fairytaleUtterance) {
+        window.speechSynthesis.resume();
+    } else {
+        const storyEl = document.getElementById('storyText');
+        if (storyEl) {
+            speakText(storyEl.innerText);
+        }
+    }
+}
+
+function pauseNarration() {
+    window.speechSynthesis.pause();
+}
+
+function stopNarration() {
+    window.speechSynthesis.cancel();
+}
+
+
+// --- Modified Fairytale Logic ---
+let fairytaleStory = localStorage.getItem('magicLoveWonderlandFairytale') || '';
+
+function showFairytale() {
+    const overlay = document.getElementById('fairytaleOverlay');
+    const storyTextContainer = document.getElementById('storyText');
+    if (!overlay || !storyTextContainer) return;
+    
+    storyTextContainer.innerHTML = fairytaleStory;
+    
+    if (fairytaleStory.length === 0) {
+        continueFairytale(true);
+    }
+    
+    showOverlay(overlay);
+}
+
+function hideFairytale() {
+    stopNarration();
+    const overlay = document.getElementById('fairytaleOverlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+    }
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
+
+function continueFairytale(shouldAutoPlay = false) {
+    const continueBtn = document.getElementById('continueStoryBtn');
+    const storyTextContainer = document.getElementById('storyText');
+    if (!continueBtn || !storyTextContainer) return;
+
+    continueBtn.disabled = true;
+    continueBtn.textContent = 'The magic is happening...';
+
+    const mockApiCall = new Promise((resolve) => {
+        setTimeout(() => {
+            const chapters = [
+                "<p>Once upon a time, in a wonderland shimmering with magic and love, a hero named Ahmed discovered his greatest treasure, a radiant princess named Radwa. Their story was written in the stars, waiting to be told.</p>",
+                "<p>One sunny afternoon, as petals of cherry blossoms danced in the wind, Ahmed knew he had to create a world that reflected the beauty he saw in Radwa's eyes. And so, with a heart full of love, he began to build this very wonderland, a testament to a love that felt like magic.</p>",
+                "<p>They explored hand-in-hand, from the glowing Butterfly Museum to the shores of a sea that whispered their names. Every memory they created became another star in the sky of their shared universe, making it brighter with every passing day.</p>",
+                "<p>Their greatest adventure, however, was not to a far-off land, but to the future they dreamed of together. On a board made of hope and cork, they pinned their future travels, their shared laughter, and the quiet, simple promise of a life spent side-by-side.</p>",
+                "<p>They built a castle not of stone, but of shared secrets and inside jokes, its halls echoing with laughter rather than footsteps.</p>",
+                "<p>In the garden of their wonderland, they planted seeds of future dreams. Some grew quickly into vibrant blossoms, while others took root slowly, promising a beautiful surprise for a season yet to come.</p>",
+                "<p>Sometimes, a gentle rain would fall, washing the world clean. During these moments, they would sit by a window, watching the droplets race down the glass, finding comfort in the quiet rhythm and each other's presence.</p>",
+                "<p>The hero, Ahmed, learned that the princess, Radwa, held a magic all her own. She could turn a simple meal into a feast, a quiet evening into a cherished memory, and a simple 'I love you' into a symphony.</p>",
+                "<p>As the seasons changed, so did the colors of their wonderland, but the one thing that remained constant was the light in each other's eyes—a north star in an ever-changing world.</p>",
+                "<p>And so, their story continues, a never-ending fairytale written not with ink, but with moments of joy, acts of kindness, and a love that is, and always will be, legendary.</p>"
+            ];
+            
+            let currentChapterCount = (fairytaleStory.match(/<p>/g) || []).length;
+            
+            if (currentChapterCount >= chapters.length) {
+                fairytaleStory = ''; 
+                currentChapterCount = 0;
+            }
+            
+            resolve(chapters[currentChapterCount]);
+        }, 2000);
+    });
+
+    mockApiCall.then(newChapter => {
+        if (fairytaleStory.length === 0) {
+            storyTextContainer.innerHTML = '';
+        }
+        
+        fairytaleStory += newChapter;
+        storyTextContainer.innerHTML = fairytaleStory;
+        localStorage.setItem('magicLoveWonderlandFairytale', fairytaleStory);
+        
+        const contentElement = document.querySelector('#fairytaleOverlay .fairytale-content');
+        if (contentElement) {
+            contentElement.scrollTop = contentElement.scrollHeight;
+        }
+
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = newChapter;
+        const newChapterText = tempDiv.textContent || tempDiv.innerText || "";
+        
+        if (shouldAutoPlay) {
+            playNarration();
+        } else {
+            speakText(newChapterText);
+        }
+
+        continueBtn.disabled = false;
+        continueBtn.textContent = 'Continue the Story...';
+    });
 }

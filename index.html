@@ -49,6 +49,7 @@
             <button class="portrait-button" onclick="showStarPortrait()">Portrait of a Star</button>
             <button class="map-button" onclick="showOurWorld()">Explore Our World</button>
             <button id="celestialButton" class="celestial-button" onclick="showCelestialMap()">Our Night Sky</button>
+            <button class="fairytale-button" onclick="showFairytale()">Our Fairytale</button>
         </div>
         <div id="loveCategory" class="button-row" style="display: none;">
             <button class="poem-button" onclick="showPoem()">A Poem for You</button>
@@ -274,6 +275,22 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div id="fairytaleOverlay" class="fairytale-overlay" style="display:none;">
+        <button class="close-fairytale" onclick="hideFairytale()">✖</button>
+        <div class="fairytale-book">
+            <div class="fairytale-content" id="fairytaleContent">
+                <h2>The Story of Us</h2>
+                <div id="storyText"></div>
+            </div>
+            <div class="fairytale-audio-controls">
+                <button id="fairytalePlayBtn" title="Play Narration">▶️</button>
+                <button id="fairytalePauseBtn" title="Pause Narration">⏸️</button>
+                <button id="fairytaleStopBtn" title="Stop Narration">⏹️</button>
+            </div>
+            <button class="continue-story-btn" id="continueStoryBtn" onclick="continueFairytale()">Continue the Story...</button>
         </div>
     </div>
 
