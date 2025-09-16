@@ -1231,7 +1231,9 @@ function initializeStarrySky() {
     let mouse = { x: -100, y: -100 };
 
     let genericStars = [];
-    const numGenericStars = 120;
+    let starsLayer2 = [];
+    let starsLayer3 = [];
+    const numGenericStars = 500;
     let shootingStar = null;
 
     function init() {
@@ -1249,6 +1251,28 @@ function initializeStarrySky() {
                 r: Math.random() * 1.2 + 0.5,
                 alpha: Math.random(),
                 dAlpha: (Math.random() * 0.02 + 0.005) * (Math.random() < 0.5 ? 1 : -1)
+            });
+        }
+
+        starsLayer2 = [];
+        for (let i = 0; i < 100; i++) {
+            starsLayer2.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: Math.random() * 0.8 + 0.2,
+                alpha: Math.random() * 0.5,
+                dAlpha: (Math.random() * 0.01 + 0.002) * (Math.random() < 0.5 ? 1 : -1)
+            });
+        }
+
+        starsLayer3 = [];
+        for (let i = 0; i < 50; i++) {
+            starsLayer3.push({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                r: Math.random() * 0.5 + 0.1,
+                alpha: Math.random() * 0.3,
+                dAlpha: (Math.random() * 0.005 + 0.001) * (Math.random() < 0.5 ? 1 : -1)
             });
         }
 
@@ -1311,7 +1335,7 @@ function initializeStarrySky() {
 
     function maybeShootStar() {
         // Create a shooting star randomly
-        if (!shootingStar && Math.random() < 0.005) {
+        if (!shootingStar && Math.random() < 0.05) {
             shootingStar = {
                 x: Math.random() * w * 0.7,
                 y: Math.random() * h * 0.5,
@@ -1354,6 +1378,30 @@ function initializeStarrySky() {
                 }
             }
             hoveredStar = foundStar;
+        }
+
+        for (let s of starsLayer3) {
+            ctx.save();
+            ctx.globalAlpha = s.alpha;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+            ctx.fillStyle = "#fff";
+            ctx.fill();
+            ctx.restore();
+            s.alpha += s.dAlpha;
+            if (s.alpha <= 0.1 || s.alpha >= 0.3) s.dAlpha *= -1;
+        }
+
+        for (let s of starsLayer2) {
+            ctx.save();
+            ctx.globalAlpha = s.alpha;
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+            ctx.fillStyle = "#fff";
+            ctx.fill();
+            ctx.restore();
+            s.alpha += s.dAlpha;
+            if (s.alpha <= 0.2 || s.alpha >= 0.5) s.dAlpha *= -1;
         }
 
         const starsToDraw = nameConstellationModeActive ? reasonStars : genericStars;
@@ -1918,7 +1966,7 @@ function displayPuzzleSurprise() {
             html += `<p class="puzzle-text" style="font-style: italic;">${currentPuzzleSurprise.content}</p>`;
             break;
         case 'photo':
-            html += `<img src="photos/${currentPuzzleSurprise.content}" alt="Secret Photo" class="puzzle-photo" onerror="this.style.display='none'; this.parentElement.innerHTML += '<p>Secret photo is shy! But imagine my happiest smile.</p>'">`;
+            html += `<img src="photos/${currentPuzzleSurprise.content}" alt="Secret Photo" class="puzzle-photo" onerror="this.style.display='none'; this.parentElement.innerHTML += '<p>Secret photo is shy! But imagine my happiest smile.</p>'" >`;
             html += `<p class="puzzle-caption">${currentPuzzleSurprise.caption}</p>`;
             break;
         case 'voucher':
@@ -2579,7 +2627,7 @@ const songbook = {
     },
     'our-song': {
         title: 'Our Song (A Masterpiece for Radwa)',
-        notes: 'C4 G4 E4 G4 P C5 G4 E4 G4 P F4 C5 A4 F4 P D5 B4 G4 D4 P C5 G5 E5 G5 P F5 D5 B4 G4 P A4 F5 D5 B4 P G4 E5 C5 A4 P C4 G4 E4 G4 P C5 G4 E4 G4 P F4 C5 A4 F4 P D5 B4 G4 D4 P C5 G5 E5 G5 P F5 D5 B4 G4 P A4 F5 D5 B4 P G4 E5 C5 A4 P A4 E5 C5 E5 P D5 B4 G4 B4 P C5 A4 F#4 G#4 P A4 B4 C#5 D#5 P C5 G5 E5 G5 P F5 D5 B4 G4 P A4 F5 D5 B4 P G4 E5 C5 A4 P C4 G4 E4 G4 C5'
+        notes: 'C4 G4 E4 G4 P C5 G4 E4 G4 P F4 C5 A4 F4 P D5 B4 G4 D4 P C5 G5 E5 G5 P F5 D5 B4 G4 P A4 F5 D5 B4 P G4 E5 C5 A4 P C4 G4 E4 G4 P C5 G4 E4 G4 P F4 C5 A4 F4 P D5 B4 G4 D4 P C5 G5 E5 G5 P F5 D5 B4 G4 P A4 F5 D5 B4 P G4 E5 C5 A4 P C4 G4 E4 G4 C5'
     },
     'canon-in-d': {
         title: 'Canon in D',
