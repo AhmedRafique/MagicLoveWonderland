@@ -1744,6 +1744,113 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+
+    // --- Voice Control Initialization ---
+    const voiceControlBtn = document.getElementById('voiceControlBtn');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let isListening = false;
+
+    if (SpeechRecognition) {
+        const recognition = new SpeechRecognition();
+        recognition.continuous = false;
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        const commands = {
+            'show our photos': showGallery,
+            'open gallery': showGallery,
+            'close gallery': hideGallery,
+            'show our story': showTimeline,
+            'close story': hideTimeline,
+            'tell me a poem': showPoem,
+            'close the poem': hidePoem,
+            'show me the reasons': showLoveReasons,
+            'hide the reasons': hideLoveReasons,
+            'play the memory game': showMemoryGame,
+            'close the game': hideMemoryGame,
+            'write a letter': showLoveLetter,
+            'close the letter': hideLoveLetter,
+            'show the playlist': showPlaylist,
+            'hide the playlist': hidePlaylist,
+            'show birthday countdown': showBirthdayCountdown,
+            'hide birthday countdown': hideBirthdayCountdown,
+            'ask a question': showDailyQuestion,
+            'close the question': hideDailyQuestion,
+            'show the dream board': showFutureDreams,
+            'hide the dream board': hideFutureDreams,
+            'explore our world': showOurWorld,
+            'close the world': hideOurWorld,
+            'show the portrait': showStarPortrait,
+            'hide the portrait': hideStarPortrait,
+            'show the night sky': showCelestialMap,
+            'hide the night sky': hideCelestialMap,
+            'open the piano': showPiano,
+            'close the piano': hidePiano,
+            'day mode': () => {
+                if (document.body.classList.contains("night-mode")) {
+                    document.getElementById("dayNightSwitch").click();
+                }
+            },
+            'night mode': () => {
+                if (document.body.classList.contains("day-mode")) {
+                    document.getElementById("dayNightSwitch").click();
+                }
+            },
+            'play music': () => {
+                const music = document.getElementById('bg-music');
+                if (music.paused) music.play();
+            },
+            'stop music': () => {
+                const music = document.getElementById('bg-music');
+                if (!music.paused) music.pause();
+            }
+        };
+
+        voiceControlBtn.addEventListener('click', () => {
+            if (isListening) {
+                recognition.stop();
+                return;
+            }
+            recognition.start();
+        });
+
+        recognition.onstart = () => {
+            isListening = true;
+            voiceControlBtn.classList.add('listening');
+            voiceControlBtn.title = "Listening... Click to stop";
+        };
+
+        recognition.onend = () => {
+            isListening = false;
+            voiceControlBtn.classList.remove('listening');
+            voiceControlBtn.title = "Activate Voice Control";
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Speech recognition error:', event.error);
+            isListening = false;
+            voiceControlBtn.classList.remove('listening');
+            voiceControlBtn.title = "Voice control error. Try again?";
+        };
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript.toLowerCase().trim();
+            console.log('Heard:', transcript);
+
+            for (const command in commands) {
+                if (transcript.includes(command)) {
+                    console.log('Executing command:', command);
+                    commands[command]();
+                    break; // Execute only the first matched command
+                }
+            }
+        };
+
+    } else {
+        voiceControlBtn.style.display = 'none'; // Hide button if not supported
+        console.warn("Speech Recognition not supported in this browser.");
+    }
 });
 
 // Gift box functions

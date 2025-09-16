@@ -2331,3 +2331,24 @@ body.day-mode .aurora {
         transform: scale(1) rotate(0deg);
     }
 }
+
+/* --- Voice Control Button Styles --- */
+#voiceControlBtn.listening {
+    animation: pulse-red 1.5s infinite;
+    box-shadow: 0 0 15px #ff4d88, 0 0 25px #ff4d88;
+}
+
+@keyframes pulse-red {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 15px #ff4d88, 0 0 25px #ff4d88;
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 25px #ff0066, 0 0 45px #ff0066;
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px #ff4d88, 0 0 25px #ff4d88;
+    }
+}
