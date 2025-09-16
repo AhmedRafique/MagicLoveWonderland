@@ -117,7 +117,8 @@ const loveMessages = [
     "I would find you in any lifetime. ♾️",
     "You're the reason my reality is finally better than my dreams. 💭",
     "My love for you is a journey, starting at forever and ending at never. 🗺️",
-    "You're the only one who can make my heart race and feel calm at the same time. 💓"
+    "You're the only one who can make my heart race and feel calm at the same time. 💓",
+    "You are my favorite chapter, and I can't wait to write the rest of our story. 📖"
 ];
 const loveReasons = [
     "How your nose crinkles when you laugh",
@@ -198,7 +199,8 @@ const loveReasons = [
     "How you can be both strong and gentle at the same time.",
     "The way you get excited about the little things in life.",
     "Your incredible sense of style.",
-    "How you always smell so good."
+    "How you always smell so good.",
+    "The way you make me feel like the luckiest person alive."
 ];
 const nameStarMessages = [
     "For your Radiant smile that lights up my world.",
@@ -927,6 +929,19 @@ const poems = [
         "With you, I have nothing left to hide.",
         "My destination, journey's end,",
         "My love, my home, my dearest friend."
+    ]
+},
+{
+    title: "The Promise of Forever",
+    text: [
+        "In every sunrise, a new promise I see,",
+        "A lifetime of moments, just you and me.",
+        "With every heartbeat, my love grows anew,",
+        "Forever and always, my heart belongs to you.",
+        "Through changing seasons, our love will endure,",
+        "A bond unbreakable, steadfast and pure.",
+        "My dearest Radwa, my soul's true delight,",
+        "You fill my world with endless light."
     ]
 }
 ];
@@ -1993,6 +2008,11 @@ const puzzleSurprises = [
         type: 'compliment', // A new type of surprise!
         title: '✨ A Special Compliment',
         content: 'I am so incredibly proud of the person you are. Your strength and kindness inspire me every single day.'
+    },
+    {
+        type: 'message',
+        title: '🌟 A Little Sparkle',
+        content: "You add sparkle to my everyday life. Thank you for being you!"
     }
 ];
 
@@ -2319,7 +2339,8 @@ let futureDreams = JSON.parse(localStorage.getItem('futureDreams')) || [
     "Learn to cook a fancy Italian meal together 🍝",
     "Build a cozy blanket fort for a movie marathon 🎬",
     "Watch the sunrise from a hot air balloon 🎈",
-    "Write our own story book 📖"
+    "Write our own story book 📖",
+    "Have a picnic under the stars ✨"
 ];
 
 function saveDreams() {
@@ -3041,7 +3062,8 @@ function continueFairytale(shouldAutoPlay = false) {
                 "<p>Sometimes, a gentle rain would fall, washing the world clean. During these moments, they would sit by a window, watching the droplets race down the glass, finding comfort in the quiet rhythm and each other's presence.</p>",
                 "<p>The hero, Ahmed, learned that the princess, Radwa, held a magic all her own. She could turn a simple meal into a feast, a quiet evening into a cherished memory, and a simple 'I love you' into a symphony.</p>",
                 "<p>As the seasons changed, so did the colors of their wonderland, but the one thing that remained constant was the light in each other's eyes—a north star in an ever-changing world.</p>",
-                "<p>And so, their story continues, a never-ending fairytale written not with ink, but with moments of joy, acts of kindness, and a love that is, and always will be, legendary.</p>"
+                "<p>And so, their story continues, a never-ending fairytale written not with ink, but with moments of joy, acts of kindness, and a love that is, and always will be, legendary.</p>",
+                "<p>Every day was a new verse, every shared glance a chorus, in the beautiful song of their life together. Their love, a beacon, shone ever brighter, illuminating the path for all who dared to dream.</p>"
             ];
             
             let currentChapterCount = (fairytaleStory.match(/<p>/g) || []).length;
