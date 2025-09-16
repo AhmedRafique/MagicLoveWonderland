@@ -482,7 +482,7 @@ function createPetals() {
         petal.textContent = petals[Math.floor(Math.random() * petals.length)];
         petal.style.left = Math.random() * window.innerWidth + 'px';
         petal.style.animationDuration = (10 + Math.random() * 10) + 's';
-        document.body.appendChild(petal);
+        document.getElementById('animation-container').appendChild(petal);
         setTimeout(() => petal.remove(), 15000);
     }, 300);
 }
@@ -526,7 +526,7 @@ function showLoveMessage(x, y, customMessage) {
     msgElem.textContent = message;
     msgElem.style.left = `${x}px`;
     msgElem.style.top = `${y}px`;
-    document.body.appendChild(msgElem);
+    document.getElementById('animation-container').appendChild(msgElem);
     
     // Auto-remove after animation
     setTimeout(() => {
@@ -541,7 +541,7 @@ function createHeart(x, y, isRandom = false) {
     heart.className = 'heart';
     heart.style.left = `${x}px`;
     heart.style.top = `${y}px`;
-    document.body.appendChild(heart);
+    document.getElementById('animation-container').appendChild(heart);
 
     // Make hearts clickable to show messages
     heart.addEventListener('click', (e) => {
@@ -566,7 +566,7 @@ function createGift() {
     gift.textContent = gifts[Math.floor(Math.random() * gifts.length)];
     gift.style.left = `${Math.random() * window.innerWidth}px`;
     gift.style.top = `${window.innerHeight}px`;
-    document.body.appendChild(gift);
+    document.getElementById('animation-container').appendChild(gift);
     
     // Make gifts clickable to show messages
     gift.addEventListener('click', (e) => {
@@ -585,7 +585,7 @@ function createGift() {
 function moonSurprise() {
     const flash = document.createElement('div');
     flash.className = 'flash';
-    document.body.appendChild(flash);
+    document.getElementById('animation-container').appendChild(flash);
     setTimeout(() => flash.remove(), 1000);
     // Show the name constellation view
     showNameConstellation();
@@ -656,7 +656,7 @@ const firework = document.createElement('div');
 firework.className = 'firework';
 firework.style.left = Math.random() * window.innerWidth + 'px';
 firework.style.top = Math.random() * window.innerHeight + 'px';
-document.body.appendChild(firework);
+document.getElementById('animation-container').appendChild(firework);
 
 // Create particles for the firework
 for (let i = 0; i < 20; i++) {
@@ -693,7 +693,7 @@ function showCelebrationMessage(message) {
     const msgElem = document.createElement('div');
     msgElem.className = 'celebration-message';
     msgElem.textContent = message;
-    document.body.appendChild(msgElem);
+    document.getElementById('animation-container').appendChild(msgElem);
 
     // Remove message after a delay
     setTimeout(() => {
@@ -722,7 +722,7 @@ function createVoiceHeart() {
         heart.innerHTML = 'I LOVE YOU!';
         setTimeout(() => heart.remove(), 2000);
     };
-    document.body.appendChild(heart);
+    document.getElementById('animation-container').appendChild(heart);
 }
 
 // Define your poems as an array of objects
@@ -974,7 +974,7 @@ function createFloatingReason() {
     msgElem.style.setProperty('--sway', Math.random() * 2 - 1);
     msgElem.style.animationDuration = `${10 + Math.random() * 5}s`;
 
-    document.body.appendChild(msgElem);
+    document.getElementById('animation-container').appendChild(msgElem);
 
     // Auto-remove after animation to prevent buildup
     setTimeout(() => {
@@ -1083,7 +1083,7 @@ function sendKiss() {
     kiss.style.left = Math.random() * window.innerWidth + 'px';
     kiss.style.top = Math.random() * window.innerHeight + 'px';
     kiss.style.animation = 'fadeOut 2s forwards';
-    document.body.appendChild(kiss);
+    document.getElementById('animation-container').appendChild(kiss);
     setTimeout(() => kiss.remove(), 2000);
 }
 
@@ -1634,7 +1634,7 @@ function getDailyLoveNote() {
 }
 
 function createFloatingOrbs() {
-    const container = document.body;
+    const container = document.getElementById('animation-container');
     for (let i = 0; i < 15; i++) {
         const orb = document.createElement('div');
         orb.classList.add('floating-orb');
