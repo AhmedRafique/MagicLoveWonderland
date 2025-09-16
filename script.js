@@ -3055,12 +3055,52 @@ function continueFairytale(shouldAutoPlay = false) {
             const chapters = [
                 "<p>Once upon a time, in a wonderland shimmering with magic and love, a hero named Ahmed discovered his greatest treasure, a radiant princess named Radwa. Their story was written in the stars, waiting to be told.</p>",
                 "<p>One sunny afternoon, as petals of cherry blossoms danced in the wind, Ahmed knew he had to create a world that reflected the beauty he saw in Radwa's eyes. And so, with a heart full of love, he began to build this very wonderland, a testament to a love that felt like magic.</p>",
-                "<p>They explored hand-in-hand, from the glowing Butterfly Museum to the shores of a sea that whispered their names. Every memory they created became another star in the sky of their shared universe, making it brighter with every passing day.</p>",
-                "<p>Their greatest adventure, however, was not to a far-off land, but to the future they dreamed of together. On a board made of hope and cork, they pinned their future travels, their shared laughter, and the quiet, simple promise of a life spent side-by-side.</p>",
-                "<p>They built a castle not of stone, but of shared secrets and inside jokes, its halls echoing with laughter rather than footsteps.</p>",
-                "<p>In the garden of their wonderland, they planted seeds of future dreams. Some grew quickly into vibrant blossoms, while others took root slowly, promising a beautiful surprise for a season yet to come.</p>",
-                "<p>Sometimes, a gentle rain would fall, washing the world clean. During these moments, they would sit by a window, watching the droplets race down the glass, finding comfort in the quiet rhythm and each other's presence.</p>",
-                "<p>The hero, Ahmed, learned that the princess, Radwa, held a magic all her own. She could turn a simple meal into a feast, a quiet evening into a cherished memory, and a simple 'I love you' into a symphony.</p>",
+
+                // The Beginning of Their Love Story (Timeline Events in chronological order)
+                "<p>Their story began with a spark, a moment when their eyes met and a special journey began. It was like the first star appearing in the twilight sky, promising a universe of possibilities.</p>", // Timeline: The Spark (08 Jan 2025)
+                "<p>Soon, coffee and conversations became their favorite pastime, where ordinary moments transformed into extraordinary memories. It was then that the hero realized he couldn't imagine a life without his princess.</p>", // Timeline: Coffee and Conversations (28 Jan 2025)
+                "<p>A significant chapter unfolded when the hero met the princess's family, a perfect moment where the world seemed to disappear, leaving only the two of them in a bubble of pure happiness.</p>", // Timeline: I met your family (01 Feb 2025)
+                "<p>Their adventure truly began when they officially became one soul in two bodies, choosing each other to embark on a shared destiny. This was the start of their grand journey together.</p>", // Timeline: Start of our Adventure Together (15 Feb 2025)
+                "<p>A magical night followed, filled with hearts bouncing and dancing, as they chose their symbols of eternal love. Their wings could not be contained, soaring with joy.</p>", // Timeline: Buying our Jewelery (26 Feb 2025)
+                "<p>The hero prepared for their engagement, visiting a grand palace, only to realize that his princess, his butterfly, was far more beautiful than any earthly splendor.</p>", // Timeline: First Place and Palace (17 Mar 2025)
+                "<p>The princess's happiest birthday ever was a moment of warmth, surrounded by her second family, a testament to the love and belonging they had found.</p>", // Timeline: My Happiest Birthday Ever (25 Mar 2025)
+                "<p>On a day etched in their hearts, the hero's soul found its true home. Fireworks of joy erupted within him, and a profound calmness settled in his mind, knowing he was hers forever.</p>", // Timeline: I Was Yours Forever (12 Apr 2025)
+                "<p>Their first occasion together solidified a simple truth: anywhere, anytime, their hearts would always belong only to each other.</p>", // Timeline: First Occasion Together (2 May 2025)
+                "<p>Creating memories together became an art, with each shared moment adding to the masterpiece of their love. The princess was his pride, his light, his beautiful flower.</p>", // Timeline: Creating Memories Together (3 May 2025)
+                "<p>Returning to the Butterfly Museum, their love had grown its own wings, soaring higher and more beautifully than ever before, a symbol of their evolving bond.</p>", // Timeline: Butterfly Museum Revisited (07 Jun 2025)
+                "<p>A perfect night out, filled with movies and fine dining, felt like a scene from a classic romance. Every detail was perfect, especially with the princess by his side.</p>", // Timeline: A Perfect Night Out (09 Jun 2025)
+                "<p>Closing one chapter was merely the beginning of another. The hero watched his princess bravely step into a new phase, filled with immense pride and excitement for what's next.</p>", // Timeline: Closing One Chapter (12 Jun 2025)
+                "<p>A new beginning dawned, marked by grace and courage. The hero pledged his unwavering support, cheering her on every step of the way, as they embraced what was next.</p>", // Timeline: A New Beginning (16 Jun 2025)
+                "<p>Building their nest, choosing each piece for their home, was more than just furnishing a space. It was about building their sanctuary, their future, and it felt like floating on clouds.</p>", // Timeline: Building Our Nest (20 Jul 2025)
+                "<p>Even in the quietest evenings, just the two of them, lost in conversation and comfort, they found perfect moments, proving that love thrives in simplicity.</p>", // Timeline: A Quiet Evening (22 Jul 2025)
+                "<p>Dreaming together became a shared adventure, planning their future one aspiration at a time. Every shared dream brought them closer, weaving a tapestry of hope.</p>", // Timeline: Dreaming Together (01 Aug 2025)
+                "<p>The princess's laughter was the hero's favorite sound, a melody that filled his world with joy, a constant reminder of the happiness she brought into his life.</p>", // Timeline: Laughter and Joy (10 Aug 2025)
+
+                // Deepening Connection & Shared Experiences
+                "<p>Their photo gallery held countless beautiful moments, each image a captured memory, a testament to their shared journey and the love that shone through every frame.</p>", // Our Photos
+                "<p>The Star Portrait revealed the princess as a constellation of virtues, her inner light shining brightly, a true star in the hero's universe.</p>", // Portrait of a Star
+                "<p>Exploring their world, they marked significant places on a map, each point a memory or a dream, a testament to where they had been and where they longed to go together.</p>", // Explore Our World
+                "<p>Under the celestial map, they traced the stars of their special night, seeing their names written in the constellations, a cosmic affirmation of their bond.</p>", // Our Night Sky
+                "<p>Love and poems flowed freely, with verses dedicated to the princess, each word a brushstroke painting the depth of the hero's affection.</p>", // Love & Poems (general)
+                "<p>A special poem, crafted just for her, spoke of fields of dreams and radiant light, capturing the essence of her beauty and the profound impact she had on his soul.</p>", // A Poem for You
+                "<p>The hero found countless reasons to love her, each one a floating message, showering her with appreciation for every detail, every strength, every kindness.</p>", // Reasons I Love You
+                "<p>A heartfelt letter, typed out with care, conveyed the unspoken depths of his love, a tangible piece of his soul shared with his beloved princess.</p>", // A Letter For You
+                "<p>Their playlist was the soundtrack to their love, a collection of songs that spoke of their journey, their feelings, and the harmony they found together.</p>", // Our Playlist
+                "<p>On the piano, they played their song, a melody unique to them, a harmonious blend of their spirits, creating music only their hearts could truly understand.</p>", // Play Our Song
+
+                // Playful Moments & Surprises
+                "<p>Their time together was filled with playful moments, like the Memory Lane Game, where shared laughter and rediscovered memories strengthened their bond.</p>", // Memory Game
+                "<p>A secret puzzle, once unlocked, revealed hidden messages and delightful surprises, just like the layers of joy they discovered in their relationship.</p>", // Secret Puzzle
+                "<p>Gifts, both big and small, were exchanged, each one a symbol of their affection, a tangible expression of the magic they shared.</p>", // Gift
+
+                // Future & Commitment
+                "<p>Daily questions sparked deeper conversations, revealing new facets of their personalities and strengthening their understanding of each other, one thoughtful answer at a time.</p>", // Today's Question
+                "<p>Their dream board was a canvas of their future, filled with aspirations and adventures yet to come, a visual representation of their shared hopes and desires.</p>", // Dream Board
+                "<p>Counting down to her special day, the hero felt the anticipation of celebrating the princess, a reminder of the joy she brought into his life.</p>", // Birthday Countdown
+                "<p>And then came the big question, a moment suspended in time, where the hero's heart poured out its deepest desire, awaiting the answer that would change their lives forever.</p>", // The Big Question
+
+                // Conclusion
+                "<p>The fairytale itself was a living, breathing story, unfolding with each new chapter, narrated by the hero's heart, a tale of magic, love, and endless possibilities.</p>", // Our Fairytale
                 "<p>As the seasons changed, so did the colors of their wonderland, but the one thing that remained constant was the light in each other's eyes—a north star in an ever-changing world.</p>",
                 "<p>And so, their story continues, a never-ending fairytale written not with ink, but with moments of joy, acts of kindness, and a love that is, and always will be, legendary.</p>",
                 "<p>Every day was a new verse, every shared glance a chorus, in the beautiful song of their life together. Their love, a beacon, shone ever brighter, illuminating the path for all who dared to dream.</p>"
