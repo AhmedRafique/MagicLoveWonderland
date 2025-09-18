@@ -68,6 +68,7 @@
             <button class="daily-question-button" onclick="showDailyQuestion()">Today's Question</button>
             <button class="future-dreams-button" onclick="showFutureDreams()">Dream Board</button>
             <button id="showProposalButton" onclick="showProposal()">The Big Question...</button>
+            <button id="time-capsule-btn">Time Capsule</button>
         </div>
 
         <button id="backToCategories" onclick="showMainCategories()">⬅️ Back</button>
@@ -214,6 +215,8 @@
             <h3 id="mapPointTitle"></h3>
             <p id="mapPointDate"></p>
             <p id="mapPointDescription"></p>
+            <input type="file" id="photo-upload" accept="image/*" style="display: none;">
+            <button id="add-photo-btn">Add Photo</button>
         </div>
     </div>
 
@@ -252,6 +255,11 @@
                     
                 </div>
                 <div id="piano-message" class="piano-message" style="display:none;"></div>
+                <div id="our-song-controls">
+                    <button id="record-our-song">Record Our Song</button>
+                    <button id="save-our-song" disabled>Save Our Song</button>
+                    <button id="play-our-song" disabled>Play Our Song</button>
+                </div>
                 <div id="songbookContainer" class="songbook-container">
                     <h2>Piano Songbook</h2>
                     <div class="song-list">
@@ -291,6 +299,23 @@
                 <button id="fairytaleStopBtn" title="Stop Narration">⏹️</button>
             </div>
             <button class="continue-story-btn" id="continueStoryBtn" onclick="continueFairytale()">Continue the Story...</button>
+            <div id="add-chapter-container" style="display: none;">
+                <textarea id="new-chapter-text" placeholder="Write a new chapter..."></textarea>
+                <button id="save-chapter-btn">Save Chapter</button>
+            </div>
+            <button id="add-chapter-btn">Add a Chapter</button>
+        </div>
+    </div>
+
+    <div id="time-capsule-overlay" style="display:none;">
+        <div class="time-capsule-container">
+            <button class="close-time-capsule" onclick="hideTimeCapsule()">✖</button>
+            <h2>Our Time Capsule</h2>
+            <p>Write a message to our future selves!</p>
+            <textarea id="time-capsule-message" placeholder="Our hopes, our dreams, our love..."></textarea>
+            <label for="time-capsule-date">Open on:</label>
+            <input type="date" id="time-capsule-date">
+            <button id="save-time-capsule-btn">Seal the Capsule</button>
         </div>
     </div>
 

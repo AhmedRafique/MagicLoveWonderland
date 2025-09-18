@@ -2188,6 +2188,33 @@ body.day-mode .future-dreams-button { background-color: #00B8D4; }
     animation: pulse 1.5s infinite alternate;
 }
 
+#our-song-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+#our-song-controls button {
+    background-color: #c3aed6;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s;
+}
+
+#our-song-controls button:hover {
+    background-color: #a98ec2;
+}
+
+#our-song-controls button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 body.day-mode .piano-button { background-color: #f7d68b; }
 body.night-mode .piano-button:hover { border-color: #f7d68b; }
 
@@ -2441,6 +2468,34 @@ body.night-mode .fairytale-button:hover { border-color: #a092b7; }
     cursor: not-allowed;
 }
 
+#add-chapter-container {
+    padding: 10px;
+    border-top: 2px solid #d2b48c;
+}
+
+#new-chapter-text {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #d2b48c;
+    border-radius: 5px;
+    font-family: 'Georgia', serif;
+    font-size: 1em;
+}
+
+#save-chapter-btn {
+    background-color: #6c5b7b;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Georgia', serif;
+    margin-top: 10px;
+}
+
 .close-fairytale {
     position: absolute;
     top: 10px;
@@ -2476,4 +2531,97 @@ body.night-mode .fairytale-button:hover { border-color: #a092b7; }
 .fairytale-audio-controls button:hover {
     background: #6c5b7b;
     color: white;
+}
+
+#time-capsule-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 10090;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.5s;
+}
+
+.time-capsule-container {
+    width: 90vw;
+    max-width: 500px;
+    background: #fdf5e6; /* Parchment color */
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    border: 3px solid #d2b48c;
+    padding: 25px;
+    box-sizing: border-box;
+    color: #5d4037;
+}
+
+.time-capsule-container h2 {
+    text-align: center;
+    color: #6c5b7b;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.time-capsule-container p {
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+#time-capsule-message {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #d2b48c;
+    border-radius: 5px;
+    font-family: 'Georgia', serif;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
+.time-capsule-container label {
+    margin-bottom: 5px;
+}
+
+#time-capsule-date {
+    padding: 10px;
+    border: 1px solid #d2b48c;
+    border-radius: 5px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
+#save-time-capsule-btn {
+    background-color: #6c5b7b;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-family: 'Georgia', serif;
+}
+
+#save-time-capsule-btn:hover {
+    background-color: #564a63;
+}
+
+.close-time-capsule {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: transparent;
+    color: #5d4037;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    z-index: 10;
 }

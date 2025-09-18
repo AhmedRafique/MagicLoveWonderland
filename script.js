@@ -405,6 +405,9 @@ let giftInterval;
 let randomHeartInterval;
 let petalInterval;
 let reasonShowerInterval;
+let isRecording = false;
+let recordedSong = [];
+let ourSong = JSON.parse(localStorage.getItem('ourSong')) || [];
 
 // Check if she's been here before
 if (localStorage.getItem('radwaVisited')) {
@@ -1769,6 +1772,99 @@ document.addEventListener("DOMContentLoaded", function() {
     if (pauseBtn) pauseBtn.addEventListener('click', pauseNarration);
     if (stopBtn) stopBtn.addEventListener('click', stopNarration);
 
+    const addChapterBtn = document.getElementById('add-chapter-btn');
+    const addChapterContainer = document.getElementById('add-chapter-container');
+    const newChapterText = document.getElementById('new-chapter-text');
+    const saveChapterBtn = document.getElementById('save-chapter-btn');
+
+    addChapterBtn.addEventListener('click', () => {
+        addChapterContainer.style.display = 'block';
+        addChapterBtn.style.display = 'none';
+    });
+
+    saveChapterBtn.addEventListener('click', () => {
+        const newChapter = newChapterText.value.trim();
+        if (newChapter) {
+            const newChapterHTML = `<p>${newChapter}</p>`;
+            fairytaleStory += newChapterHTML;
+            localStorage.setItem('magicLoveWonderlandFairytale', fairytaleStory);
+            document.getElementById('storyText').innerHTML = fairytaleStory;
+            newChapterText.value = '';
+            addChapterContainer.style.display = 'none';
+            addChapterBtn.style.display = 'block';
+        }
+    });
+
+    // --- Our Song ---
+    const recordBtn = document.getElementById('record-our-song');
+    const saveBtn = document.getElementById('save-our-song');
+    const playBtnOurSong = document.getElementById('play-our-song');
+
+    if (ourSong.length > 0) {
+        playBtnOurSong.disabled = false;
+    }
+
+    recordBtn.addEventListener('click', () => {
+        if (isRecording) {
+            isRecording = false;
+            recordBtn.textContent = 'Record Our Song';
+            saveBtn.disabled = false;
+        } else {
+            isRecording = true;
+            recordedSong = [];
+            recordBtn.textContent = 'Stop Recording';
+            saveBtn.disabled = true;
+        }
+    });
+
+    saveBtn.addEventListener('click', () => {
+        ourSong = recordedSong;
+        localStorage.setItem('ourSong', JSON.stringify(ourSong));
+        playBtnOurSong.disabled = false;
+        saveBtn.disabled = true;
+    });
+
+    playBtnOurSong.addEventListener('click', () => {
+        playOurSong(ourSong);
+    });
+
+    // --- Time Capsule ---
+    const timeCapsuleBtn = document.getElementById('time-capsule-btn');
+    const timeCapsuleOverlay = document.getElementById('time-capsule-overlay');
+    const closeTimeCapsuleBtn = document.querySelector('.close-time-capsule');
+    const saveTimeCapsuleBtn = document.getElementById('save-time-capsule-btn');
+
+    timeCapsuleBtn.addEventListener('click', () => {
+        timeCapsuleOverlay.style.display = 'flex';
+    });
+
+    closeTimeCapsuleBtn.addEventListener('click', () => {
+        timeCapsuleOverlay.style.display = 'none';
+    });
+
+    saveTimeCapsuleBtn.addEventListener('click', () => {
+        const message = document.getElementById('time-capsule-message').value.trim();
+        const date = document.getElementById('time-capsule-date').value;
+        if (message && date) {
+            const timeCapsule = {
+                message,
+                date
+            };
+            localStorage.setItem('timeCapsule', JSON.stringify(timeCapsule));
+            timeCapsuleOverlay.style.display = 'none';
+        }
+    });
+
+    // Check for time capsule on load
+    const timeCapsule = JSON.parse(localStorage.getItem('timeCapsule'));
+    if (timeCapsule) {
+        const today = new Date().toISOString().slice(0, 10);
+        if (today >= timeCapsule.date) {
+            showCelebrationMessage(`A message from the past!\n\n${timeCapsule.message}`);
+            localStorage.removeItem('timeCapsule');
+        }
+    }
+
     // --- Voice Control Initialization ---
     const voiceControlBtn = document.getElementById('voiceControlBtn');
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -2810,6 +2906,9 @@ function hidePiano() {
 
 function playNote(note) {
     if (!audioContext || !notes[note]) return;
+    if (isRecording) {
+        recordedSong.push(note);
+    }
     const oscillator = audioContext.createOscillator();
     const gainNode = audioContext.createGain();
 
@@ -2917,7 +3016,19 @@ function initializePiano() {
     piano.addEventListener('click', handleKeyClick);
 }
 
+async function playOurSong(song) {
+    const noteDuration = 300; // ms per note
+    const pauseDuration = 100; // ms between notes
 
+    for (const note of song) {
+        if (note === 'P') {
+            await new Promise(resolve => setTimeout(resolve, noteDuration));
+        } else {
+            playNote(note);
+            await new Promise(resolve => setTimeout(resolve, noteDuration + pauseDuration));
+        }
+    }
+}
 
 function showSong(songId) {
     const song = songbook[songId];
@@ -2951,6 +3062,7 @@ async function playSong(songId) {
     // Re-enable play button
     if(playButton) playButton.disabled = false;
 }
+
 
 // --- Fairytale Narration ---
 let fairytaleUtterance = null;
