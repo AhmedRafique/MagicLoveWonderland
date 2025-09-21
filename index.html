@@ -33,6 +33,8 @@
         <source src="voice-message.mp3" type="audio/mpeg">
     </audio>
 
+    <audio id="heartbeat-sound" src="heartbeat.mp3"></audio>
+
     <button class="kiss-button" onclick="sendKiss()">💋</button>
 
     <div id="actionButtonsContainer" style="display: none;">
@@ -65,6 +67,7 @@
             <button class="birthday-button" onclick="showBirthdayCountdown()">🎂 Birthday Countdown</button>
             <button class="piano-button" onclick="showPiano()">🎹 Play Our Song</button>
             <button class="photo-puzzle-button" onclick="showPhotoPuzzle()">🖼️ Photo Puzzle</button>
+            <button class="love-wheel-button" onclick="showLoveWheel()">Spin the Love Wheel</button>
         </div>
         <div id="journeyCategory" class="button-row" style="display: none;">
             <button class="daily-question-button" onclick="showDailyQuestion()">Today's Question</button>
@@ -109,7 +112,13 @@
         <img id="zoomed-photo" src="" alt="Zoomed Memory">
     </div>
 
-    <div class="timeline-container">
+    <div id="loveWheelOverlay" class="love-wheel-overlay" style="display:none;">
+        <div id="wheel-container">
+            <canvas id="loveWheelCanvas" width="400" height="400"></canvas>
+            <div id="spin_button" onclick="startSpin();">Spin</div>
+        </div>
+        <button class="close-wheel" onclick="hideLoveWheel()">Close</button>
+    </div>
         <button class="close-timeline" onclick="hideTimeline()">Close</button>
         <h2>Our Love Story</h2>
         <div class="timeline">
@@ -352,6 +361,8 @@
     <script defer src="https://d3js.org/d3.v3.min.js"></script>
     <script defer src="https://d3js.org/d3.geo.projection.v0.min.js"></script>
     <script defer src="celestial.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="Winwheel.js"></script>
     <!-- Your main script, which is already correct -->
     <script defer src="script.js"></script>
 

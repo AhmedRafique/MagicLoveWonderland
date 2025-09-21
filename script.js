@@ -1971,6 +1971,11 @@ document.addEventListener("DOMContentLoaded", function() {
         voiceControlBtn.style.display = 'none'; // Hide button if not supported
         console.warn("Speech Recognition not supported in this browser.");
     }
+
+    const floatingMessage = document.querySelector('.floating-message');
+    if (floatingMessage) {
+        floatingMessage.addEventListener('click', triggerHeartbeat);
+    }
 });
 
 // Gift box functions
@@ -3458,4 +3463,73 @@ function zoomInPhoto(photoUrl) {
 function hideZoomedPhoto() {
     const zoomOverlay = document.getElementById('mosaic-zoom-overlay');
     zoomOverlay.style.display = 'none';
+}
+
+let theWheel;
+
+function showLoveWheel() {
+    const wheelOverlay = document.getElementById('loveWheelOverlay');
+    wheelOverlay.style.display = 'flex';
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+
+    theWheel = new Winwheel({
+        'numSegments'  : 6,
+        'outerRadius'  : 200,
+        'textFontSize' : 28,
+        'segments'     : [
+            {'fillStyle' : '#eae56f', 'text' : 'Kiss'},
+            {'fillStyle' : '#89f26e', 'text' : 'Hug'},
+            {'fillStyle' : '#7de6ef', 'text' : 'Poem'},
+            {'fillStyle' : '#e7706f', 'text' : 'Secret'},
+            {'fillStyle' : '#eae56f', 'text' : 'Memory'},
+            {'fillStyle' : '#89f26e', 'text' : 'Future Dream'}
+        ],
+        'animation' : {
+            'type'     : 'spinToStop',
+            'duration' : 5,
+            'spins'    : 8,
+            'callbackFinished' : alertPrize,
+            'callbackSound': playSound,   // Function to call when the tick sound is to be triggered.
+            'soundTrigger': 'pin'
+        },
+        'pins' : {
+            'number': 16
+        }
+    });
+}
+
+function hideLoveWheel() {
+    const wheelOverlay = document.getElementById('loveWheelOverlay');
+    wheelOverlay.style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
+
+function startSpin() {
+    theWheel.startAnimation();
+}
+
+function alertPrize(indicatedSegment) {
+    alert("You have won " + indicatedSegment.text + "!");
+}
+
+function playSound() {
+    // Create a new audio object and set the source to your sound file.
+    let audio = new Audio('tick.mp3');
+    // Stop and rewind the sound if it already happens to be playing.
+    audio.pause();
+    audio.currentTime = 0;
+    // Play the sound.
+    audio.play();
+}
+
+function triggerHeartbeat() {
+    const heartbeatSound = document.getElementById('heartbeat-sound');
+    document.body.classList.add('heartbeat-pulse');
+    heartbeatSound.play();
+
+    setTimeout(() => {
+        document.body.classList.remove('heartbeat-pulse');
+        heartbeatSound.pause();
+        heartbeatSound.currentTime = 0;
+    }, 5000); // Stop after 5 seconds
 }
