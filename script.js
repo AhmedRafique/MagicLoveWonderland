@@ -1243,6 +1243,49 @@ function hideMemoryGame() {
     document.getElementById('actionButtonsContainer').style.display = 'flex';
 }
 
+function initNameConstellation(name, w, h, customLetterMap, yOffset = 0) {
+    let messageIndex = 0;
+    // nameConstellation = { stars: [], lines: [] }; // Reset - Moved to showProposalConstellation
+    const BASE_SIZE_VW = 3.5; // Smaller size for longer text
+    const SPACING_VW = 1;
+    const vw = w / 100;
+
+    const letterMap = customLetterMap || LETTER_MAP;
+
+    const totalWidth = (name.length * BASE_SIZE_VW + (name.length - 1) * SPACING_VW) * vw;
+    const totalHeight = BASE_SIZE_VW * vw;
+    const startX = (w - totalWidth) / 2;
+    const startY = (h - totalHeight) / 2 + yOffset;
+
+    name.split('').forEach((letter, letterIndex) => {
+        if (letter === ' ') return; // Skip spaces
+        const letterPoints = letterMap[letter.toUpperCase()] || [];
+        const letterOffsetX = startX + letterIndex * (BASE_SIZE_VW + SPACING_VW) * vw;
+
+        const points = letterPoints.map(p => {
+            if (!p) return null;
+            return {
+                x: letterOffsetX + (p[0] / 100) * BASE_SIZE_VW * vw,
+                y: startY + (p[1] / 100) * BASE_SIZE_VW * vw,
+            };
+        });
+
+        points.forEach(point => {
+            if (!point) return;
+            const message = nameStarMessages[messageIndex % nameStarMessages.length];
+            nameConstellation.stars.push({ x: point.x, y: point.y, r: 2.5, baseR: 2.5, alpha: 1, text: '' }); // No text on hover
+            messageIndex++;
+        });
+
+        for (let i = 0; i < points.length - 1; i++) {
+            const p1 = points[i];
+            const p2 = points[i+1];
+            if (!p1 || !p2) continue;
+            nameConstellation.lines.push({ x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y });
+        }
+    });
+}
+
 function initializeStarrySky() {
     const canvas = document.getElementById('star-canvas');
     if (!canvas) return;
@@ -1315,48 +1358,7 @@ function initializeStarrySky() {
         initNameConstellation("RADWA", w, h);
     }
 
-    function initNameConstellation(name, w, h, customLetterMap) {
-        let messageIndex = 0;
-        nameConstellation = { stars: [], lines: [] }; // Reset
-        const BASE_SIZE_VW = 5; // Smaller size for longer text
-        const SPACING_VW = 1;
-        const vw = w / 100;
-
-        const letterMap = customLetterMap || LETTER_MAP;
-
-        const totalWidth = (name.length * BASE_SIZE_VW + (name.length - 1) * SPACING_VW) * vw;
-        const totalHeight = BASE_SIZE_VW * vw;
-        const startX = (w - totalWidth) / 2;
-        const startY = (h - totalHeight) / 2;
-
-        name.split('').forEach((letter, letterIndex) => {
-            if (letter === ' ') return; // Skip spaces
-            const letterPoints = letterMap[letter.toUpperCase()] || [];
-            const letterOffsetX = startX + letterIndex * (BASE_SIZE_VW + SPACING_VW) * vw;
-
-            const points = letterPoints.map(p => {
-                if (!p) return null;
-                return {
-                    x: letterOffsetX + (p[0] / 100) * BASE_SIZE_VW * vw,
-                    y: startY + (p[1] / 100) * BASE_SIZE_VW * vw,
-                };
-            });
-
-            points.forEach(point => {
-                if (!point) return;
-                const message = nameStarMessages[messageIndex % nameStarMessages.length];
-                nameConstellation.stars.push({ x: point.x, y: point.y, r: 2.5, baseR: 2.5, alpha: 1, text: '' }); // No text on hover
-                messageIndex++;
-            });
-
-            for (let i = 0; i < points.length - 1; i++) {
-                const p1 = points[i];
-                const p2 = points[i+1];
-                if (!p1 || !p2) continue;
-                nameConstellation.lines.push({ x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y });
-            }
-        });
-    }
+    
 
     function maybeShootStar() {
         // Create a shooting star randomly
@@ -3481,29 +3483,35 @@ function showLoveWheel() {
 
     theWheel = new Winwheel({
         'canvasId': 'loveWheelCanvas',
-        'numSegments': 6,
+        'numSegments': 8,
         'outerRadius': 200,
-        'textFontSize': 28,
-        'textFillStyle': '#000000',
+        'textFontSize': 24,
+        'textFillStyle': '#ffffff',
+        'textStrokeStyle': '#000000',
+        'textLineWidth': 2,
         'drawText': true,
         'segments'     : [
-            {'fillStyle' : '#eae56f', 'text' : 'Kiss'},
-            {'fillStyle' : '#89f26e', 'text' : 'Hug'},
-            {'fillStyle' : '#7de6ef', 'text' : 'Poem'},
-            {'fillStyle' : '#e7706f', 'text' : 'Secret'},
-            {'fillStyle' : '#eae56f', 'text' : 'Memory'},
-            {'fillStyle' : '#89f26e', 'text' : 'Future Dream'}
+            {'fillStyle' : '#e67e22', 'text' : 'A Big Kiss'},
+            {'fillStyle' : '#2980b9', 'text' : 'A Warm Hug'},
+            {'fillStyle' : '#8e44ad', 'text' : 'A Love Poem'},
+            {'fillStyle' : '#c0392b', 'text' : 'A Secret Note'},
+            {'fillStyle' : '#16a085', 'text' : 'A Sweet Memory'},
+            {'fillStyle' : '#f1c40f', 'text' : 'A Future Dream'},
+            {'fillStyle' : '#d35400', 'text' : 'A Love Song'},
+            {'fillStyle' : '#27ae60', 'text' : 'A Funny Joke'}
         ],
         'animation' : {
             'type'     : 'spinToStop',
-            'duration' : 5,
-            'spins'    : 8,
+            'duration' : 8,
+            'spins'    : 10,
             'callbackFinished' : alertPrize,
-            'callbackSound': playSound,   // Function to call when the tick sound is to be triggered.
+            'callbackSound': playSound,
             'soundTrigger': 'pin'
         },
         'pins' : {
-            'number': 16
+            'number': 32,
+            'fillStyle': 'silver',
+            'outerRadius': 4,
         }
     });
 }
@@ -3532,26 +3540,40 @@ function alertPrize(indicatedSegment) {
 function showPrize(indicatedSegment) {
     const prize = indicatedSegment.text;
     switch (prize) {
-        case 'Kiss':
+        case 'A Big Kiss':
             sendKiss();
             break;
-        case 'Hug':
+        case 'A Warm Hug':
             showLoveMessage('Sending you a big, warm hug!');
             break;
-        case 'Poem':
+        case 'A Love Poem':
             showPoem();
             break;
-        case 'Secret':
+        case 'A Secret Note':
             const secret = secrets[Math.floor(Math.random() * secrets.length)];
             showLoveMessage(secret);
             break;
-        case 'Memory':
+        case 'A Sweet Memory':
             const photo = galleryPhotos[Math.floor(Math.random() * galleryPhotos.length)];
             zoomInPhoto(`photos/${photo}`);
             break;
-        case 'Future Dream':
+        case 'A Future Dream':
             const dream = futureDreams[Math.floor(Math.random() * futureDreams.length)];
             showLoveMessage(dream);
+            break;
+        case 'A Love Song':
+            showPlaylist();
+            break;
+        case 'A Funny Joke':
+            const jokes = [
+                "Why don't scientists trust atoms? Because they make up everything!",
+                "I told my wife she was drawing her eyebrows too high. She looked surprised.",
+                "What do you call fake spaghetti? An Impasta!",
+                "Why did the scarecrow win an award? Because he was outstanding in his field!",
+                "Why don't skeletons fight each other? They don't have the guts."
+            ];
+            const joke = jokes[Math.floor(Math.random() * jokes.length)];
+            showLoveMessage(joke);
             break;
     }
 }
@@ -3578,7 +3600,12 @@ function triggerHeartbeat() {
     }, 5000); // Stop after 5 seconds
 }
 
+function replayProposalConstellation() {
+    showProposalConstellation();
+}
+
 function showProposalConstellation() {
+    nameConstellation = { stars: [], lines: [] };
     nameConstellationModeActive = true;
     document.body.classList.add('starry-night-active');
 
@@ -3597,7 +3624,7 @@ function showProposalConstellation() {
     document.getElementById('star-canvas').style.pointerEvents = 'auto';
 
     const instructions = document.getElementById('constellationInstructions');
-    instructions.textContent = "Will you always be my forever, Radwa?";
+    instructions.textContent = "Will you always be my forever, Radwa?"; // This will be updated below
     instructions.style.display = 'block';
 
     // Custom letter map for the proposal phrase
@@ -3616,8 +3643,31 @@ function showProposalConstellation() {
         F: [[50,0],[0,0],[0,100],null,[0,50],[30,50]],
         R: [[10,100],[10,0],[60,0],[70,10],[75,30],[70,45],[60,50],[10,50],null,[60,50],[80,100]],
         V: [[0,0],[25,100],[50,0]],
+        D: [[0,0],[0,100],[50,80],[50,20],[0,0]],
         '?': [[0,20],[25,0],[50,20],[25,40],[25,60],null,[25,80],[25,100]]
     };
 
-    initNameConstellation("WILL YOU ALWAYS BE MY FOREVER, RADWA?", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP);
+    // Clear previous constellation data
+    nameConstellation = { stars: [], lines: [] };
+
+    // Calculate vertical offset for three lines
+    const vw = window.innerWidth / 100;
+    const BASE_SIZE_VW_CONST = 3.5; // Using the same BASE_SIZE_VW as in initNameConstellation
+    const dynamicLineHeight = BASE_SIZE_VW_CONST * vw; // Height of a single letter constellation
+    const spacing = 10; // Reduced spacing for three lines
+
+    const totalHeightOfThreeLines = (dynamicLineHeight * 3) + (spacing * 2);
+    const initialYOffset = -totalHeightOfThreeLines / 2 + dynamicLineHeight / 2; // Adjust to center all three lines
+
+    // First line
+    initNameConstellation("WILL YOU ALWAYS", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP, initialYOffset - dynamicLineHeight - spacing);
+
+    // Second line
+    initNameConstellation("BE MY FOREVER,", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP, initialYOffset);
+
+    // Third line
+    initNameConstellation("RADWA?", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP, initialYOffset + dynamicLineHeight + spacing);
+
+    // Update instructions text to reflect three lines
+    instructions.innerHTML = "Will you always<br>be my forever,<br>Radwa?";
 }
