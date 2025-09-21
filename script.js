@@ -592,8 +592,12 @@ function moonSurprise() {
     flash.className = 'flash';
     document.getElementById('animation-container').appendChild(flash);
     setTimeout(() => flash.remove(), 1000);
-    // Show the name constellation view
-    showNameConstellation();
+
+    if (proposalVisible) {
+        showProposalConstellation();
+    } else {
+        showNameConstellation();
+    }
 }
 
 function showProposal() {
@@ -1311,12 +1315,14 @@ function initializeStarrySky() {
         initNameConstellation("RADWA", w, h);
     }
 
-    function initNameConstellation(name, w, h) {
+    function initNameConstellation(name, w, h, customLetterMap) {
         let messageIndex = 0;
         nameConstellation = { stars: [], lines: [] }; // Reset
-        const BASE_SIZE_VW = 10;
-        const SPACING_VW = 2;
+        const BASE_SIZE_VW = 5; // Smaller size for longer text
+        const SPACING_VW = 1;
         const vw = w / 100;
+
+        const letterMap = customLetterMap || LETTER_MAP;
 
         const totalWidth = (name.length * BASE_SIZE_VW + (name.length - 1) * SPACING_VW) * vw;
         const totalHeight = BASE_SIZE_VW * vw;
@@ -1324,9 +1330,10 @@ function initializeStarrySky() {
         const startY = (h - totalHeight) / 2;
 
         name.split('').forEach((letter, letterIndex) => {
-            const letterPoints = LETTER_MAP[letter.toUpperCase()] || [];
+            if (letter === ' ') return; // Skip spaces
+            const letterPoints = letterMap[letter.toUpperCase()] || [];
             const letterOffsetX = startX + letterIndex * (BASE_SIZE_VW + SPACING_VW) * vw;
-            
+
             const points = letterPoints.map(p => {
                 if (!p) return null;
                 return {
@@ -1338,7 +1345,7 @@ function initializeStarrySky() {
             points.forEach(point => {
                 if (!point) return;
                 const message = nameStarMessages[messageIndex % nameStarMessages.length];
-                nameConstellation.stars.push({ x: point.x, y: point.y, r: 3.5, baseR: 3.5, alpha: 1, text: message });
+                nameConstellation.stars.push({ x: point.x, y: point.y, r: 2.5, baseR: 2.5, alpha: 1, text: '' }); // No text on hover
                 messageIndex++;
             });
 
@@ -3473,9 +3480,12 @@ function showLoveWheel() {
     document.getElementById('actionButtonsContainer').style.display = 'none';
 
     theWheel = new Winwheel({
-        'numSegments'  : 6,
-        'outerRadius'  : 200,
-        'textFontSize' : 28,
+        'canvasId': 'loveWheelCanvas',
+        'numSegments': 6,
+        'outerRadius': 200,
+        'textFontSize': 28,
+        'textFillStyle': '#000000',
+        'drawText': true,
         'segments'     : [
             {'fillStyle' : '#eae56f', 'text' : 'Kiss'},
             {'fillStyle' : '#89f26e', 'text' : 'Hug'},
@@ -3508,8 +3518,42 @@ function startSpin() {
     theWheel.startAnimation();
 }
 
+const secrets = [
+    "My biggest fear is losing you.",
+    "I've never told anyone this, but I secretly love watching cheesy romantic comedies.",
+    "Sometimes, I practice what I'm going to say to you in the mirror.",
+    "I still have the first photo we ever took together saved in a special folder."
+];
+
 function alertPrize(indicatedSegment) {
-    alert("You have won " + indicatedSegment.text + "!");
+    showPrize(indicatedSegment);
+}
+
+function showPrize(indicatedSegment) {
+    const prize = indicatedSegment.text;
+    switch (prize) {
+        case 'Kiss':
+            sendKiss();
+            break;
+        case 'Hug':
+            showLoveMessage('Sending you a big, warm hug!');
+            break;
+        case 'Poem':
+            showPoem();
+            break;
+        case 'Secret':
+            const secret = secrets[Math.floor(Math.random() * secrets.length)];
+            showLoveMessage(secret);
+            break;
+        case 'Memory':
+            const photo = galleryPhotos[Math.floor(Math.random() * galleryPhotos.length)];
+            zoomInPhoto(`photos/${photo}`);
+            break;
+        case 'Future Dream':
+            const dream = futureDreams[Math.floor(Math.random() * futureDreams.length)];
+            showLoveMessage(dream);
+            break;
+    }
 }
 
 function playSound() {
@@ -3532,4 +3576,48 @@ function triggerHeartbeat() {
         heartbeatSound.pause();
         heartbeatSound.currentTime = 0;
     }, 5000); // Stop after 5 seconds
+}
+
+function showProposalConstellation() {
+    nameConstellationModeActive = true;
+    document.body.classList.add('starry-night-active');
+
+    // Ensure night mode is on for the effect
+    if (document.body.classList.contains("day-mode")) {
+        document.body.classList.remove("day-mode");
+        document.body.classList.add("night-mode");
+        document.getElementById("dayNightSwitch").innerHTML = "🌙 Night";
+    }
+
+    document.getElementById('actionButtonsContainer').style.display = 'none';
+    const closeButton = document.getElementById('closeReasonsButton');
+    closeButton.style.display = 'block';
+    closeButton.onclick = hideNameConstellation; // Assign correct hide function
+
+    document.getElementById('star-canvas').style.pointerEvents = 'auto';
+
+    const instructions = document.getElementById('constellationInstructions');
+    instructions.textContent = "Will you always be my forever, Radwa?";
+    instructions.style.display = 'block';
+
+    // Custom letter map for the proposal phrase
+    const PROPOSAL_LETTER_MAP = {
+        W: [[0,0],[15,100],[25,60],[35,100],[50,0]],
+        I: [[0,0],[0,100]],
+        L: [[0,0],[0,100],[50,100]],
+        Y: [[0,0],[25,50],[50,0],null,[25,50],[25,100]],
+        O: [[0,0],[50,0],[50,100],[0,100],[0,0]],
+        U: [[0,0],[0,80],[25,100],[50,80],[50,0]],
+        A: [[0,100],[25,0],[50,100],null,[12,60],[38,60]],
+        S: [[50,0],[0,0],[0,50],[50,50],[50,100],[0,100]],
+        B: [[0,0],[0,100],[30,100],[50,80],[30,50],[50,20],[30,0],[0,0],null,[0,50],[30,50]],
+        E: [[50,0],[0,0],[0,50],[50,50],[0,50],[0,100],[50,100]],
+        M: [[0,100],[0,0],[25,50],[50,0],[50,100]],
+        F: [[50,0],[0,0],[0,100],null,[0,50],[30,50]],
+        R: [[10,100],[10,0],[60,0],[70,10],[75,30],[70,45],[60,50],[10,50],null,[60,50],[80,100]],
+        V: [[0,0],[25,100],[50,0]],
+        '?': [[0,20],[25,0],[50,20],[25,40],[25,60],null,[25,80],[25,100]]
+    };
+
+    initNameConstellation("WILL YOU ALWAYS BE MY FOREVER, RADWA?", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP);
 }
