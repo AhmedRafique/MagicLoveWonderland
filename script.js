@@ -416,7 +416,7 @@ if (localStorage.getItem('radwaVisited')) {
     localStorage.setItem('radwaVisited', 'true');
 }
 
-function showOverlay(elementToShow) {
+function showOverlay(elementToShow, displayType = 'block') {
     // Hide all overlays first by using a common class like 'overlay-content'.
     // This makes the function more maintainable if you add new overlays.
     // You would need to add class="overlay-content" to each overlay div in your HTML.
@@ -441,7 +441,7 @@ function showOverlay(elementToShow) {
             elementToShow.style.visibility = 'visible';
         } else {
             // Show other overlays by setting display
-            elementToShow.style.display = 'block';
+            elementToShow.style.display = displayType;
         }
     }
 }
@@ -3256,4 +3256,155 @@ function continueFairytale(shouldAutoPlay = false) {
         continueBtn.disabled = false;
         continueBtn.textContent = 'Continue the Story...';
     });
+}
+
+
+// --- Modified Photo Puzzle --- 
+let draggedPiece = null;
+
+function showPhotoPuzzle() {
+    const overlay = document.getElementById('photoPuzzleOverlay');
+    overlay.style.display = 'flex';
+    showOverlay(overlay);
+    createPuzzle();
+}
+
+function hidePhotoPuzzle() {
+    const overlay = document.getElementById('photoPuzzleOverlay');
+    overlay.style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
+
+const puzzleGridSize = 4; // Or any other number
+
+function createPuzzle() {
+    const grid = document.querySelector('.photo-puzzle-grid');
+    const piecesContainer = document.querySelector('.photo-puzzle-pieces');
+    const message = document.getElementById('photo-puzzle-message');
+    const puzzleContainer = document.querySelector('.photo-puzzle-grid-container');
+
+    grid.innerHTML = '';
+    piecesContainer.innerHTML = '';
+    message.style.display = 'none';
+
+    const pieceSize = 100; // piece size in px
+    const gridSize = puzzleGridSize * pieceSize;
+    grid.style.gridTemplateColumns = `repeat(${puzzleGridSize}, ${pieceSize}px)`;
+    grid.style.gridTemplateRows = `repeat(${puzzleGridSize}, ${pieceSize}px)`;
+    piecesContainer.style.gridTemplateColumns = `repeat(${puzzleGridSize}, ${pieceSize}px)`;
+
+
+    const randomPhoto = galleryPhotos[Math.floor(Math.random() * galleryPhotos.length)];
+    const imgSrc = `photos/${randomPhoto}`;
+
+    const pieces = [];
+    for (let i = 0; i < puzzleGridSize * puzzleGridSize; i++) {
+        // Create piece
+        const piece = document.createElement('div');
+        piece.className = 'puzzle-piece';
+        piece.draggable = true;
+        piece.dataset.index = i;
+        piece.style.backgroundImage = `url(${imgSrc})`;
+        piece.style.backgroundSize = `${gridSize}px ${gridSize}px`;
+        const row = Math.floor(i / puzzleGridSize);
+        const col = i % puzzleGridSize;
+        piece.style.backgroundPosition = `-${col * pieceSize}px -${row * pieceSize}px`;
+        
+        const pieceWrapper = document.createElement('div');
+        pieceWrapper.className = 'puzzle-piece-container';
+        pieceWrapper.style.width = `${pieceSize}px`;
+        pieceWrapper.style.height = `${pieceSize}px`;
+        pieceWrapper.appendChild(piece);
+        pieces.push(pieceWrapper);
+
+        // Create grid container
+        const container = document.createElement('div');
+        container.className = 'puzzle-piece-container';
+        container.style.width = `${pieceSize}px`;
+        container.style.height = `${pieceSize}px`;
+        container.dataset.index = i;
+        grid.appendChild(container);
+    }
+
+    // Shuffle and add pieces to pieces container
+    pieces.sort(() => Math.random() - 0.5);
+    pieces.forEach(piece => {
+        piecesContainer.appendChild(piece);
+    });
+
+    addPuzzleDragDropListeners();
+}
+
+function addPuzzleDragDropListeners() {
+    const pieces = document.querySelectorAll('.puzzle-piece');
+    const containers = document.querySelectorAll('.puzzle-piece-container');
+
+    pieces.forEach(piece => {
+        piece.addEventListener('dragstart', (e) => {
+            draggedPiece = e.target;
+            setTimeout(() => {
+                e.target.style.opacity = '0.5';
+            }, 0);
+        });
+
+        piece.addEventListener('dragend', (e) => {
+            e.target.style.opacity = '1';
+            draggedPiece = null;
+        });
+    });
+
+    containers.forEach(container => {
+        container.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            container.classList.add('over');
+        });
+
+        container.addEventListener('dragleave', (e) => {
+            container.classList.remove('over');
+        });
+
+        container.addEventListener('drop', (e) => {
+            e.preventDefault();
+            container.classList.remove('over');
+
+            if (!draggedPiece) return;
+
+            // If the container is empty, just append the piece
+            if (!container.hasChildNodes()) {
+                container.appendChild(draggedPiece);
+            } else {
+                // If the container already has a piece, swap them
+                const existingPiece = container.querySelector('.puzzle-piece');
+                const draggedPieceContainer = draggedPiece.parentElement;
+                
+                // Move the existing piece to the dragged piece's original container
+                draggedPieceContainer.appendChild(existingPiece);
+                
+                // Move the dragged piece to the new container
+                container.appendChild(draggedPiece);
+            }
+            checkPuzzleSolved();
+        });
+    });
+}
+
+function checkPuzzleSolved() {
+    const gridContainers = document.querySelectorAll('.photo-puzzle-grid .puzzle-piece-container');
+    let solved = true;
+    gridContainers.forEach(container => {
+        const piece = container.querySelector('.puzzle-piece');
+        if (!piece || piece.dataset.index !== container.dataset.index) {
+            solved = false;
+        }
+    });
+
+    if (solved) {
+        const message = document.getElementById('photo-puzzle-message');
+        message.textContent = "You solved it! You're amazing! ❤️";
+        message.style.display = 'block';
+        
+        // Add a class to the grid to remove the borders
+        const grid = document.querySelector('.photo-puzzle-grid');
+        grid.classList.add('solved');
+    }
 }

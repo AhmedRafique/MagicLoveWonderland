@@ -63,6 +63,7 @@
             <button class="playlist-button" onclick="showPlaylist()">Our Playlist</button>
             <button class="birthday-button" onclick="showBirthdayCountdown()">🎂 Birthday Countdown</button>
             <button class="piano-button" onclick="showPiano()">🎹 Play Our Song</button>
+            <button class="photo-puzzle-button" onclick="showPhotoPuzzle()">🖼️ Photo Puzzle</button>
         </div>
         <div id="journeyCategory" class="button-row" style="display: none;">
             <button class="daily-question-button" onclick="showDailyQuestion()">Today's Question</button>
@@ -152,6 +153,19 @@
             </div>
             <div class="secret-message" id="secretMessage" style="display:none;"></div>
             <button class="close-puzzle" onclick="hidePuzzle()">Close</button>
+        </div>
+    </div>
+
+    <div id="photoPuzzleOverlay" class="photo-puzzle-overlay overlay-content" style="display:none;">
+        <div class="photo-puzzle-container">
+            <button class="close-photo-puzzle" onclick="hidePhotoPuzzle()">✖</button>
+            <h2>Photo Puzzle</h2>
+            <p>Put the pieces back together to reveal a special memory!</p>
+            <div class="photo-puzzle-grid-container">
+                <div class="photo-puzzle-grid"></div>
+                <div class="photo-puzzle-pieces"></div>
+            </div>
+            <div id="photo-puzzle-message" class="photo-puzzle-message" style="display:none;"></div>
         </div>
     </div>
 
