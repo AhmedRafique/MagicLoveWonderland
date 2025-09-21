@@ -50,6 +50,7 @@
             <button class="map-button" onclick="showOurWorld()">Explore Our World</button>
             <button id="celestialButton" class="celestial-button" onclick="showCelestialMap()">Our Night Sky</button>
             <button class="fairytale-button" onclick="showFairytale()">Our Fairytale</button>
+            <button class="mosaic-button" onclick="showPhotoMosaic()">Photo Mosaic Heart</button>
         </div>
         <div id="loveCategory" class="button-row" style="display: none;">
             <button class="poem-button" onclick="showPoem()">A Poem for You</button>
@@ -96,6 +97,16 @@
         <h2>Our Beautiful Moments</h2>
         <div class="photo-grid">
             </div>
+    </div>
+
+    <div id="photoMosaicOverlay" class="photo-mosaic-overlay" style="display:none;">
+        <button class="close-mosaic" onclick="hidePhotoMosaic()">Close</button>
+        <h2>Our Memories in a Heart</h2>
+        <div id="mosaic-container"></div>
+    </div>
+
+    <div id="mosaic-zoom-overlay" class="mosaic-zoom-overlay" style="display: none;" onclick="hideZoomedPhoto()">
+        <img id="zoomed-photo" src="" alt="Zoomed Memory">
     </div>
 
     <div class="timeline-container">

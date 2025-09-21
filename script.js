@@ -3259,7 +3259,7 @@ function continueFairytale(shouldAutoPlay = false) {
 }
 
 
-// --- Modified Photo Puzzle --- 
+// --- Modified Photo Puzzle ---
 let draggedPiece = null;
 
 function showPhotoPuzzle() {
@@ -3407,4 +3407,55 @@ function checkPuzzleSolved() {
         const grid = document.querySelector('.photo-puzzle-grid');
         grid.classList.add('solved');
     }
+}
+
+function showPhotoMosaic() {
+    const mosaicOverlay = document.getElementById('photoMosaicOverlay');
+    const mosaicContainer = document.getElementById('mosaic-container');
+    showOverlay(mosaicOverlay);
+    mosaicContainer.innerHTML = ''; // Clear previous mosaic
+
+    const containerSize = 600;
+    const tileSize = 20;
+    const numTiles = containerSize / tileSize;
+
+    for (let i = 0; i < numTiles; i++) {
+        for (let j = 0; j < numTiles; j++) {
+            const x = j * tileSize;
+            const y = i * tileSize;
+
+            // Heart shape equation
+            const a = (x - containerSize / 2) / (containerSize / 3.5);
+            const b = (y - containerSize / 2) / (containerSize / 3.5);
+
+            if ( (Math.pow(a,2) + Math.pow(b,2) - 1)* (Math.pow(a,2) + Math.pow(b,2)-1)*(Math.pow(a,2) + Math.pow(b,2)-1) - Math.pow(a,2)*Math.pow(b,3) < 0) {
+                const tile = document.createElement('div');
+                tile.classList.add('mosaic-tile');
+                tile.style.left = `${x}px`;
+                tile.style.top = `${y}px`;
+                const photo = galleryPhotos[Math.floor(Math.random() * galleryPhotos.length)];
+                tile.style.backgroundImage = `url(photos/${photo})`;
+                tile.addEventListener('click', () => zoomInPhoto(`photos/${photo}`));
+                mosaicContainer.appendChild(tile);
+            }
+        }
+    }
+}
+
+function hidePhotoMosaic() {
+    const mosaicOverlay = document.getElementById('photoMosaicOverlay');
+    mosaicOverlay.style.display = 'none';
+    document.getElementById('actionButtonsContainer').style.display = 'flex';
+}
+
+function zoomInPhoto(photoUrl) {
+    const zoomOverlay = document.getElementById('mosaic-zoom-overlay');
+    const zoomedPhoto = document.getElementById('zoomed-photo');
+    zoomedPhoto.src = photoUrl;
+    zoomOverlay.style.display = 'flex';
+}
+
+function hideZoomedPhoto() {
+    const zoomOverlay = document.getElementById('mosaic-zoom-overlay');
+    zoomOverlay.style.display = 'none';
 }

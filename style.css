@@ -1,3 +1,4 @@
+
 html,
 body {
     margin: 0;
@@ -2745,4 +2746,80 @@ body.night-mode .fairytale-button:hover { border-color: #a092b7; }
     background-color: #ff4757;
     border-color: #ff4757;
     transform: scale(1.1) rotate(90deg);
+}
+
+/* --- Photo Mosaic Heart Styles --- */
+
+.photo-mosaic-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 1001;
+    overflow-y: auto;
+    padding: 70px 20px 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.close-mosaic {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    z-index: 1002;
+}
+
+#mosaic-container {
+    position: relative;
+    margin: 50px auto;
+    width: 600px;
+    height: 600px;
+}
+
+.mosaic-tile {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mosaic-tile:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 15px #fff;
+    z-index: 10;
+}
+
+.mosaic-zoom-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1003;
+    cursor: pointer;
+}
+
+#zoomed-photo {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 0 30px #fff;
 }
