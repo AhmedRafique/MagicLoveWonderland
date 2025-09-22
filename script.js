@@ -1243,8 +1243,8 @@ function hideMemoryGame() {
     document.getElementById('actionButtonsContainer').style.display = 'flex';
 }
 
-function initNameConstellation(name, w, h, customLetterMap, yOffset = 0) {
-    let messageIndex = 0;
+function initNameConstellation(name, w, h, customLetterMap, yOffset = 0, letterMessagesMap = {}, letterMessageIndices = {}) {
+    let messageIndex = 0; // Declare messageIndex here
     // nameConstellation = { stars: [], lines: [] }; // Reset - Moved to showProposalConstellation
     const BASE_SIZE_VW = 3.5; // Smaller size for longer text
     const SPACING_VW = 1;
@@ -1259,29 +1259,52 @@ function initNameConstellation(name, w, h, customLetterMap, yOffset = 0) {
 
     name.split('').forEach((letter, letterIndex) => {
         if (letter === ' ') return; // Skip spaces
-        const letterPoints = letterMap[letter.toUpperCase()] || [];
+        const upperCaseLetter = letter.toUpperCase();
+        const letterPoints = letterMap[upperCaseLetter] || [];
         const letterOffsetX = startX + letterIndex * (BASE_SIZE_VW + SPACING_VW) * vw;
 
-        const points = letterPoints.map(p => {
-            if (!p) return null;
-            return {
-                x: letterOffsetX + (p[0] / 100) * BASE_SIZE_VW * vw,
-                y: startY + (p[1] / 100) * BASE_SIZE_VW * vw,
-            };
+        // Initialize message index for this letter if not already present
+        if (letterMessagesMap[upperCaseLetter] && letterMessageIndices[upperCaseLetter] === undefined) {
+            letterMessageIndices[upperCaseLetter] = 0;
+        }
+
+        const starPoints = []; // Renamed to avoid conflict and clarify purpose
+        letterPoints.forEach(p => {
+            if (p) { // Only process if p is not null
+                starPoints.push({
+                    x: letterOffsetX + (p[0] / 100) * BASE_SIZE_VW * vw,
+                    y: startY + (p[1] / 100) * BASE_SIZE_VW * vw,
+                });
+            }
         });
 
-        points.forEach(point => {
-            if (!point) return;
-            const message = nameStarMessages[messageIndex % nameStarMessages.length];
-            nameConstellation.stars.push({ x: point.x, y: point.y, r: 2.5, baseR: 2.5, alpha: 1, text: '' }); // No text on hover
-            messageIndex++;
+        starPoints.forEach(point => {
+            if (!point) return; // Should not be necessary with the above filter, but good for safety
+            let message = '';
+            if (letterMessagesMap[upperCaseLetter] && letterMessagesMap[upperCaseLetter].length > 0) {
+                message = letterMessagesMap[upperCaseLetter][letterMessageIndices[upperCaseLetter] % letterMessagesMap[upperCaseLetter].length];
+                letterMessageIndices[upperCaseLetter]++;
+            } else {
+                // Fallback to nameStarMessages if no specific messages for this letter
+                if (letterMessageIndices['_fallback_'] === undefined) {
+                    letterMessageIndices['_fallback_'] = 0;
+                }
+                message = nameStarMessages[letterMessageIndices['_fallback_'] % nameStarMessages.length];
+                letterMessageIndices['_fallback_']++;
+            }
+            nameConstellation.stars.push({ x: point.x, y: point.y, r: 2.5, baseR: 2.5, alpha: 1, text: message });
         });
 
-        for (let i = 0; i < points.length - 1; i++) {
-            const p1 = points[i];
-            const p2 = points[i+1];
+        for (let i = 0; i < starPoints.length - 1; i++) {
+            const p1 = starPoints[i];
+            const p2 = starPoints[i+1];
             if (!p1 || !p2) continue;
-            nameConstellation.lines.push({ x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y });
+            nameConstellation.lines.push({
+                x1: p1.x,
+                y1: p1.y,
+                x2: p2.x,
+                y2: p2.y
+            });
         }
     });
 }
@@ -3529,8 +3552,7 @@ function startSpin() {
 const secrets = [
     "My biggest fear is losing you.",
     "I've never told anyone this, but I secretly love watching cheesy romantic comedies.",
-    "Sometimes, I practice what I'm going to say to you in the mirror.",
-    "I still have the first photo we ever took together saved in a special folder."
+    "Sometimes, I practice what I'm going to say to you in the mirror."
 ];
 
 function alertPrize(indicatedSegment) {
@@ -3647,6 +3669,25 @@ function showProposalConstellation() {
         '?': [[0,20],[25,0],[50,20],[25,40],[25,60],null,[25,80],[25,100]]
     };
 
+    const PROPOSAL_LETTER_MESSAGES = {
+        W: ["Wonderful", "Warm", "Wise", "Whimsical", "Wholehearted"],
+        I: ["Incredible", "Inspiring", "Important", "Irresistible", "Illuminating"],
+        L: ["Lovely", "Luminous", "Loyal", "Lively", "Laughing"],
+        Y: ["Youthful", "Yearning", "You're my everything", "Yes, forever!", "Yummy (just kidding, mostly!)"],
+        O: ["Outstanding", "Optimistic", "Original", "Open-hearted", "One-of-a-kind"],
+        U: ["Unique", "Understanding", "Uplifting", "Unforgettable", "Ultimate"],
+        A: ["Amazing", "Adorable", "Affectionate", "Angelic", "Alluring"],
+        S: ["Sweet", "Sparkling", "Sincere", "Stunning", "Supportive"],
+        B: ["Beautiful", "Brilliant", "Blissful", "Bright", "Breathtaking"],
+        E: ["Elegant", "Enchanting", "Ethereal", "Exquisite", "Everlasting"],
+        M: ["Magical", "Marvelous", "Magnificent", "Mesmerizing", "Mine"],
+        F: ["Fantastic", "Fabulous", "Faithful", "Flourishing", "Forever"],
+        R: ["Radiant", "Resilient", "Remarkable", "Romantic", "Ravishing"],
+        V: ["Vibrant", "Valuable", "Vivacious", "Victorious", "Visionary"],
+        D: ["Dazzling", "Delightful", "Devoted", "Dreamy", "Divine"],
+        '?': ["Questioning no more", "Quizzical about our future", "Quintessential love", "Quite simply, I love you", "Quick to say yes!"]
+    };
+
     // Clear previous constellation data
     nameConstellation = { stars: [], lines: [] };
 
@@ -3659,14 +3700,17 @@ function showProposalConstellation() {
     const totalHeightOfThreeLines = (dynamicLineHeight * 3) + (spacing * 2);
     const initialYOffset = -totalHeightOfThreeLines / 2 + dynamicLineHeight / 2; // Adjust to center all three lines
 
+    // Initialize letter message indices for this constellation
+    const letterMessageIndices = {};
+
     // First line
-    initNameConstellation("WILL YOU ALWAYS", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP, initialYOffset - dynamicLineHeight - spacing);
+    initNameConstellation("WILL YOU ALWAYS", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP, initialYOffset - dynamicLineHeight - spacing, PROPOSAL_LETTER_MESSAGES, letterMessageIndices);
 
     // Second line
-    initNameConstellation("BE MY FOREVER,", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP, initialYOffset);
+    initNameConstellation("BE MY FOREVER,", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP, initialYOffset, PROPOSAL_LETTER_MESSAGES, letterMessageIndices);
 
     // Third line
-    initNameConstellation("RADWA?", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP, initialYOffset + dynamicLineHeight + spacing);
+    initNameConstellation("RADWA?", window.innerWidth, window.innerHeight, PROPOSAL_LETTER_MAP, initialYOffset + dynamicLineHeight + spacing, PROPOSAL_LETTER_MESSAGES, letterMessageIndices);
 
     // Update instructions text to reflect three lines
     instructions.innerHTML = "Will you always<br>be my forever,<br>Radwa?";
