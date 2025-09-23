@@ -1986,18 +1986,43 @@ document.addEventListener("DOMContentLoaded", function() {
             voiceControlBtn.title = "Voice control error. Try again?";
         };
 
-        recognition.onresult = (event) => {
-            const transcript = event.results[0][0].transcript.toLowerCase().trim();
-            console.log('Heard:', transcript);
+        let loveWheel;
+const prizes = [
+    { text: 'A big hug', fillStyle: '#ffb6c1' },
+    { text: 'A romantic dinner', fillStyle: '#ff69b4' },
+    { text: 'A weekend getaway', fillStyle: '#ff1493' },
+    { text: 'A special gift', fillStyle: '#db7093' },
+    { text: 'A movie night', fillStyle: '#c71585' },
+    { text: 'A heartfelt compliment', fillStyle: '#da70d6' },
+    { text: 'A long walk together', fillStyle: '#ee82ee' },
+    { text: 'A day of pampering', fillStyle: '#dda0dd' },
+];
 
-            for (const command in commands) {
-                if (transcript.includes(command)) {
-                    console.log('Executing command:', command);
-                    commands[command]();
-                    break; // Execute only the first matched command
-                }
-            }
-        };
+function showLoveWheel() {
+    const loveWheelOverlay = document.getElementById('loveWheelOverlay');
+    showOverlay(loveWheelOverlay);
+    loveWheel = new Winwheel({
+        'canvasId': 'loveWheelCanvas',
+        'numSegments': prizes.length,
+        'outerRadius': 190,
+        'segments': prizes,
+        'animation': {
+            'type': 'spinToStop',
+            'duration': 5,
+            'spins': 8,
+            'callbackFinished': showPrize,
+        },
+    });
+}
+
+function startSpin() {
+    loveWheel.startAnimation();
+}
+
+function showPrize(indicatedSegment) {
+    alert("You have won " + indicatedSegment.text + "!");
+}
+
 
     } else {
         voiceControlBtn.style.display = 'none'; // Hide button if not supported
@@ -3513,6 +3538,7 @@ function showLoveWheel() {
         'textStrokeStyle': '#000000',
         'textLineWidth': 2,
         'drawText': true,
+        'pointerAngle': 90,
         'segments'     : [
             {'fillStyle' : '#e67e22', 'text' : 'A Big Kiss'},
             {'fillStyle' : '#2980b9', 'text' : 'A Warm Hug'},
