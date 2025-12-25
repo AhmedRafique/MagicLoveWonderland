@@ -238,6 +238,101 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 6. Voice Control Setup
     setupVoiceControl();
+
+    // 7. Welcome overlay (show only on first run)
+    const welcomeOverlay = document.getElementById('welcomeOverlay');
+    const openWelcomeBtn = document.getElementById('openWelcomeBtn');
+    if (welcomeOverlay && !localStorage.getItem('mlwSeenWelcome')) {
+        welcomeOverlay.style.display = 'flex';
+        if (openWelcomeBtn) openWelcomeBtn.addEventListener('click', () => {
+            welcomeOverlay.style.display = 'none';
+            localStorage.setItem('mlwSeenWelcome','true');
+        });
+    } else if (welcomeOverlay) {
+        welcomeOverlay.style.display = 'none';
+    }
+
+    // 8. Print note controls
+    const printNoteBtn = document.getElementById('printNoteBtn');
+    const printNoteOverlay = document.getElementById('printNoteOverlay');
+    const printNowBtn = document.getElementById('printNowBtn');
+    const closePrintNoteBtn = document.getElementById('closePrintNoteBtn');
+    if (printNoteBtn && printNoteOverlay) {
+        printNoteBtn.addEventListener('click', () => { printNoteOverlay.style.display = 'flex'; });
+    }
+    if (closePrintNoteBtn && printNoteOverlay) closePrintNoteBtn.addEventListener('click', () => { printNoteOverlay.style.display = 'none'; });
+    if (printNowBtn) printNowBtn.addEventListener('click', () => {
+        const content = document.querySelector('.print-note-body').innerHTML;
+        const w = window.open('', '_blank');
+        w.document.write('<html><head><title>Print Gift Note</title><style>body{font-family:Arial,Helvetica,sans-serif;padding:30px;color:#333}</style></head><body>' + content + '</body></html>');
+        w.document.close();
+        w.focus();
+        w.print();
+        w.close();
+    });
+});
+
+// Register service worker for PWA if supported
+let __deferredInstallPrompt = null;
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+            console.log('Service worker registered with scope:', reg.scope);
+        }).catch(err => {
+            console.warn('Service worker registration failed:', err);
+        });
+    });
+}
+
+// PWA install prompt handler
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent Chrome 67+ from automatically showing the prompt
+    e.preventDefault();
+    __deferredInstallPrompt = e;
+    const floatingBtn = document.getElementById('installBtn');
+    const banner = document.getElementById('installBanner');
+    const installNow = document.getElementById('installNowBtn');
+    const dismiss = document.getElementById('installDismissBtn');
+
+    if (floatingBtn) {
+        floatingBtn.style.display = 'block';
+        floatingBtn.addEventListener('click', async () => {
+            floatingBtn.style.display = 'none';
+            try {
+                __deferredInstallPrompt.prompt();
+                await __deferredInstallPrompt.userChoice;
+            } catch (err) {
+                console.warn('Install prompt failed', err);
+            }
+            __deferredInstallPrompt = null;
+        }, { once: true });
+    }
+
+    if (banner) {
+        banner.classList.remove('hidden');
+        if (installNow) installNow.addEventListener('click', async () => {
+            banner.classList.add('hidden');
+            if (!__deferredInstallPrompt) return;
+            try {
+                __deferredInstallPrompt.prompt();
+                await __deferredInstallPrompt.userChoice;
+            } catch (err) {
+                console.warn('Install prompt failed', err);
+            }
+            __deferredInstallPrompt = null;
+        }, { once: true });
+        if (dismiss) dismiss.addEventListener('click', () => { banner.classList.add('hidden'); }, { once: true });
+    }
+});
+
+window.addEventListener('appinstalled', (evt) => {
+    console.log('PWA installed');
+    const toast = document.createElement('div');
+    toast.className = 'install-toast';
+    toast.textContent = 'App installed ❤️';
+    document.body.appendChild(toast);
+    setTimeout(()=> toast.classList.add('show'), 50);
+    setTimeout(()=> { toast.classList.remove('show'); setTimeout(()=> toast.remove(),300); }, 3000);
 });
 
 

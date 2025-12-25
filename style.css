@@ -393,6 +393,52 @@ h1 {
 #closePoemButton:hover {
     background-color: #d32f2f;
 }
+/* PWA Install Button */
+.install-button {
+    background: linear-gradient(90deg,#ff9abf,#ff4d88);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+.install-button.hidden { display: none; }
+
+/* Install banner */
+.install-banner { position: fixed; left: 50%; transform: translateX(-50%); bottom: 80px; background: rgba(255,255,255,0.98); color:#222; padding:10px 14px; border-radius:12px; box-shadow:0 8px 24px rgba(0,0,0,0.2); z-index:10004; display:flex; align-items:center; }
+.install-banner.hidden { display:none; }
+.install-banner .install-content { display:flex; gap:12px; align-items:center; }
+.install-banner .install-text { font-weight:600; margin-right:12px; color:#222; }
+.install-banner .install-actions button { margin-left:6px; }
+
+/* Welcome overlay */
+.welcome-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.75); display:flex; align-items:center; justify-content:center; z-index:10005; }
+.welcome-card { background: linear-gradient(135deg,#fff,#ffe6f0); color:#d6336c; padding:36px; border-radius:14px; max-width:420px; text-align:center; box-shadow:0 10px 40px rgba(0,0,0,0.4); }
+.welcome-card h2{margin-top:0; color:#ff4d88;}
+.welcome-card button{margin-top:18px; padding:10px 20px; border-radius:10px; border:none; background:#ff4d88; color:#fff; font-weight:700; cursor:pointer;}
+
+/* Print note button */
+.print-note-button { position: fixed; top:20px; right:20px; background:#fff; color:#d6336c; border-radius:10px; padding:10px 12px; border:none; box-shadow:0 6px 18px rgba(0,0,0,0.15); z-index:10003; }
+
+/* Print note overlay */
+.print-note-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.75); display:flex; align-items:center; justify-content:center; z-index:10005; }
+.print-note-card { background:#fff; color:#222; width: min(760px, 92%); padding:24px; border-radius:12px; text-align:left; }
+.print-note-card h2 { margin-top:0; color:#d6336c;}
+.print-note-actions { text-align:right; margin-top:16px; }
+.print-note-actions button{ margin-left:8px; padding:8px 12px; border-radius:8px; border:none; background:#ff4d88; color:#fff; cursor:pointer; }
+
+/* Install toast */
+.install-toast { position: fixed; top: 20px; right: 20px; background: #fff; color:#d6336c; padding:8px 12px; border-radius:10px; box-shadow:0 8px 20px rgba(0,0,0,0.15); opacity:0; transform: translateY(-6px); transition: all 0.25s ease; z-index:10006; }
+.install-toast.show { opacity:1; transform: translateY(0); }
+
+/* When printing, hide everything except the print note if present */
+@media print {
+    body * { visibility: hidden; }
+    .print-note-card, .print-note-card * { visibility: visible; }
+    .print-note-card { position: absolute; left: 0; top: 0; width: 100%; }
+} 
 /* Falling petals */
 @keyframes falling {
     0% { transform: translateY(-10vh) rotate(0deg); }

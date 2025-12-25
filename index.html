@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Magical Love Wonderland</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#ff4d88">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="/icons/icon-192.svg">
 </head>
 <body>
     <div id="animation-container"></div>
@@ -25,6 +29,47 @@
 
     <button id="voiceControlBtn" class="music-button" title="Activate Voice Control" style="bottom: 20px; left: 20px; right: auto;">🎤</button>
     <button id="musicButton" class="music-button">🔊</button>
+    <!-- PWA install button (hidden until available) -->
+    <button id="installBtn" class="install-button" style="display:none; bottom:20px; right:80px; position:fixed; z-index:10003;">Install App</button>
+
+    <!-- Install Banner (shows briefly to encourage install) -->
+    <div id="installBanner" class="install-banner hidden" aria-live="polite" role="dialog">
+        <div class="install-content">
+            <div class="install-text">Install "Magical Love Wonderland" for quick access and offline use.</div>
+            <div class="install-actions">
+                <button id="installNowBtn" class="install-button">Install</button>
+                <button id="installDismissBtn" class="install-button">Dismiss</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome overlay shown on first visit -->
+    <div id="welcomeOverlay" class="welcome-overlay" style="display:none;">
+        <div class="welcome-card">
+            <h2>For Radwa ❤️</h2>
+            <p>A little world crafted with love — enjoy the memories and surprises inside.</p>
+            <button id="openWelcomeBtn">Start the Journey</button>
+        </div>
+    </div>
+
+    <!-- Printable Gift Note control -->
+    <button id="printNoteBtn" class="print-note-button" title="Open Gift Note">🖨️ Gift Note</button>
+
+    <div id="printNoteOverlay" class="print-note-overlay" style="display:none;">
+        <div class="print-note-card">
+            <h2>Gift Note for Radwa</h2>
+            <div class="print-note-body">
+                <p>My dearest Radwa,</p>
+                <p>With all my heart, I give you this little wonderland I created just for you. Open every corner, spin the wheel, and remember that my love for you grows each day.</p>
+                <p>Yours always,</p>
+                <p><strong>Ahmed Rafique</strong></p>
+            </div>
+            <div class="print-note-actions">
+                <button id="printNowBtn">Print</button>
+                <button id="closePrintNoteBtn">Close</button>
+            </div>
+        </div>
+    </div>
     <audio id="bg-music" loop>
         <source src="background-music.mp3" type="audio/mpeg">
     </audio>

@@ -129,7 +129,26 @@ Almost all personal content can be changed by editing the constant arrays at the
 
 ---
 
-### 📜 License
+### � Packaging for Gift (PWA & USB)
+
+This project includes tools to produce a portable gift package and adds PWA support for offline use when served via HTTP.
+
+- **PWA:** `manifest.json` and `sw.js` (service worker) are included. When the site is served over HTTP (e.g., via the included `run-local.bat`), it becomes installable and works offline.
+
+- **Create a USB-ready ZIP:** Run the PowerShell packaging script to create a `dist/` folder and a `Gift-Magical-Love-Wonderland.zip`:
+
+```powershell
+# From project root in PowerShell (Windows)
+.\package-gift.ps1
+```
+
+The script creates `dist/` with a `run-local.bat` (Windows) and `run-local.sh` (macOS/Linux) helper that starts a local HTTP server and opens the site at `http://localhost:5500`.
+
+- **Quick local server:** You can also run `run-local.bat` directly in the project root to start a local server if you have Python or Node installed.
+
+---
+
+### �📜 License
 
 Copyright (c) 2025 AhmedRafique - All Rights Reserved.
 
