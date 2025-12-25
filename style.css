@@ -419,8 +419,26 @@ h1 {
 .welcome-card h2{margin-top:0; color:#ff4d88;}
 .welcome-card button{margin-top:18px; padding:10px 20px; border-radius:10px; border:none; background:#ff4d88; color:#fff; font-weight:700; cursor:pointer;}
 
-/* Print note button */
-.print-note-button { position: fixed; top:20px; right:20px; background:#fff; color:#d6336c; border-radius:10px; padding:10px 12px; border:none; box-shadow:0 6px 18px rgba(0,0,0,0.15); z-index:10003; }
+/* Print note button - repositioned to avoid overlay close button overlap */
+.print-note-button {
+    position: fixed;
+    top: 20px;
+    right: 80px; /* moved away from overlay close buttons */
+    background: #fff;
+    color: #d6336c;
+    border-radius: 10px;
+    padding: 10px 12px;
+    border: none;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    z-index: 1000; /* keep below overlay close buttons (1001-1002) so they remain accessible */
+}
+
+@media (max-width: 600px) {
+    .print-note-button {
+        top: 72px;  /* push below any top-row controls */
+        right: 20px; /* move closer to edge on small screens */
+    }
+}
 
 /* Print note overlay */
 .print-note-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.75); display:flex; align-items:center; justify-content:center; z-index:10005; }
