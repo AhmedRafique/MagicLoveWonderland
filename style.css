@@ -434,9 +434,24 @@ h1 {
 }
 .photo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 15px;
-    margin-top: 50px;
+    margin: 50px auto 0 auto;
+    place-items: stretch;
+    max-width: 1200px; /* keep grid readable on very wide screens */
+}
+/* Explicit responsive breakpoints to ensure multiple columns across viewports */
+@media (min-width: 1200px) {
+    .photo-grid { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 800px) and (max-width: 1199px) {
+    .photo-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 480px) and (max-width: 799px) {
+    .photo-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 479px) {
+    .photo-grid { grid-template-columns: repeat(1, 1fr); }
 }
 .photo-item {
     position: relative;
@@ -444,6 +459,8 @@ h1 {
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     transition: transform 0.3s;
+    min-height: 150px; /* ensure visible area for images */
+    aspect-ratio: 4 / 3;
 }
 .photo-item img {
     width: 100%;
@@ -451,8 +468,17 @@ h1 {
     object-fit: cover;
     transition: transform 0.5s;
 }
+.photo-item.loaded { opacity: 1; }
 .photo-item:hover img {
     transform: scale(1.05);
+}
+
+/* Wheel win animation */
+.wheel-win { animation: wheelPulse 1.2s ease; }
+@keyframes wheelPulse {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(255,77,136,0.0);} 
+    50% { transform: scale(1.03); box-shadow: 0 18px 40px rgba(255,77,136,0.15);} 
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(255,77,136,0);} 
 }
 /* Timeline */
 .timeline-container {
@@ -1112,6 +1138,37 @@ body.day-mode {
     min-width: 280px;
     max-width: 90vw;
     animation: fadeIn 0.7s;
+}
+
+/* Love Wheel pointer and prize */
+#wheel-container { position: relative; display: inline-block; }
+#wheel-pointer {
+    position: absolute;
+    top: 50%;
+    right: -18px;
+    transform: translateY(-50%);
+    width: 0; height: 0;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 18px solid #ffffff; /* base triangle points right; we'll flip it when needed */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    z-index: 10050; /* ensure pointer is visible above overlays */
+}
+#wheel-pointer.flipped { transform: translateY(-50%) scaleX(-1); }
+.love-wheel-prize {
+    position: absolute;
+    bottom: -46px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.95);
+    color: #d6336c;
+    padding: 8px 12px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 11;
 }
 .puzzle-instructions {
     margin-bottom: 18px;
