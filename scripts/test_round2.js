@@ -121,6 +121,33 @@ check("playChime and playHarpStrum auto-resume AudioContext", () => {
     }
 });
 
+// 6. Service Worker & GitHub Pages Web Deployment
+console.log("");
+console.log("--- 6. Checking Service Worker & Web Deployment Compatibility ---");
+check("sw.js CORE_ASSETS use relative paths for GitHub Pages subpath support", () => {
+    const swContent = fs.readFileSync(path.join(root, 'sw.js'), 'utf8');
+    const match = swContent.match(/const CORE_ASSETS = \[([\s\S]*?)\];/);
+    if (!match) throw new Error("CORE_ASSETS not found in sw.js");
+    const assets = match[1].match(/'([^']+)'/g).map(s => s.replace(/'/g, ''));
+    assets.forEach(a => {
+        if (a.startsWith('/') && !a.startsWith('./')) {
+            throw new Error(`Asset '${a}' is absolute. Must use relative './' for subpath deployments like GitHub Pages.`);
+        }
+        const diskPath = a.replace(/^\.\//, '');
+        if (diskPath && !fs.existsSync(path.join(root, diskPath))) {
+            throw new Error(`Asset '${a}' in CORE_ASSETS missing on disk`);
+        }
+    });
+});
+
+check("GitHub Pages static deployment workflow exists and targets main", () => {
+    const workflowPath = path.join(root, '.github', 'workflows', 'static.yml');
+    if (!fs.existsSync(workflowPath)) throw new Error("static.yml missing in .github/workflows");
+    const workflowContent = fs.readFileSync(workflowPath, 'utf8');
+    if (!workflowContent.includes('branches: ["main"]')) throw new Error("Workflow does not trigger on main branch");
+    if (!workflowContent.includes('actions/deploy-pages')) throw new Error("actions/deploy-pages missing in workflow");
+});
+
 console.log("");
 console.log("========================================");
 console.log(`Round 2 Failures: ${failures.length}`);

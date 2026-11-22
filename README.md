@@ -5,11 +5,14 @@ A deeply personal and interactive web experience designed as a digital wonderlan
 
 ---
 
-### 🎬 Live Demo & Preview
+### 🎬 Live Web Deployment & PWA
 
-**(It is highly recommended to add a live demo link or an animated GIF here to showcase the project's dynamic nature!)**
+**Experience the digital wonderland live on the web:**  
+💖 **[https://ahmedrafique.github.io/MagicLoveWonderland/](https://ahmedrafique.github.io/MagicLoveWonderland/)**
 
-<!-- Example: ![Magic Love Wonderland Preview](https://example.com/path/to/your/preview.gif) -->
+*   **PWA Ready:** Accessible across all mobile and desktop devices with offline caching via Service Worker.
+*   **Installable App:** Tap "Install App" or "Add to Home Screen" on iOS/Android for a fullscreen native experience.
+*   **Zero-Server Mode:** Can also be viewed offline via `singlefile.html` or packaged via `package-gift.ps1`.
 
 ---
 

@@ -12,6 +12,12 @@ package "Presentation & View Layer" {
     [index.html] as HTML
     [style.css] as CSS
     [singlefile.html] as SingleFile
+    [sw.js\n(Service Worker & PWA Cache)] as SW
+}
+
+package "Deployment & Hosting Layer" {
+    [.github/workflows/static.yml\n(GitHub Actions Pipeline)] as GHActions
+    [GitHub Pages\n(Web Production Hosting)] as GHPages
 }
 
 package "Core Application Engine (ES Modules)" {
@@ -60,6 +66,8 @@ HTML ..> Main : loads as type="module"
 HTML ..> CSS : styled by
 HTML ..> Winwheel : loads
 HTML ..> Celestial : loads
+Main ..> SW : registers for PWA offline cache
+GHActions --> GHPages : deploys static repository to web
 
 Main --> Config : reads data
 Main --> Utils : controls navigation & a11y
