@@ -1,9 +1,9 @@
 /* =========================================
    ✨ Story & Narrative
    ========================================= */
-import { galleryPhotos, timelineEvents, loveLetters, poems } from './config.js';
+import { galleryPhotos, timelineEvents, loveLetters, poems, openWhenLetters } from './config.js';
 import { toggleOverlay, getRandomElement } from './utils.js';
-import { speakText, playNarration, stopNarration } from './audio.js';
+import { speakText, playNarration, stopNarration, playChime, playHarpStrum, triggerHaptic } from './audio.js';
 
 /* --- Photo Gallery --- */
 export function showGallery() {
@@ -39,7 +39,19 @@ export function showGallery() {
                     console.warn('Photo failed to load:', photo, e);
                     img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="%23ff4d88"><rect width="100" height="100"/><text x="50" y="50" font-size="8" fill="white" text-anchor="middle" dominant-baseline="middle">Photo ${index+1}</text></svg>';
                 });
+                img.alt = `Our memory ${index + 1}`;
                 item.appendChild(img);
+                // Accessibility: make photo items focusable and keyboard activatable
+                item.tabIndex = 0;
+                item.setAttribute('role', 'button');
+                item.setAttribute('aria-label', `Open photo ${index+1}`);
+                item.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        zoomInPhoto(img.src || (`photos/${photo}`));
+                    }
+                });
+                item.addEventListener('click', () => zoomInPhoto(img.src || (`photos/${photo}`)));
                 grid.appendChild(item);
             });
         }
@@ -74,8 +86,9 @@ export function showPhotoMosaic() {
         for (let j = 0; j < numTiles; j++) {
             const x = j * tileSize;
             const y = i * tileSize;
-            const a = (x - containerSize / 2) / (containerSize / 3.5);
-            const b = (y - containerSize / 2) / (containerSize / 3.5);
+            const a = (x - containerSize / 2) / (containerSize / 3.2);
+            // Screen Y increases downwards; invert Y so the heart is right-side up (lobes at top, point at bottom)
+            const b = -(y - containerSize / 2 - 15) / (containerSize / 3.2);
             if ( (Math.pow(a,2) + Math.pow(b,2) - 1)* (Math.pow(a,2) + Math.pow(b,2)-1)*(Math.pow(a,2) + Math.pow(b,2)-1) - Math.pow(a,2)*Math.pow(b,3) < 0) {
                 const tile = document.createElement('div');
                 tile.classList.add('mosaic-tile');
@@ -162,7 +175,13 @@ export function hidePoem() {
 }
 
 /* --- Love Letter --- */
+let typeWriterTimeout = null;
+
 export function showLoveLetter() {
+    if (typeWriterTimeout) {
+        clearTimeout(typeWriterTimeout);
+        typeWriterTimeout = null;
+    }
     const letterContainer = document.querySelector('.love-letter-container');
     if(letterContainer && !letterContainer.id) letterContainer.id = 'loveLetterContainer';
     const letterContent = document.getElementById('letter-content');
@@ -179,13 +198,19 @@ export function showLoveLetter() {
                 letterContent.innerHTML += letterText.charAt(i);
             }
             i++;
-            setTimeout(typeWriter, 50); 
+            typeWriterTimeout = setTimeout(typeWriter, 40); 
+        } else {
+            typeWriterTimeout = null;
         }
     }
     typeWriter();
 }
 
 export function hideLoveLetter() {
+    if (typeWriterTimeout) {
+        clearTimeout(typeWriterTimeout);
+        typeWriterTimeout = null;
+    }
     const letterContainer = document.querySelector('.love-letter-container');
     if(letterContainer) toggleOverlay(letterContainer.id, false);
 }
@@ -308,4 +333,179 @@ export function addFairytaleChapter(newChapter) {
     const addChapterBtn = document.getElementById('add-chapter-btn');
     if (addChapterContainer) addChapterContainer.style.display = 'none';
     if (addChapterBtn) addChapterBtn.style.display = 'block';
+}
+
+/* --- Our Story Movie --- */
+export function showOurVideo() {
+    toggleOverlay('videoOverlay', true);
+    const video = document.getElementById('ourStoryVideo');
+    if (video) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+    }
+}
+
+export function hideOurVideo() {
+    const video = document.getElementById('ourStoryVideo');
+    if (video) {
+        video.pause();
+    }
+    toggleOverlay('videoOverlay', false);
+}
+
+/* --- Wax-Sealed Birthday Letter --- */
+export function showWaxEnvelope() {
+    toggleOverlay('waxEnvelopeOverlay', true);
+    const env = document.getElementById('waxEnvelopeContainer');
+    const letter = document.getElementById('waxParchmentLetter');
+    if (env) env.classList.remove('envelope-opened');
+    if (letter) letter.style.display = 'none';
+}
+
+export function hideWaxEnvelope() {
+    toggleOverlay('waxEnvelopeOverlay', false);
+}
+
+export function breakWaxSeal() {
+    playHarpStrum();
+    const env = document.getElementById('waxEnvelopeContainer');
+    const letter = document.getElementById('waxParchmentLetter');
+    if (env) env.classList.add('envelope-opened');
+    setTimeout(() => {
+        if (letter) {
+            letter.style.display = 'block';
+            letter.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, 700);
+}
+
+/* --- 'Open When...' Envelopes Collection --- */
+export function showOpenWhen() {
+    toggleOverlay('openWhenOverlay', true);
+    const grid = document.getElementById('openWhenGrid');
+    if (!grid) return;
+    grid.innerHTML = '';
+    openWhenLetters.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'open-when-envelope-card';
+        card.innerHTML = `
+            <div class="envelope-stamp">💖 R&A</div>
+            <div class="envelope-icon">${item.icon}</div>
+            <h3 class="envelope-title">${item.title}</h3>
+            <p class="envelope-subtitle">${item.subtitle}</p>
+            <button class="open-envelope-btn" onclick="openWhenLetter('${item.id}')">Unseal & Read 💌</button>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+export function hideOpenWhen() {
+    toggleOverlay('openWhenOverlay', false);
+}
+
+export function openWhenLetter(letterId) {
+    const letter = openWhenLetters.find(l => l.id === letterId);
+    if (!letter) return;
+    playChime();
+    const modal = document.getElementById('openWhenLetterModal');
+    const body = document.getElementById('openWhenLetterBody');
+    if (!modal || !body) return;
+
+    body.innerHTML = `
+        <div class="open-when-letter-header">
+            <span class="open-when-letter-icon">${letter.icon}</span>
+            <h2>${letter.title}</h2>
+            <div class="open-when-arabic-quote">${letter.quote}</div>
+        </div>
+        ${letter.photo ? `<div class="open-when-photo-wrap"><img src="photos/${letter.photo}" alt="${letter.title}" class="open-when-photo" onerror="this.src='timeline-photos/${letter.photo}'; this.onerror=null;"></div>` : ''}
+        <div class="open-when-letter-text">${letter.content.replace(/\n/g, '<br>')}</div>
+    `;
+    modal.style.display = 'flex';
+}
+
+export function closeOpenWhenLetterModal() {
+    const modal = document.getElementById('openWhenLetterModal');
+    if (modal) modal.style.display = 'none';
+}
+
+/* --- Polaroid Wall with 3D Flip Backside Notes --- */
+export function showPolaroidWall() {
+    toggleOverlay('polaroidWallOverlay', true);
+    const container = document.getElementById('polaroidWallGrid');
+    if (!container) return;
+    container.innerHTML = '';
+
+    const polaroidNotes = [
+        "The very first day my heart knew you were the one.",
+        "Your smile in this moment made time stand completely still.",
+        "A quiet afternoon where I realized you are my home.",
+        "Surrounded by wonder, but all I could look at was you.",
+        "The day we decided to choose each other, officially and forever.",
+        "Walking hand-in-hand, dreaming of our whole lifetime ahead.",
+        "My favorite laugh in the entire universe captured here.",
+        "Every single day with you is my new favorite memory.",
+        "Looking into your eyes and seeing my future looking back.",
+        "You are the greatest blessing God ever placed in my life."
+    ];
+
+    galleryPhotos.slice(0, 10).forEach((photo, idx) => {
+        const item = document.createElement('div');
+        item.className = 'polaroid-item';
+        item.style.transform = `rotate(${((idx % 5) - 2) * 2.5}deg)`;
+        item.innerHTML = `
+            <div class="polaroid-inner" onclick="this.classList.toggle('flipped')">
+                <div class="polaroid-front">
+                    <div class="polaroid-tape"></div>
+                    <img src="photos/${photo}" alt="Polaroid Memory" loading="lazy">
+                    <div class="polaroid-caption">Memory #${idx + 1} • Click to Flip ↻</div>
+                </div>
+                <div class="polaroid-back">
+                    <div class="polaroid-tape"></div>
+                    <h4>💌 Secret Note from Ahmed</h4>
+                    <p class="polaroid-back-text">"${polaroidNotes[idx % polaroidNotes.length]}"</p>
+                    <div class="polaroid-back-sign">Forever Yours, Ahmed ❤️</div>
+                </div>
+            </div>
+        `;
+        container.appendChild(item);
+    });
+}
+
+export function hidePolaroidWall() {
+    toggleOverlay('polaroidWallOverlay', false);
+}
+
+/* --- Ambient Memory Slideshow (Ken Burns Effect) --- */
+let slideshowInterval = null;
+let currentSlideIndex = 0;
+
+export function showMemoriesSlideshow() {
+    toggleOverlay('slideshowOverlay', true);
+    const slideImg = document.getElementById('slideshowImage');
+    const slideCap = document.getElementById('slideshowCaption');
+    if (!slideImg || !galleryPhotos.length) return;
+
+    currentSlideIndex = 0;
+    const updateSlide = () => {
+        const photo = galleryPhotos[currentSlideIndex % galleryPhotos.length];
+        slideImg.style.opacity = '0';
+        setTimeout(() => {
+            slideImg.src = `photos/${photo}`;
+            if (slideCap) slideCap.textContent = `Cherished Memory ${currentSlideIndex + 1} of ${galleryPhotos.length} — With You, Radwa ❤️`;
+            slideImg.style.opacity = '1';
+        }, 600);
+        currentSlideIndex++;
+    };
+
+    updateSlide();
+    if (slideshowInterval) clearInterval(slideshowInterval);
+    slideshowInterval = setInterval(updateSlide, 5000);
+}
+
+export function hideMemoriesSlideshow() {
+    if (slideshowInterval) {
+        clearInterval(slideshowInterval);
+        slideshowInterval = null;
+    }
+    toggleOverlay('slideshowOverlay', false);
 }

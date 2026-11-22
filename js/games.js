@@ -46,7 +46,7 @@ function displayGiftSurprise() {
     const container = document.getElementById('giftSurprise');
     if (!container) return;
     container.innerHTML = '';
-    const choice = getRandomElement(['poem','letter','photo','puzzle','message']);
+    const choice = getRandomElement(['poem','letter','photo','puzzle','message','video']);
     let html = '';
     switch (choice) {
         case 'poem': {
@@ -76,6 +76,13 @@ function displayGiftSurprise() {
             } else {
                 html += `<p>${ps.content || ps.question}</p>`;
             }
+            break;
+        }
+        case 'video': {
+            html += `<h3>🎬 Our Story Movie</h3>`;
+            html += `<p style="margin-bottom:12px;">A special movie of our magical journey!</p>`;
+            html += `<video controls playsinline style="max-width:100%; max-height:220px; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.3);"><source src="OurStory.mp4" type="video/mp4"></video>`;
+            html += `<br><button onclick="window.showOurVideo && window.showOurVideo()" style="margin-top:10px; padding:8px 16px; border-radius:20px; border:none; background:#ff4d88; color:white; cursor:pointer;">Watch in Full Theater 🎬</button>`;
             break;
         }
         case 'message': {
@@ -429,6 +436,25 @@ export function showLoveWheel() {
 
     positionWheelPointer();
     window.addEventListener('resize', positionWheelPointer);
+
+    // Keyboard accessibility for spin button
+    const spinBtn = document.getElementById('spin_button');
+    if (spinBtn) {
+        spinBtn.setAttribute('role', 'button');
+        spinBtn.setAttribute('tabindex', '0');
+        spinBtn.setAttribute('aria-label', 'Spin the Love Wheel');
+        if (!spinBtn.dataset.spinKeybound) {
+            spinBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    startSpin();
+                }
+            });
+            spinBtn.dataset.spinKeybound = '1';
+        }
+        // Focus the spin button for quick keyboard access
+        try { spinBtn.focus(); } catch (err) { /* ignore if not focusable */ }
+    }
 }
 
 export function hideLoveWheel() {
@@ -436,6 +462,16 @@ export function hideLoveWheel() {
 }
 
 export function startSpin() {
+    const spinBtn = document.getElementById('spin_button');
+    if (spinBtn) {
+        spinBtn.setAttribute('aria-disabled', 'true');
+        spinBtn.setAttribute('aria-busy', 'true');
+        // visually indicate during spin (css may style .disabled if desired)
+        spinBtn.classList.add('disabled');
+    }
+    const wheelContainer = document.getElementById('wheel-container');
+    if (wheelContainer) wheelContainer.classList.add('spinning');
+    if (window.announceLive) window.announceLive('Spinning the Love Wheel.', 'polite');
     theWheel.startAnimation();
 }
 
@@ -458,12 +494,26 @@ export function showPrize(indicatedSegment) {
     if (prizeEl) {
         prizeEl.textContent = `You won: ${prize}`;
         prizeEl.style.display = 'block';
-        prizeEl.style.opacity = '1';
+        // Add show class for nice animation and remove after timeout
+        prizeEl.classList.add('show');
         setTimeout(() => {
-            prizeEl.style.opacity = '0';
-            setTimeout(() => { prizeEl.style.display = 'none'; }, 500);
+            prizeEl.classList.remove('show');
+            setTimeout(() => { prizeEl.style.display = 'none'; }, 300);
         }, 4000);
     }
+
+    // Re-enable spin button and announce the result for assistive tech
+    const spinBtn = document.getElementById('spin_button');
+    if (spinBtn) {
+        spinBtn.removeAttribute('aria-disabled');
+        spinBtn.removeAttribute('aria-busy');
+        spinBtn.classList.remove('disabled');
+        try { spinBtn.focus(); } catch (e) {}
+    }
+    // Stop spinning visual state (reuse wheelContainer from above)
+    if (wheelContainer) wheelContainer.classList.remove('spinning');
+
+    if (window.announceLive) window.announceLive(`You won: ${prize}`, 'assertive');
 
     // Trigger the action associated with the prize using keyword matching to be robust
     const p = (prize || '').toLowerCase();

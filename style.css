@@ -60,6 +60,15 @@ body.starry-night-active {
     /* A custom, precise cursor for the constellation view. The '8 8' centers it. */
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><circle cx="8" cy="8" r="3" fill="white" stroke="%23ffb6d5" stroke-width="1.5"/></svg>') 8 8, pointer;
 }
+
+/* Accessibility helper: visually hidden but accessible to screen readers */
+.sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0);
+    white-space: nowrap; border: 0;
+}
 #initialContent {
     display: flex;
     flex-direction: column;
@@ -415,9 +424,15 @@ h1 {
 
 /* Welcome overlay */
 .welcome-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.75); display:flex; align-items:center; justify-content:center; z-index:10005; }
-.welcome-card { background: linear-gradient(135deg,#fff,#ffe6f0); color:#d6336c; padding:36px; border-radius:14px; max-width:420px; text-align:center; box-shadow:0 10px 40px rgba(0,0,0,0.4); }
+.welcome-card { background: linear-gradient(135deg,#fff,#ffe6f0); color:#d6336c; padding:36px; border-radius:14px; max-width:420px; text-align:center; box-shadow:0 10px 40px rgba(0,0,0,0.4); transform-origin:center; animation: welcomeIn 620ms cubic-bezier(.2,.9,.2,1); }
+.welcome-card.closing { animation: welcomeOut 420ms ease-in forwards; }
+@keyframes welcomeIn { 0% { transform: scale(0.95) translateY(10px); opacity: 0; } 100% { transform: scale(1) translateY(0); opacity: 1; } }
+@keyframes welcomeOut { 0% { transform: scale(1) translateY(0); opacity: 1; } 100% { transform: scale(0.95) translateY(8px); opacity: 0; } }
 .welcome-card h2{margin-top:0; color:#ff4d88;}
 .welcome-card button{margin-top:18px; padding:10px 20px; border-radius:10px; border:none; background:#ff4d88; color:#fff; font-weight:700; cursor:pointer;}
+
+/* Focus styling for accessibility */
+.photo-item:focus, .button-row button:focus, .install-button:focus, .start-journey:focus, .print-note-button:focus, .category-button:focus { outline: 3px solid rgba(255,154,191,0.6); outline-offset: 4px; }
 
 /* Print note button - repositioned to avoid overlay close button overlap */
 .print-note-button {
@@ -1377,8 +1392,9 @@ body.day-mode {
 
 /* Add this to your style.css file */
 
-/* --- Birthday Countdown Styles --- */
-#birthdayCountdownOverlay {
+/* --- Birthday & Wedding Countdown Styles --- */
+#birthdayCountdownOverlay,
+#weddingTimerOverlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -1401,7 +1417,8 @@ body.day-mode {
     animation: fadeIn 0.5s forwards;
 }
 
-#birthdayCountdownOverlay h2 {
+#birthdayCountdownOverlay h2,
+#weddingTimerOverlay h2 {
     font-size: clamp(1.8rem, 5vw, 2.5rem); /* Responsive font size */
     color: #ffc0cb; /* Light Pink */
     margin-bottom: 20px;
@@ -2660,99 +2677,6 @@ body.night-mode .fairytale-button:hover { border-color: #a092b7; }
     color: white;
 }
 
-#time-capsule-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 10090;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.5s;
-}
-
-.time-capsule-container {
-    width: 90vw;
-    max-width: 500px;
-    background: #fdf5e6; /* Parchment color */
-    border-radius: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-    display: flex;
-    flex-direction: column;
-    font-family: 'Georgia', 'Times New Roman', serif;
-    border: 3px solid #d2b48c;
-    padding: 25px;
-    box-sizing: border-box;
-    color: #5d4037;
-}
-
-.time-capsule-container h2 {
-    text-align: center;
-    color: #6c5b7b;
-    font-size: 2em;
-    margin-bottom: 10px;
-}
-
-.time-capsule-container p {
-    text-align: center;
-    font-style: italic;
-    margin-bottom: 20px;
-}
-
-#time-capsule-message {
-    width: 100%;
-    height: 150px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #d2b48c;
-    border-radius: 5px;
-    font-family: 'Georgia', serif;
-    font-size: 1em;
-    margin-bottom: 20px;
-}
-
-.time-capsule-container label {
-    margin-bottom: 5px;
-}
-
-#time-capsule-date {
-    padding: 10px;
-    border: 1px solid #d2b48c;
-    border-radius: 5px;
-    font-family: 'Segoe UI', sans-serif;
-    font-size: 1em;
-    margin-bottom: 20px;
-}
-
-#save-time-capsule-btn {
-    background-color: #6c5b7b;
-    color: white;
-    border: none;
-    padding: 15px 20px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-family: 'Georgia', serif;
-}
-
-#save-time-capsule-btn:hover {
-    background-color: #564a63;
-}
-
-.close-time-capsule {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: transparent;
-    color: #5d4037;
-    border: none;
-    font-size: 2em;
-    cursor: pointer;
-    z-index: 10;
-}
-
 /* --- Photo Puzzle --- */
 .photo-puzzle-overlay {
     position: fixed;
@@ -2984,6 +2908,42 @@ body.night-mode .fairytale-button:hover { border-color: #a092b7; }
     z-index: 10;
 }
 
+#spin_button.disabled,
+#spin_button[aria-disabled="true"] {
+    opacity: 0.6;
+    background-color: #d36a83;
+    cursor: default;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.98);
+    box-shadow: none;
+}
+
+#spin_button {
+    transition: transform 120ms ease, opacity 200ms ease, background-color 180ms ease, box-shadow 120ms ease;
+}
+
+.love-wheel-prize {
+    position: absolute;
+    bottom: -48px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255,255,255,0.95);
+    color: #d6336c;
+    padding: 8px 14px;
+    border-radius: 14px;
+    font-weight: bold;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    opacity: 0;
+    transition: opacity 220ms ease, transform 220ms cubic-bezier(.2,.8,.2,1);
+    pointer-events: none;
+    z-index: 1002;
+}
+
+.love-wheel-prize.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-8px);
+}
+
 .close-wheel {
     position: fixed;
     top: 20px;
@@ -3014,4 +2974,1166 @@ body.night-mode .fairytale-button:hover { border-color: #a092b7; }
     100% {
         background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
     }
+}
+
+/* --- Video Overlay Styles --- */
+.video-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(10, 5, 20, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10005;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.4s ease-out;
+}
+
+.video-container {
+    background: linear-gradient(135deg, rgba(30, 20, 45, 0.95), rgba(45, 25, 60, 0.95));
+    border: 2px solid rgba(255, 182, 213, 0.4);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 900px;
+    width: 92vw;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(255, 77, 136, 0.3);
+}
+
+.video-container h2 {
+    color: #ffc0cb;
+    font-family: 'Georgia', serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-shadow: 0 0 12px rgba(255, 182, 213, 0.6);
+}
+
+.close-video {
+    position: fixed;
+    top: 20px;
+    right: 25px;
+    background: rgba(244, 67, 54, 0.85);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    font-size: 1.3em;
+    cursor: pointer;
+    z-index: 10006;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.close-video:hover {
+    background: #d32f2f;
+    transform: scale(1.1);
+}
+
+body.day-mode .video-button { background-color: #e06377; }
+body.night-mode .video-button:hover { border-color: #ff8da1; }
+
+/* --- Birthday Celebration & Cake Styles --- */
+.birthday-celebrate-btn {
+    background: linear-gradient(135deg, #ff4d88, #ff85a2);
+    color: white;
+    border: 2px solid #fff;
+    padding: 14px 28px;
+    font-size: 1.15em;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 77, 136, 0.5);
+    transition: transform 0.25s, box-shadow 0.25s;
+    font-family: 'Georgia', serif;
+    animation: pulse 1.8s infinite alternate;
+}
+
+.birthday-celebrate-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 25px rgba(255, 77, 136, 0.8);
+}
+
+.birthday-surprise-card {
+    margin-top: 25px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 182, 213, 0.5);
+    border-radius: 18px;
+    padding: 25px;
+    max-width: 550px;
+    width: 90vw;
+    animation: fadeIn 0.6s ease-out;
+}
+
+.birthday-cake {
+    position: relative;
+    width: 140px;
+    height: 100px;
+    margin: 10px auto 20px auto;
+}
+
+.cake-candles {
+    display: flex;
+    justify-content: space-around;
+    width: 70px;
+    margin: 0 auto;
+    position: relative;
+    top: -10px;
+}
+
+.cake-candle {
+    width: 8px;
+    height: 22px;
+    background: repeating-linear-gradient(45deg, #ff4d88, #ff4d88 3px, #fff 3px, #fff 6px);
+    border-radius: 3px;
+    position: relative;
+}
+
+.cake-candle-flame {
+    position: absolute;
+    top: -18px;
+    left: -5px;
+    font-size: 14px;
+    animation: flameFlicker 0.4s infinite alternate;
+}
+
+@keyframes flameFlicker {
+    0% { transform: scale(1) rotate(-2deg); }
+    100% { transform: scale(1.2) rotate(2deg); filter: drop-shadow(0 0 6px #ffeb3b); }
+}
+
+.cake-tier {
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.cake-tier-top {
+    width: 90px;
+    height: 35px;
+    background: linear-gradient(to bottom, #ffb6d5, #ff85a2);
+    border: 2px solid #fff;
+}
+
+.cake-tier-bottom {
+    width: 130px;
+    height: 45px;
+    background: linear-gradient(to bottom, #ff85a2, #d6336c);
+    border: 2px solid #fff;
+    margin-top: -2px;
+}
+
+.blow-candles-btn {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border: 1px solid #ffb6d5;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    transition: background 0.2s, transform 0.2s;
+    margin-bottom: 12px;
+}
+
+.blow-candles-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
+
+.birthday-wish-revealed {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 18px 22px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 182, 213, 0.4);
+    margin-top: 15px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.birthday-wish-revealed h3 {
+    color: #ffc0cb;
+    margin-top: 0;
+    font-size: 1.35em;
+    text-shadow: 0 0 8px rgba(255, 182, 213, 0.7);
+}
+
+.birthday-wish-revealed p {
+    line-height: 1.6;
+    margin: 8px 0;
+    color: #fce4ec;
+}
+
+.birthday-confetti-particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 10006;
+    animation: confettiFall linear forwards;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    80% { opacity: 1; }
+    100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+}
+
+/* =========================================
+   🎨 Aesthetic Theme Palettes
+   ========================================= */
+body.theme-midnight-lavender {
+    --bg-grad-1: #1a0933;
+    --bg-grad-2: #2d184c;
+    --accent-glow: #d8b4f8;
+}
+body.theme-midnight-lavender.night-mode {
+    background: radial-gradient(ellipse at bottom, #2a114f 0%, #0d041c 100%);
+}
+body.theme-warm-sunset {
+    --bg-grad-1: #38121f;
+    --bg-grad-2: #521c2d;
+    --accent-glow: #f8b195;
+}
+body.theme-warm-sunset.day-mode {
+    background: linear-gradient(to bottom, #ff9a8b 0%, #ff6a88 55%, #ff99ac 100%);
+}
+
+/* Category Buttons Styling */
+.envelope-button { background-color: #c94c4c; color: white; }
+.open-when-button { background-color: #805a8f; color: white; }
+.star-jar-button { background-color: #e27d60; color: white; }
+.slideshow-button { background-color: #405d72; color: white; }
+.polaroid-button { background-color: #5c3d2e; color: white; }
+.crown-button { background-color: #d4af37; color: #1a1a1a; font-weight: bold; }
+.lantern-button { background-color: #e07a5f; color: white; }
+
+/* =========================================
+   💌 Wax-Sealed Birthday Letter
+   ========================================= */
+.wax-envelope-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(15, 8, 25, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10005;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.close-wax {
+    position: fixed;
+    top: 20px; right: 25px;
+    background: rgba(244, 67, 54, 0.85);
+    color: white; border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 1.3em;
+    cursor: pointer; z-index: 10006;
+}
+
+.wax-envelope-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 680px;
+    width: 92vw;
+}
+
+.wax-envelope-box {
+    position: relative;
+    width: 320px;
+    height: 200px;
+    background: linear-gradient(135deg, #e6c280, #cfa15d);
+    border-radius: 8px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.6s ease;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+.wax-seal {
+    width: 72px;
+    height: 72px;
+    background: radial-gradient(circle, #b22222, #800000);
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6), inset 0 2px 4px rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+    z-index: 2;
+    border: 2px solid #5a0000;
+}
+
+.wax-seal:hover {
+    transform: scale(1.12);
+    box-shadow: 0 6px 20px rgba(178, 34, 34, 0.8);
+}
+
+.wax-seal-emboss {
+    color: #ffc0cb;
+    font-weight: bold;
+    font-size: 0.9em;
+    font-family: 'Georgia', serif;
+    text-shadow: 1px 1px 2px #000;
+    pointer-events: none;
+}
+
+.envelope-instruction {
+    position: absolute;
+    bottom: 12px;
+    color: #3b240b;
+    font-size: 0.85em;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+}
+
+.wax-parchment-letter {
+    margin-top: 25px;
+    background: #fbf5e6;
+    color: #2b1d0c;
+    border: 3px double #b8860b;
+    border-radius: 12px;
+    padding: 35px 30px;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    animation: fadeIn 0.8s ease-out;
+    box-sizing: border-box;
+}
+
+.parchment-arabic {
+    font-family: 'Traditional Arabic', 'Amiri', 'Georgia', serif;
+    font-size: 1.5em;
+    color: #8b0000;
+    text-align: center;
+    margin-bottom: 15px;
+    direction: rtl;
+    line-height: 1.6;
+}
+
+.parchment-title {
+    font-family: 'Georgia', serif;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #5c1d2e;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.parchment-body {
+    font-family: 'Georgia', serif;
+    font-size: 1.05em;
+    line-height: 1.8;
+}
+
+.parchment-sign {
+    margin-top: 25px;
+    text-align: right;
+    font-size: 1.15em;
+    color: #8b0000;
+}
+
+.postcard-export-btn {
+    background: #5c1d2e;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1em;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    margin-top: 15px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.postcard-export-btn:hover {
+    background: #8b0000;
+    transform: scale(1.04);
+}
+
+/* =========================================
+   📬 'Open When...' Envelopes Collection
+   ========================================= */
+.open-when-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(15, 10, 25, 0.94);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10005;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    padding: 40px 20px 60px 20px;
+    box-sizing: border-box;
+}
+
+.close-open-when {
+    position: fixed;
+    top: 20px; right: 25px;
+    background: rgba(244, 67, 54, 0.85);
+    color: white; border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 1.3em;
+    cursor: pointer; z-index: 10006;
+}
+
+.open-when-container {
+    max-width: 900px;
+    width: 92vw;
+    text-align: center;
+}
+
+.open-when-container h2 {
+    color: #ffc0cb;
+    font-family: 'Georgia', serif;
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    margin-bottom: 8px;
+}
+
+.open-when-desc {
+    color: #e0d0eb;
+    margin-bottom: 25px;
+    font-family: 'Georgia', serif;
+}
+
+.open-when-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+.open-when-envelope-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+    border: 2px solid rgba(255, 182, 213, 0.35);
+    border-radius: 16px;
+    padding: 24px 20px;
+    position: relative;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    transition: transform 0.25s, border-color 0.25s;
+    text-align: center;
+}
+
+.open-when-envelope-card:hover {
+    transform: translateY(-5px);
+    border-color: #ff85a2;
+}
+
+.envelope-stamp {
+    position: absolute;
+    top: 14px; right: 14px;
+    border: 1px dashed #ffb6d5;
+    padding: 3px 8px;
+    font-size: 0.75em;
+    color: #ffc0cb;
+    border-radius: 4px;
+}
+
+.envelope-icon {
+    font-size: 2.4em;
+    margin-bottom: 10px;
+}
+
+.envelope-title {
+    color: #ffffff;
+    font-family: 'Georgia', serif;
+    font-size: 1.15em;
+    margin: 8px 0;
+}
+
+.envelope-subtitle {
+    color: #ffb6d5;
+    font-size: 0.88em;
+    margin-bottom: 18px;
+    font-style: italic;
+}
+
+.open-envelope-btn {
+    background: linear-gradient(135deg, #ff4d88, #ff85a2);
+    color: white; border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.95em;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    transition: transform 0.2s;
+}
+
+.open-envelope-btn:hover {
+    transform: scale(1.05);
+}
+
+.open-when-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(10px);
+    z-index: 10010;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.open-when-modal-content {
+    background: #fbf5e6;
+    color: #2b1d0c;
+    border: 3px double #b8860b;
+    border-radius: 14px;
+    padding: 30px;
+    max-width: 650px;
+    width: 92vw;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+    font-family: 'Georgia', serif;
+}
+
+.close-letter-modal {
+    position: absolute;
+    top: 15px; right: 18px;
+    background: #8b0000;
+    color: white; border: none; border-radius: 50%;
+    width: 32px; height: 32px; font-size: 1em;
+    cursor: pointer;
+}
+
+.open-when-letter-header {
+    text-align: center;
+    border-bottom: 1px solid #d2b48c;
+    padding-bottom: 15px;
+    margin-bottom: 18px;
+}
+
+.open-when-letter-header h2 {
+    color: #5c1d2e;
+    margin: 8px 0;
+}
+
+.open-when-arabic-quote {
+    font-family: 'Traditional Arabic', 'Amiri', 'Georgia', serif;
+    font-size: 1.3em;
+    color: #8b0000;
+    direction: rtl;
+}
+
+.open-when-photo-wrap {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.open-when-photo {
+    max-width: 100%;
+    max-height: 240px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    border: 4px solid white;
+}
+
+.open-when-letter-text {
+    line-height: 1.8;
+    font-size: 1.05em;
+    white-space: pre-wrap;
+}
+
+/* =========================================
+   ✨ 31 Things I Love About Radwa (Star Jar)
+   ========================================= */
+.star-jar-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(12, 8, 22, 0.94);
+    backdrop-filter: blur(12px);
+    z-index: 10005;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.close-star-jar {
+    position: fixed;
+    top: 20px; right: 25px;
+    background: rgba(244, 67, 54, 0.85);
+    color: white; border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 1.3em;
+    cursor: pointer; z-index: 10006;
+}
+
+.star-jar-container {
+    max-width: 850px;
+    width: 92vw;
+    text-align: center;
+}
+
+.star-jar-container h2 {
+    color: #ffc0cb;
+    font-family: 'Georgia', serif;
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    margin-bottom: 6px;
+}
+
+.star-jar-counter {
+    display: inline-block;
+    background: rgba(255, 182, 213, 0.2);
+    border: 1px solid #ffb6d5;
+    color: #ffc0cb;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.star-jar-subtitle {
+    color: #d1c4e9;
+    margin-bottom: 25px;
+    font-family: 'Georgia', serif;
+}
+
+.star-jar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 3px solid rgba(255, 215, 0, 0.4);
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.1), 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.star-jar-item {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    border-radius: 12px;
+    padding: 12px 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.star-jar-item:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+}
+
+.star-glowing .star-icon {
+    font-size: 1.6em;
+    animation: starPulse 1.6s infinite alternate;
+}
+
+@keyframes starPulse {
+    0% { transform: scale(1); filter: drop-shadow(0 0 2px #ffeb3b); }
+    100% { transform: scale(1.2); filter: drop-shadow(0 0 10px #ffeb3b); }
+}
+
+.star-opened {
+    opacity: 0.85;
+    background: rgba(255, 182, 213, 0.2);
+    border-color: #ff85a2;
+}
+
+.star-number {
+    font-size: 0.8em;
+    color: #f8b195;
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+.star-detail-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 10010;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.star-detail-card {
+    background: linear-gradient(135deg, rgba(35, 20, 50, 0.95), rgba(50, 25, 65, 0.95));
+    border: 2px solid #f8b195;
+    border-radius: 18px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90vw;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 25px rgba(248, 177, 149, 0.3);
+    font-family: 'Georgia', serif;
+}
+
+.close-star-detail {
+    position: absolute;
+    top: 14px; right: 16px;
+    background: #ff4d88;
+    color: white; border: none; border-radius: 50%;
+    width: 30px; height: 30px; font-size: 0.9em;
+    cursor: pointer;
+}
+
+.star-detail-badge {
+    background: #ff4d88;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.star-detail-header h3 {
+    color: #ffc0cb;
+    margin: 12px 0 8px 0;
+    font-size: 1.4em;
+}
+
+.star-detail-text {
+    font-size: 1.15em;
+    line-height: 1.7;
+    color: #fce4ec;
+    font-style: italic;
+    margin: 20px 0;
+}
+
+.star-detail-sign {
+    color: #f8b195;
+    font-weight: bold;
+}
+
+/* =========================================
+   🏮 Floating Sky Lanterns Release
+   ========================================= */
+.sky-lanterns-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    z-index: 10005;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.close-lanterns {
+    position: fixed;
+    top: 20px; right: 25px;
+    background: rgba(244, 67, 54, 0.85);
+    color: white; border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 1.3em;
+    cursor: pointer; z-index: 10006;
+}
+
+.sky-lanterns-sky {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+}
+
+.sky-lanterns-controls {
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(to top, rgba(10, 5, 20, 0.95), rgba(10, 5, 20, 0.5) 80%, transparent);
+    padding: 30px 20px 40px 20px;
+    text-align: center;
+    color: white;
+    font-family: 'Georgia', serif;
+}
+
+.sky-lanterns-controls h2 {
+    color: #f8b195;
+    margin-bottom: 6px;
+}
+
+.lantern-input-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    max-width: 550px;
+    margin: 15px auto 0 auto;
+}
+
+.lantern-input-row input {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 25px;
+    border: 1px solid #f8b195;
+    background: rgba(255,255,255,0.15);
+    color: white;
+    font-size: 1em;
+    font-family: 'Georgia', serif;
+    outline: none;
+}
+
+.release-lantern-btn {
+    background: linear-gradient(135deg, #e27d60, #ffb347);
+    color: white; border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    transition: transform 0.2s;
+}
+
+.release-lantern-btn:hover {
+    transform: scale(1.06);
+}
+
+.floating-sky-lantern {
+    position: absolute;
+    bottom: -60px;
+    animation: lanternFly 11s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.lantern-body {
+    width: 60px;
+    height: 80px;
+    background: linear-gradient(to top, #ff9900, #ffdd55);
+    border-radius: 12px 12px 4px 4px;
+    box-shadow: 0 0 30px #ffbb00, 0 0 60px rgba(255, 153, 0, 0.6);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lantern-flame {
+    position: absolute;
+    bottom: 6px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ff3300;
+}
+
+.lantern-text {
+    position: absolute;
+    top: -30px;
+    white-space: nowrap;
+    color: #ffeb3b;
+    font-size: 12px;
+    font-family: 'Georgia', serif;
+    text-shadow: 0 0 8px #000;
+}
+
+@keyframes lanternFly {
+    0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+    50% { transform: translateY(-50vh) scale(0.7) rotate(4deg); opacity: 0.9; }
+    100% { transform: translateY(-110vh) scale(0.35) rotate(-6deg); opacity: 0; }
+}
+
+/* =========================================
+   📸 Polaroid Wall with 3D Flip Backside Notes
+   ========================================= */
+.polaroid-wall-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(18, 12, 25, 0.94);
+    backdrop-filter: blur(12px);
+    z-index: 10005;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding: 40px 20px;
+    box-sizing: border-box;
+}
+
+.close-polaroid {
+    position: fixed;
+    top: 20px; right: 25px;
+    background: rgba(244, 67, 54, 0.85);
+    color: white; border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 1.3em;
+    cursor: pointer; z-index: 10006;
+}
+
+.polaroid-wall-container {
+    max-width: 1000px;
+    width: 92vw;
+    text-align: center;
+}
+
+.polaroid-wall-container h2 {
+    color: #ffc0cb;
+    font-family: 'Georgia', serif;
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    margin-bottom: 6px;
+}
+
+.polaroid-wall-subtitle {
+    color: #d1c4e9;
+    margin-bottom: 30px;
+    font-family: 'Georgia', serif;
+}
+
+.polaroid-wall-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    perspective: 1000px;
+}
+
+.polaroid-item {
+    width: 220px;
+    height: 290px;
+    cursor: pointer;
+}
+
+.polaroid-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.7s;
+    transform-style: preserve-3d;
+}
+
+.polaroid-inner.flipped {
+    transform: rotateY(180deg);
+}
+
+.polaroid-front, .polaroid-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    padding: 12px 12px 25px 12px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.polaroid-tape {
+    position: absolute;
+    top: -10px;
+    left: 35%;
+    width: 60px;
+    height: 20px;
+    background: rgba(255, 235, 180, 0.7);
+    border: 1px dashed rgba(200, 180, 120, 0.5);
+    z-index: 2;
+}
+
+.polaroid-front img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.polaroid-caption {
+    margin-top: 15px;
+    font-family: 'Georgia', cursive, serif;
+    font-size: 0.85em;
+    color: #444;
+}
+
+.polaroid-back {
+    transform: rotateY(180deg);
+    background: #fdfaf2;
+    justify-content: center;
+    padding: 20px;
+    color: #2b1d0c;
+    border: 2px dashed #d2b48c;
+}
+
+.polaroid-back h4 {
+    color: #ff4d88;
+    margin: 0 0 12px 0;
+    font-family: 'Georgia', serif;
+}
+
+.polaroid-back-text {
+    font-family: 'Georgia', italic, serif;
+    line-height: 1.6;
+    font-size: 0.95em;
+    margin: 0 0 15px 0;
+}
+
+.polaroid-back-sign {
+    font-weight: bold;
+    color: #5c1d2e;
+    font-size: 0.85em;
+}
+
+/* =========================================
+   🎞️ Ambient Memory Slideshow (Ken Burns)
+   ========================================= */
+.slideshow-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: #000000;
+    z-index: 10005;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-slideshow {
+    position: fixed;
+    top: 20px; right: 25px;
+    background: rgba(255, 255, 255, 0.3);
+    color: white; border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 1.3em;
+    cursor: pointer; z-index: 10006;
+}
+
+.slideshow-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.slideshow-photo {
+    max-width: 90vw;
+    max-height: 82vh;
+    border-radius: 8px;
+    box-shadow: 0 12px 50px rgba(0,0,0,0.8);
+    transition: opacity 0.8s ease-in-out, transform 5s ease-out;
+    animation: kenBurns 5s infinite alternate ease-in-out;
+}
+
+@keyframes kenBurns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.06); }
+}
+
+.slideshow-caption {
+    position: absolute;
+    bottom: 25px;
+    background: rgba(10, 5, 20, 0.7);
+    color: #ffc0cb;
+    padding: 10px 24px;
+    border-radius: 20px;
+    font-family: 'Georgia', serif;
+    font-size: 1.1em;
+    backdrop-filter: blur(6px);
+}
+
+/* =========================================
+   👑 Birthday Princess Crown Studio
+   ========================================= */
+.crown-studio-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(12, 6, 22, 0.94);
+    backdrop-filter: blur(12px);
+    z-index: 10005;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.close-crown {
+    position: fixed;
+    top: 20px; right: 25px;
+    background: rgba(244, 67, 54, 0.85);
+    color: white; border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 1.3em;
+    cursor: pointer; z-index: 10006;
+}
+
+.crown-studio-container {
+    max-width: 650px;
+    width: 92vw;
+    text-align: center;
+}
+
+.crown-studio-container h2 {
+    color: #ffd700;
+    font-family: 'Georgia', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    margin-bottom: 6px;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.6);
+}
+
+.crown-studio-container p {
+    color: #e0d0eb;
+    margin-bottom: 15px;
+    font-family: 'Georgia', serif;
+}
+
+.crown-canvas {
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 1;
+    border-radius: 14px;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.6), 0 0 20px rgba(255, 215, 0, 0.3);
+    margin: 0 auto;
+    display: block;
+}
+
+.crown-thumbs-row {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 15px 0;
+}
+
+.crown-thumb {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.crown-thumb:hover, .crown-thumb.active {
+    transform: scale(1.1);
+    border-color: #ffd700;
+}
+
+.export-crown-btn {
+    background: linear-gradient(135deg, #ffd700, #ffb347);
+    color: #1a1a1a;
+    font-weight: bold;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 25px;
+    font-size: 1.05em;
+    cursor: pointer;
+    font-family: 'Georgia', serif;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    transition: transform 0.2s;
+}
+
+.export-crown-btn:hover {
+    transform: scale(1.05);
 }

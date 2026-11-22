@@ -1,7 +1,7 @@
 /* =========================================
    ✨ Visuals & Animations
    ========================================= */
-import { loveMessages, loveReasons, nameStarMessages } from './config.js';
+import { loveMessages, loveReasons, nameStarMessages, galleryPhotos } from './config.js';
 import { toggleOverlay, getRandomElement } from './utils.js';
 
 let wonderlandInitiated = false;
@@ -242,18 +242,32 @@ export function playCelebrationSound() {
 
 export function createVoiceHeart() {
     const heart = document.createElement('div');
-    heart.innerHTML = '💌'; 
+    heart.innerHTML = '💌';
     heart.style.position = 'fixed';
-    heart.style.fontSize = '2em';
+    heart.style.fontSize = '2.5em';
     heart.style.cursor = 'pointer';
     heart.style.left = '50%';
     heart.style.top = '30%';
     heart.style.transform = 'translateX(-50%)';
     heart.style.zIndex = '1001';
+    heart.setAttribute('role', 'button');
+    heart.setAttribute('aria-label', 'Play voice message');
     heart.onclick = () => {
-        document.getElementById('voice-message').play();
-        heart.innerHTML = 'I LOVE YOU!';
-        setTimeout(() => heart.remove(), 2000);
+        const bgMusic = document.getElementById('bg-music');
+        const voice = document.getElementById('voice-message');
+        if (voice) {
+            let prevVolume = 1;
+            if (bgMusic && !bgMusic.paused) {
+                prevVolume = bgMusic.volume;
+                bgMusic.volume = 0.2;
+                voice.onended = () => {
+                    if (bgMusic) bgMusic.volume = prevVolume;
+                };
+            }
+            voice.play().catch(e => console.warn('Voice play blocked', e));
+        }
+        heart.innerHTML = '💖 I LOVE YOU! 💖';
+        setTimeout(() => heart.remove(), 2500);
     };
     document.getElementById('animation-container').appendChild(heart);
 }
@@ -821,5 +835,208 @@ export function animatePortrait() {
     ctx.shadowBlur = 0;
     if (!allInPlace) {
         portraitAnimationId = requestAnimationFrame(animatePortrait);
+    }
+}
+
+/* --- Theme Engine --- */
+const THEMES = [
+    { id: 'theme-rose-gold', name: '🌸 Rose Gold' },
+    { id: 'theme-midnight-lavender', name: '💜 Lavender Dusk' },
+    { id: 'theme-warm-sunset', name: '🌅 Warm Sunset' }
+];
+
+export function cycleTheme() {
+    let current = localStorage.getItem('radwaTheme') || 'theme-rose-gold';
+    let idx = THEMES.findIndex(t => t.id === current);
+    let next = THEMES[(idx + 1) % THEMES.length];
+    
+    THEMES.forEach(t => document.body.classList.remove(t.id));
+    document.body.classList.add(next.id);
+    localStorage.setItem('radwaTheme', next.id);
+
+    const btn = document.getElementById('themeSwitcherBtn');
+    if (btn) btn.textContent = `🎨 ${next.name}`;
+}
+
+export function initTheme() {
+    const saved = localStorage.getItem('radwaTheme') || 'theme-rose-gold';
+    THEMES.forEach(t => document.body.classList.remove(t.id));
+    document.body.classList.add(saved);
+    const themeObj = THEMES.find(t => t.id === saved) || THEMES[0];
+    const btn = document.getElementById('themeSwitcherBtn');
+    if (btn) btn.textContent = `🎨 ${themeObj.name}`;
+}
+
+/* --- Birthday Crown Photo Studio --- */
+let selectedCrownPhotoIdx = 0;
+
+export function showBirthdayCrown() {
+    toggleOverlay('birthdayCrownOverlay', true);
+    renderCrownStudio();
+}
+
+export function hideBirthdayCrown() {
+    toggleOverlay('birthdayCrownOverlay', false);
+}
+
+export function selectCrownPhoto(idx) {
+    selectedCrownPhotoIdx = idx;
+    renderCrownStudio();
+}
+
+function renderCrownStudio() {
+    const canvas = document.getElementById('crownCanvas');
+    if (!canvas || !galleryPhotos.length) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = 600;
+    canvas.height = 600;
+
+    const photoName = galleryPhotos[selectedCrownPhotoIdx % galleryPhotos.length];
+    const img = new Image();
+    img.src = `photos/${photoName}`;
+    img.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw photo centered & scaled
+        const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
+        const w = img.width * scale;
+        const h = img.height * scale;
+        const x = (canvas.width - w) / 2;
+        const y = (canvas.height - h) / 2;
+        ctx.drawImage(img, x, y, w, h);
+
+        // Soft vignette
+        const grad = ctx.createRadialGradient(300, 300, 150, 300, 300, 300);
+        grad.addColorStop(0, 'rgba(0,0,0,0)');
+        grad.addColorStop(1, 'rgba(0,0,0,0.4)');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw Golden Tiara / Crown at top of photo
+        ctx.save();
+        ctx.font = '90px Arial';
+        ctx.textAlign = 'center';
+        ctx.shadowColor = 'rgba(255, 215, 0, 0.9)';
+        ctx.shadowBlur = 15;
+        ctx.fillText('👑', 300, 120);
+
+        // Birthday Sparkles
+        ctx.font = '36px Arial';
+        ctx.fillText('✨', 180, 80);
+        ctx.fillText('✨', 420, 80);
+        ctx.fillText('💖', 210, 150);
+        ctx.fillText('💖', 390, 150);
+
+        // Birthday Calligraphy Ribbon at bottom
+        ctx.fillStyle = 'rgba(20, 10, 30, 0.75)';
+        ctx.fillRect(0, 510, 600, 90);
+        ctx.fillStyle = '#ffc0cb';
+        ctx.font = 'bold 24px Georgia';
+        ctx.fillText('👑 Happy Birthday, Princess Radwa! 🎂✨', 300, 550);
+        ctx.font = 'italic 16px Georgia';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText('«كل عام وأنتِ ملكة قلبي وأجمل أقداري»', 300, 580);
+        ctx.restore();
+    };
+    img.onerror = () => {
+        ctx.fillStyle = '#ff4d88';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'white';
+        ctx.font = '24px Georgia';
+        ctx.textAlign = 'center';
+        ctx.fillText('Photo loading...', 300, 300);
+    };
+
+    // Thumbnails bar
+    const thumbs = document.getElementById('crownThumbnails');
+    if (thumbs) {
+        thumbs.innerHTML = '';
+        galleryPhotos.slice(0, 8).forEach((p, i) => {
+            const t = document.createElement('img');
+            t.src = `photos/${p}`;
+            t.className = `crown-thumb ${i === selectedCrownPhotoIdx ? 'active' : ''}`;
+            t.onclick = () => selectCrownPhoto(i);
+            thumbs.appendChild(t);
+        });
+    }
+}
+
+export function exportCrownPhoto() {
+    const canvas = document.getElementById('crownCanvas');
+    if (!canvas) return;
+    try {
+        const link = document.createElement('a');
+        link.download = 'Radwa-Birthday-Princess-Crown.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    } catch (e) {
+        alert('Could not download image directly on this browser.');
+    }
+}
+
+/* --- Keepsake Postcard Exporter --- */
+export function exportPostcard(title = 'Birthday Wish', message = 'May your day be filled with pure magic and eternal love!') {
+    const canvas = document.createElement('canvas');
+    canvas.width = 800;
+    canvas.height = 500;
+    const ctx = canvas.getContext('2d');
+
+    // Background gradient
+    const bgGrad = ctx.createLinearGradient(0, 0, 800, 500);
+    bgGrad.addColorStop(0, '#1B2735');
+    bgGrad.addColorStop(0.5, '#2D1B36');
+    bgGrad.addColorStop(1, '#090A0F');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, 800, 500);
+
+    // Decorative Gold Border
+    ctx.strokeStyle = '#f8b195';
+    ctx.lineWidth = 4;
+    ctx.strokeRect(20, 20, 760, 460);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(28, 28, 744, 444);
+
+    // Header
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#ffc0cb';
+    ctx.font = 'bold 32px Georgia';
+    ctx.shadowColor = 'rgba(255, 182, 213, 0.8)';
+    ctx.shadowBlur = 10;
+    ctx.fillText('✨ Magical Love Wonderland ✨', 400, 80);
+
+    // Arabic Subheading
+    ctx.font = '22px Georgia';
+    ctx.fillStyle = '#fce4ec';
+    ctx.fillText('«كل عام وأنتِ أجمل أعيادي ونبض قلبي يا رضوى»', 400, 125);
+
+    // Divider
+    ctx.beginPath();
+    ctx.moveTo(250, 145);
+    ctx.lineTo(550, 145);
+    ctx.strokeStyle = '#f8b195';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Body
+    ctx.font = 'italic 20px Georgia';
+    ctx.fillStyle = '#ffffff';
+    ctx.shadowBlur = 0;
+    ctx.fillText(message, 400, 230);
+    ctx.fillText('Every single second with you is my greatest gift.', 400, 275);
+    ctx.fillText('I promise to love, protect, and cherish you always.', 400, 320);
+
+    // Signature
+    ctx.fillStyle = '#ff85a2';
+    ctx.font = 'bold 24px Georgia';
+    ctx.fillText('Forever Yours, Ahmed ❤️', 400, 410);
+
+    try {
+        const link = document.createElement('a');
+        link.download = 'Radwa-Love-Keepsake.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+    } catch (e) {
+        alert('Postcard export completed.');
     }
 }

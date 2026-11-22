@@ -2,6 +2,12 @@
    ✨ Magic Love Wonderland - Configuration & Data
    ========================================= */
 
+export const BIRTHDAY = {
+    month: 2, // 0-indexed (March)
+    date: 25,
+    year: 1995 // Example year, update if needed
+};
+
 export const loveMessages = [
     "I love you more than words can say! ❤️",
     "You are my sunshine on every cloudy day ☀️",
@@ -145,6 +151,13 @@ export const timelineEvents = [
         description: "Choosing the pieces that will build our home. I wasn't just seeing furniture; I was seeing our future.",
         photo: "IMG_20250720_202600.jpg",
         side: "left"
+    },
+    {
+        date: "28 Mar 2026",
+        title: "Our Wedding Day — Husband & Wife",
+        description: "The day we stood before God, holding hands, and promised our lives to each other forever. The beginning of our greatest eternity.",
+        photo: "photostart.jpg",
+        side: "right"
     }
 ];
 
@@ -371,3 +384,94 @@ export const songbook = {
         notes: 'F#4 A4 C#5 P E4 A4 C#5 P D4 A4 C#5 P C#4 A4 C#5 P A4 C#5 E5 A5 G#5 A5 G#5 A5 E5 A5 D5 P A4 C#5 E5 A5 G#5 A5 G#5 A5 E5 A5 D5'
     }
 };
+
+export const thirtyOneLoveStars = [
+    { id: 1, title: "Your Radiant Smile", text: "The way your entire face lights up whenever you laugh—it instantly brightens my darkest days." },
+    { id: 2, title: "Your Gentle Heart", text: "How deeply you care for everyone around you. Your empathy is one of your greatest superpowers." },
+    { id: 3, title: "The Way You Say My Name", text: "Nothing in this world sounds as sweet as my name whispered by you." },
+    { id: 4, title: "Our Late-Night Talks", text: "Losing track of time talking about everything and nothing at all under the quiet night sky." },
+    { id: 5, title: "Your Eyes", text: "When you look into my eyes, I see my past, my present, and my entire future looking back at me." },
+    { id: 6, title: "How You Inspire Me", text: "You push me to be a better man, a better partner, and to dream bigger every single day." },
+    { id: 7, title: "Our Shared Laughter", text: "Those moments when we laugh until our stomachs hurt over the silliest little inside jokes." },
+    { id: 8, title: "Your Warm Embraces", text: "Being wrapped in your arms is the only place in the world where I feel 100% home." },
+    { id: 9, title: "Your Beautiful Mind", text: "Your intelligence, your wit, and the fascinating way you perceive the world around you." },
+    { id: 10, title: "Your Patience with Me", text: "You understand me even when I struggle to find the right words to express myself." },
+    { id: 11, title: "Our First Memory", text: "The very first spark that started this whole wonderland. I fell for you then, and I fall harder every day." },
+    { id: 12, title: "Your Passion & Drive", text: "Seeing you passionate about what you love makes you even more mesmerizing." },
+    { id: 13, title: "How Safe You Make Me Feel", text: "With you, I never have to wear a mask. I can be completely myself and feel utterly cherished." },
+    { id: 14, title: "Your Adorable Pouts", text: "Even when you're being playfully stubborn or pouting, you are the cutest human alive." },
+    { id: 15, title: "The Way We Hold Hands", text: "Our fingers interlock so naturally, like two puzzle pieces custom-crafted by the stars." },
+    { id: 16, title: "Your Scent", text: "A gentle fragrance that calms my soul and lingers in my heart wherever I go." },
+    { id: 17, title: "How You Believe in Us", text: "Your unwavering faith in our love gives me strength to conquer any mountain." },
+    { id: 18, title: "Your Generosity", text: "You give so much love, warmth, and attention without ever asking for anything in return." },
+    { id: 19, title: "Our Butterfly Museum Day", text: "Surrounded by a thousand wings, but my eyes couldn't look at anything other than you." },
+    { id: 20, title: "Your Soft Voice", text: "Hearing your voice soothes any storm inside me faster than any medicine ever could." },
+    { id: 21, title: "Your Elegance & Grace", text: "You carry yourself with a natural, timeless royalty that takes my breath away." },
+    { id: 22, title: "How We Support Each Other", text: "Knowing that we are an unbreakable team in every chapter of this life." },
+    { id: 23, title: "Your Sense of Wonder", text: "The way you find magic and beauty in small everyday moments." },
+    { id: 24, title: "The Future We're Building", text: "Planning our home, our travels, and dreaming of seeing the Northern Lights with you." },
+    { id: 25, title: "Your Pure Soul", text: "There is no pretense, no cruelty in you—just a heart of pure gold." },
+    { id: 26, title: "Your Hand in Mine", text: "Walking beside you through life makes every single step worth taking." },
+    { id: 27, title: "How You Listen", text: "You don't just hear my words; you understand my thoughts and feel my emotions." },
+    { id: 28, title: "The Day You Became My Wife", text: "Watching you walk down the aisle in your white dress on March 28, 2026 was the most breathtaking moment of my life. Being your husband is my greatest honor." },
+    { id: 29, title: "The Little Habits of Yours", text: "All the cute expressions, gestures, and quirks that belong only to you." },
+    { id: 30, title: "You Chose Me", text: "Out of 8 billion souls on this planet, you chose to intertwine your destiny with mine." },
+    { id: 31, title: "My Forever and Always", text: "I loved you yesterday, I love you today, and I will love you through every tomorrow for eternity." }
+];
+
+export const openWhenLetters = [
+    {
+        id: "miss-me",
+        title: "Open When You Miss Me...",
+        icon: "💌",
+        subtitle: "For when distance feels heavy",
+        quote: "«أنتِ في قلبي ولو بعدت بيننا المسافات»",
+        photo: "photo10.jpg",
+        content: "My darling Radwa,\n\nIf you are reading this, it means you're missing me right now. Close your eyes for just three seconds and place your hand over your heart. Feel that rhythm? That’s me, beating inside you.\n\nNo matter how many miles or hours stand between us, we are looking at the exact same moon and breathing under the same sky. You are never alone, because my thoughts never leave your side for a single second.\n\nI love you more than words can hold. I'm already counting down the moments until I can wrap my arms around you again.\n\nForever yours,\nAhmed"
+    },
+    {
+        id: "need-smile",
+        title: "Open When You Need a Smile...",
+        icon: "😊",
+        subtitle: "For a gloomy or overwhelming day",
+        quote: "«ضحكتكِ حياة لقلبي»",
+        photo: "photo22.jpg",
+        content: "Hey beautiful,\n\nDid you know that when you smile, the whole universe gets a little brighter? Whatever happened today, whatever tried to steal your joy—take a deep breath and let it go. You are stronger, braver, and far more wonderful than any bad day.\n\nRemember when we laughed so hard our ribs ached over nothing at all? That is the happiness you deserve, every single day. I promise to spend my entire life being your clown, your biggest fan, and the reason you smile.\n\nNow look in the mirror, flash that gorgeous smile, and remember you are fiercely loved!\n\nAll my hugs,\nAhmed"
+    },
+    {
+        id: "cant-sleep",
+        title: "Open When You Can't Sleep...",
+        icon: "🌙",
+        subtitle: "For restless, quiet nights",
+        quote: "«نامي بأمان في أعماق روحي»",
+        photo: "photo18.jpg",
+        content: "Sweet Radwa,\n\nThe world is quiet now, and your mind is wandering. Let go of every worry, every checklist, and every thought about tomorrow. Tomorrow will take care of itself.\n\nImagine lying with your head on my chest, listening to my steady heartbeat whispering: 'You are safe, you are cherished, you are my home.' Wrap yourself in your blanket as if it were my arms holding you tight.\n\nDream of our future home, our trips, and our endless adventures together. Sleep peacefully, my princess. I'll see you in our dreams.\n\nGoodnight, my love,\nAhmed"
+    },
+    {
+        id: "birthday",
+        title: "Open On Your Birthday...",
+        icon: "🎂",
+        subtitle: "On the most special day of the year",
+        quote: "«كل عام وأنتِ عيدي وأجمل أقداري»",
+        photo: "radwa_portrait.png",
+        content: "Happy Birthday, My Queen! 🎂🎉\n\nToday, the earth celebrates the day its most radiant soul arrived. Having you in my life is the greatest gift God has ever blessed me with.\n\nMay this year unfold with boundless joy, fulfilled dreams, glowing health, and laughter that echoes forever. As you step into this new year of your life, know that my love for you grows deeper, stronger, and more protective with every breath.\n\nHappy Birthday, Princess Radwa. May all your wishes come true today and always!\n\nWith all my soul,\nAhmed ❤️"
+    },
+    {
+        id: "wedding",
+        title: "Open on Our Wedding Anniversary...",
+        icon: "💍",
+        subtitle: "Celebrating the day we became husband & wife",
+        quote: "«كل يوم معكِ هو حياة جديدة يا زوجتي الحبيبة»",
+        photo: "photostart.jpg",
+        content: "To My Beautiful Wife,\n\nOn March 28, 2026, I stood at the altar and watched the most radiant angel walk toward me. In that moment, surrounded by everyone we love, I promised my soul to you forever.\n\nNow, living this married life beside you, waking up to your smile, and building our world together—my love for you is deeper and richer than I ever dreamed possible.\n\nThank you for being my wife, my partner, my peace, and my greatest blessing. Happy Anniversary, my love!\n\nForever your devoted husband,\nAhmed 💍❤️"
+    },
+    {
+        id: "ever-doubt",
+        title: "Open If You Ever Doubt My Love...",
+        icon: "💖",
+        subtitle: "A reminder of absolute devotion",
+        quote: "«حبكِ محفور في نبضات قلبي للأبد»",
+        photo: "photo3.jpg",
+        content: "My one and only Radwa,\n\nIf ever doubt creeps in, or you feel unseen or uncertain, let these words anchor you:\n\nMy love for you is not conditional, it is not temporary, and it does not waver. It is woven into the very fabric of who I am. You are my first thought when I wake up and my last prayer before I close my eyes.\n\nI love you on the easy days, and I love you even more fiercely on the hard days. You are my person, my home, and my greatest blessing. Nothing will ever change that.\n\nAlways and unconditionally,\nAhmed"
+    }
+];

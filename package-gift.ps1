@@ -6,7 +6,7 @@ if (Test-Path $dist) { Remove-Item $dist -Recurse -Force }
 New-Item -ItemType Directory -Path $dist | Out-Null
 
 # Copy all files except Packaging scripts and existing dist/ and zip
-$exclude = @('dist','Gift-Magical-Love-Wonderland.zip','package-gift.ps1')
+$exclude = @('dist','Gift-Magical-Love-Wonderland.zip','package-gift.ps1','.git','.github','.ecu-assist','test_script.js','run_test.js')
 Get-ChildItem -Path $Root -Force | Where-Object { $exclude -notcontains $_.Name } | ForEach-Object {
     Copy-Item -Path $_.FullName -Destination $dist -Recurse -Force
 }
@@ -14,7 +14,8 @@ Get-ChildItem -Path $Root -Force | Where-Object { $exclude -notcontains $_.Name 
 # Create run-local.bat helper
 $runbat = @"
 @echo off
-echo Starting local server on port 5500...
+echo Starting Magical Love Wonderland local server on port 5500...
+start "" http://localhost:5500
 where python >nul 2>&1
 if %ERRORLEVEL%==0 (
   python -m http.server 5500

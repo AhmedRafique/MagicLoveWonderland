@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Magical Love Wonderland</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ff4d88">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="apple-touch-icon" href="/icons/icon-192.svg">
+    <link rel="apple-touch-icon" href="icons/icon-192.svg">
 </head>
 <body>
     <div id="animation-container"></div>
+    <div id="a11y-live" class="sr-only" aria-live="polite" aria-atomic="true"></div>
     <div class="aurora"><div class="aurora__item"></div><div class="aurora__item"></div><div class="aurora__item"></div></div>
     <button id="dayNightSwitch" class="playlist-button" style="position:fixed;top:20px;left:20px;z-index:10002;">
         🌞 Day
+    </button>
+    <button id="themeSwitcherBtn" class="playlist-button" style="position:fixed;top:20px;left:130px;z-index:10002;" onclick="cycleTheme()" title="Switch Romantic Theme">
+        🎨 Theme
     </button>
 
     <div id="initialContent">
@@ -44,11 +48,11 @@
     </div>
 
     <!-- Welcome overlay shown on first visit -->
-    <div id="welcomeOverlay" class="welcome-overlay" style="display:none;">
-        <div class="welcome-card">
-            <h2>For Radwa ❤️</h2>
-            <p>A little world crafted with love — enjoy the memories and surprises inside.</p>
-            <button id="openWelcomeBtn">Start the Journey</button>
+    <div id="welcomeOverlay" class="welcome-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle" tabindex="-1">
+        <div class="welcome-card" role="document" aria-describedby="welcomeDesc">
+            <h2 id="welcomeTitle">For Radwa ❤️</h2>
+            <p id="welcomeDesc">A little world crafted with love — enjoy the memories and surprises inside.</p>
+            <button id="openWelcomeBtn" class="start-journey">Start the Journey</button>
         </div>
     </div>
 
@@ -66,6 +70,7 @@
             </div>
             <div class="print-note-actions">
                 <button id="printNowBtn">Print</button>
+                <button id="exportBookletBtn">Export Booklet (PDF)</button>
                 <button id="closePrintNoteBtn">Close</button>
             </div>
         </div>
@@ -93,16 +98,24 @@
         <div id="storyCategory" class="button-row" style="display: none;">
             <button class="gallery-button" onclick="showGallery()">Our Photos</button>
             <button class="timeline-button" onclick="showTimeline()">Our Story</button>
+            <button class="video-button" onclick="showOurVideo()">🎬 Our Movie</button>
+            <button class="slideshow-button" onclick="showMemoriesSlideshow()">🎞️ Memory Slideshow</button>
+            <button class="polaroid-button" onclick="showPolaroidWall()">📸 Polaroid Wall</button>
+            <button class="crown-button" onclick="showBirthdayCrown()">👑 Princess Crown Studio</button>
             <button class="portrait-button" onclick="showStarPortrait()">Portrait of a Star</button>
             <button class="map-button" onclick="showOurWorld()">Explore Our World</button>
             <button id="celestialButton" class="celestial-button" onclick="showCelestialMap()">Our Night Sky</button>
             <button class="fairytale-button" onclick="showFairytale()">Our Fairytale</button>
             <button class="mosaic-button" onclick="showPhotoMosaic()">Photo Mosaic Heart</button>
+            <button class="lantern-button" onclick="showSkyLanterns()">🏮 Sky Lanterns</button>
         </div>
         <div id="loveCategory" class="button-row" style="display: none;">
             <button class="poem-button" onclick="showPoem()">A Poem for You</button>
             <button class="love-reasons-button" onclick="showLoveReasons()">Reasons I Love You</button>
             <button class="letter-button" onclick="showLoveLetter()">A Letter For You</button>
+            <button class="envelope-button" onclick="showWaxEnvelope()">💌 Birthday Wax Letter</button>
+            <button class="open-when-button" onclick="showOpenWhen()">📬 Open When...</button>
+            <button class="star-jar-button" onclick="showStarJar()">✨ 31 Love Stars</button>
             <button id="replayProposalButton" onclick="replayProposalConstellation()">Starlit Proposal Replay</button>
         </div>
         <div id="funCategory" class="button-row" style="display: none;">
@@ -110,7 +123,8 @@
             <button class="puzzle-button" onclick="showPuzzle()">Secret Puzzle</button>
             <button class="gift-button" onclick="showGiftBox()">🎁 Gift</button>
             <button class="playlist-button" onclick="showPlaylist()">Our Playlist</button>
-            <button class="birthday-button magic-button" onclick="startWeddingTimer()">💍 The Big Day</button>
+            <button class="birthday-button magic-button" onclick="startBirthdayCountdown()">🎂 Birthday Countdown</button>
+            <button class="wedding-button magic-button" onclick="startWeddingTimer()" style="background-color: #f67280; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-size: 1em; cursor: pointer; transition: transform 0.2s; box-shadow: 0 3px 6px rgba(0,0,0,0.15);">💍 Married Life</button>
             <button class="piano-button" onclick="showPiano()">🎹 Play Our Song</button>
             <button class="photo-puzzle-button" onclick="showPhotoPuzzle()">🖼️ Photo Puzzle</button>
             <button class="love-wheel-button" onclick="showLoveWheel()">Spin the Love Wheel</button>
@@ -119,7 +133,6 @@
             <button class="daily-question-button" onclick="showDailyQuestion()">Today's Question</button>
             <button class="future-dreams-button" onclick="showFutureDreams()">Dream Board</button>
             <button id="showProposalButton" onclick="showProposal()">The Big Question...</button>
-            <button id="time-capsule-btn">Time Capsule</button>
         </div>
 
         <button id="backToCategories" onclick="showMainCategories()">⬅️ Back</button>
@@ -188,7 +201,7 @@
         </div>
     </div>
 
-    <div class="playlist-overlay" style="display:none;">
+    <div id="playlistOverlay" class="playlist-overlay" style="display:none;">
         <button class="close-playlist" onclick="hidePlaylist()">Close</button>
         <h2>Our Love Playlist</h2>
         <ul class="playlist-list"></ul>
@@ -241,10 +254,10 @@
 
     <div id="weddingTimerOverlay" style="display:none;">
         <button class="close-countdown" onclick="toggleOverlay('weddingTimerOverlay', false)">✖</button>
-        <h2 id="timerTitle">Counting down to our Forever!</h2>
+        <h2 id="timerTitle">💍 Happily Married For:</h2>
         
         <div class="birthday-age" id="timerSubtitle">
-            March 28, 2026
+            Since March 28, 2026 — Husband & Wife Forever ✨
         </div>
 
         <div class="countdown-timer">
@@ -267,15 +280,73 @@
         </div>
 
         <p class="birthday-wish" id="timerFooterMessage">
-            I can't wait to see you in your white dress. ❤️
+            Every single second as your husband is the greatest blessing of my life. ❤️
         </p>
+    </div>
+
+    <div id="birthdayCountdownOverlay" style="display:none;">
+        <button class="close-countdown" onclick="toggleOverlay('birthdayCountdownOverlay', false)">✖</button>
+        <h2 id="bdayTimerTitle">Counting down to your Birthday!</h2>
+        
+        <div class="birthday-age" id="bdayTimerSubtitle">
+            <span id="ageInYears" class="age-value">--</span> Years, 
+            <span id="ageInMonths" class="age-value">--</span> Months, and 
+            <span id="ageInDays" class="age-value">--</span> Days
+        </div>
+
+        <div class="countdown-timer">
+            <div class="timer-box">
+                <span id="bdayTimerValue1">00</span>
+                <span class="timer-label">Days</span>
+            </div>
+            <div class="timer-box">
+                <span id="bdayTimerValue2">00</span>
+                <span class="timer-label">Hours</span>
+            </div>
+            <div class="timer-box">
+                <span id="bdayTimerValue3">00</span>
+                <span class="timer-label">Minutes</span>
+            </div>
+            <div class="timer-box">
+                <span id="bdayTimerValue4">00</span>
+                <span class="timer-label">Seconds</span>
+            </div>
+        </div>
+
+        <p class="birthday-wish" id="bdayTimerFooterMessage">
+            Every day with you is a gift! 🎁
+        </p>
+
+        <div style="margin-top: 15px;">
+            <button id="triggerBirthdayCelebrationBtn" class="birthday-celebrate-btn" onclick="celebrateBirthdaySurprise()">🎂 Celebrate Birthday Now! 🎉</button>
+        </div>
+
+        <div id="birthdaySurpriseCard" class="birthday-surprise-card" style="display:none;">
+            <div class="birthday-cake">
+                <div class="cake-candles">
+                    <div class="cake-candle"><span class="cake-candle-flame">🔥</span></div>
+                    <div class="cake-candle"><span class="cake-candle-flame">🔥</span></div>
+                    <div class="cake-candle"><span class="cake-candle-flame">🔥</span></div>
+                </div>
+                <div class="cake-tier cake-tier-top"></div>
+                <div class="cake-tier cake-tier-bottom"></div>
+            </div>
+            <button id="blowCandlesBtn" class="blow-candles-btn" onclick="blowOutBirthdayCandles()">💨 Make a Wish & Blow Out Candles</button>
+            <div id="birthdayWishRevealed" class="birthday-wish-revealed" style="display:none;">
+                <h3>👑 Happy Birthday, My Queen Radwa! 🎂✨</h3>
+                <p>On this day, the universe blessed the world with its most radiant soul — YOU.</p>
+                <p>Every laugh we share, every dream we weave, and every heartbeat we sync is the greatest joy of my life.</p>
+                <p>May your new year be filled with pure happiness, endless laughter, soaring dreams, and infinite love.</p>
+                <p style="font-weight:bold; color:#ffb6d5; margin-top:8px;">I love you to the stars and back, forever and always! ❤️</p>
+            </div>
+        </div>
     </div>
 
     <div id="dailyQuestionOverlay" style="display:none;">
         <div class="daily-question-box">
             <h3>Today's Question for Us</h3>
-            <p id="dailyQuestionText"></p>
-            <button class="close-daily-question" onclick="hideDailyQuestion()">Close</button>
+            <p id="dailyQuestionText" class="question-text">Loading...</p>
+            <button class="close-question" onclick="hideDailyQuestion()">Close</button>
         </div>
     </div>
 
@@ -285,11 +356,13 @@
             <h2>Our Future Dream Board</h2>
             <p class="dreams-subtitle">A place for all the adventures we'll have and memories we'll make...</p>
             <div id="dreamsBoard" class="dreams-board">
-                </div>
+                <!-- Dreams populated by JS -->
+            </div>
             <div class="add-dream-form">
                 <input type="text" id="dreamInput" placeholder="Add a new dream for us...">
                 <button onclick="addDream()">Add Dream ✨</button>
             </div>
+            <p style="color: #bbb; font-size: 0.8em; margin-top: 10px; text-align: center;">Note: Dreams and other interactive progress are saved in your browser's local storage.</p>
         </div>
     </div>
 
@@ -330,33 +403,6 @@
                 <h3>The Stars on a Special Night</h3>
                 <input type="date" id="specialDate" value="2025-01-08">
                 <button type="button" onclick="generateStarMap()">Generate Sky</button>
-            </div>
-        </div>
-    </div>
-    <div id="time-capsule-overlay" style="display:none;">
-        <div class="time-capsule-container">
-            <button class="close-time-capsule" onclick="hideTimeCapsule()">✖</button>
-            <h2>💍 The Vows Vault</h2>
-            <p id="vault-instruction">Write your vows now. They will seal until our wedding day.</p>
-
-            <div id="vault-input-area">
-                <textarea id="time-capsule-message" placeholder="My vows to you..."></textarea>
-                <div style="margin-top: 10px; font-size: 0.9em; color: #666;">
-                    <input type="checkbox" id="lock-checkbox"> 
-                    <label for="lock-checkbox">I promise these are my final vows. Lock them until 28.03.2026.</label>
-                </div>
-                <button id="save-time-capsule-btn">Seal the Vault 🔒</button>
-            </div>
-
-            <div id="vault-locked-message" style="display:none; text-align:center;">
-                <div style="font-size: 3em;">🔒</div>
-                <p>These vows are sealed tight.</p>
-                <p>Open this on <strong>March 28, 2026</strong> at the altar.</p>
-            </div>
-
-            <div id="vault-unlocked-message" style="display:none;">
-                <h3>My Vows to You</h3>
-                <div id="revealed-vows" class="love-letter" style="max-height: 300px; overflow-y:auto;"></div>
             </div>
         </div>
     </div>
@@ -409,9 +455,9 @@
                 <div id="storyText"></div>
             </div>
             <div class="fairytale-audio-controls">
-                <button id="fairytalePlayBtn" title="Play Narration">▶️</button>
-                <button id="fairytalePauseBtn" title="Pause Narration">⏸️</button>
-                <button id="fairytaleStopBtn" title="Stop Narration">⏹️</button>
+                <button id="fairytalePlayBtn" title="Play Narration" onclick="playNarration()">▶️</button>
+                <button id="fairytalePauseBtn" title="Pause Narration" onclick="pauseNarration()">⏸️</button>
+                <button id="fairytaleStopBtn" title="Stop Narration" onclick="stopNarration()">⏹️</button>
             </div>
             <button class="continue-story-btn" id="continueStoryBtn" onclick="continueFairytale()">Continue the Story...</button>
             <div id="add-chapter-container" style="display: none;">
@@ -419,6 +465,131 @@
                 <button id="save-chapter-btn">Save Chapter</button>
             </div>
             <button id="add-chapter-btn">Add a Chapter</button>
+        </div>
+    </div>
+
+    <div id="videoOverlay" class="video-overlay" style="display:none;">
+        <button class="close-video" onclick="hideOurVideo()">✖</button>
+        <div class="video-container">
+            <h2>🎬 Our Story — The Movie</h2>
+            <video id="ourStoryVideo" controls playsinline style="width:100%; max-width:800px; max-height:65vh; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.6);">
+                <source src="OurStory.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+            <p style="margin-top:14px; font-size:1.1em; color:#ffc0cb; font-family:'Georgia',serif;">Every frame is a piece of my heart with you. ❤️</p>
+        </div>
+    </div>
+
+    <!-- Wax-Sealed Birthday Letter Overlay -->
+    <div id="waxEnvelopeOverlay" class="wax-envelope-overlay" style="display:none;">
+        <button class="close-wax" onclick="hideWaxEnvelope()">✖</button>
+        <div class="wax-envelope-wrapper">
+            <div id="waxEnvelopeContainer" class="wax-envelope-box">
+                <div class="envelope-flap"></div>
+                <div class="envelope-pocket"></div>
+                <div class="wax-seal" onclick="breakWaxSeal()" title="Click to break seal and read">
+                    <div class="wax-seal-emboss">R ❤️ A</div>
+                </div>
+                <div class="envelope-instruction">Tap the wax seal to break & open 💌</div>
+            </div>
+            <div id="waxParchmentLetter" class="wax-parchment-letter" style="display:none;">
+                <div class="parchment-arabic">«كل عام وأنتِ أجمل أعيادي يا رضوى، ونبض قلبي للأبد»</div>
+                <div class="parchment-title">To My Birthday Queen, Radwa ❤️</div>
+                <div class="parchment-body">
+                    <p>My Dearest Radwa,</p>
+                    <p>On your birthday, I find myself looking back at every moment, every laugh, and every quiet breath we've shared. God gave this world an angel on this day, and by some miraculous grace, you chose to share your life with me.</p>
+                    <p>You are my sunshine on cloudy mornings, my peace in restless nights, and the melody behind every dream I hold for our future. Watching you grow, smile, and radiate kindness is the highest honor of my life.</p>
+                    <p>Now as your proud husband, sharing our home and our lives together every single day, I promise to love you unconditionally, protect your smile with everything I have, and make every single birthday of yours feel like a fairy tale.</p>
+                    <p class="parchment-sign">Forever & Always Yours,<br><strong>Ahmed ❤️</strong></p>
+                </div>
+                <div class="parchment-actions">
+                    <button class="postcard-export-btn" onclick="exportPostcard('Radwa Birthday Letter', 'Happy Birthday to my queen Radwa! Every second with you is pure magic.')">💾 Download Keepsake Postcard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 'Open When...' Envelopes Collection Overlay -->
+    <div id="openWhenOverlay" class="open-when-overlay" style="display:none;">
+        <button class="close-open-when" onclick="hideOpenWhen()">✖</button>
+        <div class="open-when-container">
+            <h2>📬 'Open When...' Letters for Radwa</h2>
+            <p class="open-when-desc">Whenever you need my voice, my warmth, or a reminder of my love — pick an envelope.</p>
+            <div id="openWhenGrid" class="open-when-grid"></div>
+        </div>
+    </div>
+
+    <!-- 'Open When' Detail Reading Modal -->
+    <div id="openWhenLetterModal" class="open-when-modal" style="display:none;">
+        <div class="open-when-modal-content">
+            <button class="close-letter-modal" onclick="closeOpenWhenLetterModal()">✖</button>
+            <div id="openWhenLetterBody"></div>
+        </div>
+    </div>
+
+    <!-- 31 Things I Love About Radwa (Glowing Star Jar) Overlay -->
+    <div id="starJarOverlay" class="star-jar-overlay" style="display:none;">
+        <button class="close-star-jar" onclick="hideStarJar()">✖</button>
+        <div class="star-jar-container">
+            <h2>✨ 31 Things I Love About Radwa</h2>
+            <div id="starJarCounter" class="star-jar-counter">0 of 31 Stars Unfolded</div>
+            <p class="star-jar-subtitle">A glowing jar of 31 origami stars crafted for your milestone year. Click any star to unfold a secret reason why I adore you.</p>
+            <div id="starJarGrid" class="star-jar-grid"></div>
+        </div>
+    </div>
+
+    <!-- Star Detail Modal -->
+    <div id="starDetailModal" class="star-detail-modal" style="display:none;">
+        <div class="star-detail-card">
+            <button class="close-star-detail" onclick="closeStarDetailModal()">✖</button>
+            <div id="starDetailBody"></div>
+        </div>
+    </div>
+
+    <!-- Floating Sky Lanterns Release Overlay -->
+    <div id="skyLanternsOverlay" class="sky-lanterns-overlay" style="display:none;">
+        <button class="close-lanterns" onclick="hideSkyLanterns()">✖</button>
+        <div id="skyLanternsSky" class="sky-lanterns-sky"></div>
+        <div class="sky-lanterns-controls">
+            <h2>🏮 Release a Sky Lantern with Your Wish</h2>
+            <p>Type a dream, a prayer, or a birthday wish, then release it into our starlit sky.</p>
+            <div class="lantern-input-row">
+                <input type="text" id="skyLanternInput" placeholder="Make a wish for our future..." maxlength="70" />
+                <button id="releaseLanternBtn" class="release-lantern-btn" onclick="releaseSkyLantern()">Release Lantern ✨</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Polaroid Wall with 3D Flip Backside Notes Overlay -->
+    <div id="polaroidWallOverlay" class="polaroid-wall-overlay" style="display:none;">
+        <button class="close-polaroid" onclick="hidePolaroidWall()">✖</button>
+        <div class="polaroid-wall-container">
+            <h2>📸 Our Polaroid Memory Wall</h2>
+            <p class="polaroid-wall-subtitle">Click any Polaroid snapshot to flip it over and read the handwritten secret note on the back!</p>
+            <div id="polaroidWallGrid" class="polaroid-wall-grid"></div>
+        </div>
+    </div>
+
+    <!-- Ambient Memory Slideshow (Ken Burns Effect) Overlay -->
+    <div id="slideshowOverlay" class="slideshow-overlay" style="display:none;">
+        <button class="close-slideshow" onclick="hideMemoriesSlideshow()">✖</button>
+        <div class="slideshow-stage">
+            <img id="slideshowImage" src="" alt="Memory Slideshow" class="slideshow-photo">
+            <div id="slideshowCaption" class="slideshow-caption"></div>
+        </div>
+    </div>
+
+    <!-- Birthday Crown Photo Studio Overlay -->
+    <div id="birthdayCrownOverlay" class="crown-studio-overlay" style="display:none;">
+        <button class="close-crown" onclick="hideBirthdayCrown()">✖</button>
+        <div class="crown-studio-container">
+            <h2>👑 Birthday Princess Photo Studio</h2>
+            <p>Pick a favorite couple memory and crown your birthday with tiaras & sparkles!</p>
+            <canvas id="crownCanvas" class="crown-canvas"></canvas>
+            <div id="crownThumbnails" class="crown-thumbs-row"></div>
+            <div class="crown-actions">
+                <button class="export-crown-btn" onclick="exportCrownPhoto()">💾 Save Crowned Memory</button>
+            </div>
         </div>
     </div>
 
@@ -433,6 +604,7 @@
     <script defer src="celestial.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
     <script src="Winwheel.js"></script>
+    <script src="js/libs/jspdf.umd.min.js"></script>
     <!-- Your main script, which is already correct -->
     <script type="module" src="./js/main.js"></script>
 

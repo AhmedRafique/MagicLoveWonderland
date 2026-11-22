@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mlw-cache-v1';
+const CACHE_NAME = 'mlw-cache-v4';
 const CORE_ASSETS = [
   '/',
   '/index.html',
@@ -6,11 +6,26 @@ const CORE_ASSETS = [
   '/manifest.json',
   '/icons/icon-192.svg',
   '/icons/icon-512.svg',
+  '/icons/icon-192.png',
+  '/icons/icon-512.png',
   '/js/main.js',
+  '/js/config.js',
   '/js/utils.js',
+  '/js/visuals.js',
   '/js/story.js',
   '/js/games.js',
-  '/js/audio.js'
+  '/js/audio.js',
+  '/js/journey.js',
+  '/js/print.js',
+  '/js/libs/jspdf.umd.min.js',
+  '/Winwheel.js',
+  '/celestial.min.js',
+  '/background-music.mp3',
+  '/celebration.mp3',
+  '/heartbeat.mp3',
+  '/tick.mp3',
+  '/voice-message.mp3',
+  '/favicon.ico'
 ];
 
 self.addEventListener('install', (event) => {

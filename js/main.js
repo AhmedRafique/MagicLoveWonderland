@@ -3,7 +3,7 @@
    ========================================= */
 
 // 1. IMPORT UTILITIES & DATA
-import { toggleOverlay, showOverlay, showCategory, showMainCategories } from './utils.js';
+import { toggleOverlay, showOverlay, showCategory, showMainCategories, trapFocus, releaseFocus, announceLive } from './utils.js';
 import { loveMessages } from './config.js';
 
 // 2. IMPORT FEATURES FROM MODULES
@@ -12,14 +12,19 @@ import {
     initiateLoveWonderland, moonSurprise, showLoveReasons, hideLoveReasons,
     hideNameConstellation, replayProposalConstellation, showStarPortrait, hideStarPortrait,
     initializeStarrySky, createFloatingOrbs, removeFloatingOrbs,
-    showProposal, acceptProposal
+    showProposal, acceptProposal,
+    cycleTheme, initTheme, showBirthdayCrown, hideBirthdayCrown, selectCrownPhoto, exportCrownPhoto, exportPostcard
 } from './visuals.js';
 
 import {
     showGallery, hideGallery, showTimeline, hideTimeline,
     showPoem, hidePoem, showLoveLetter, hideLoveLetter,
     showFairytale, hideFairytale, continueFairytale,
-    showPhotoMosaic, hidePhotoMosaic, hideZoomedPhoto
+    showPhotoMosaic, hidePhotoMosaic, hideZoomedPhoto,
+    showOurVideo, hideOurVideo,
+    showWaxEnvelope, hideWaxEnvelope, breakWaxSeal,
+    showOpenWhen, hideOpenWhen, openWhenLetter, closeOpenWhenLetterModal,
+    showPolaroidWall, hidePolaroidWall, showMemoriesSlideshow, hideMemoriesSlideshow
 } from './story.js';
 
 import {
@@ -29,17 +34,23 @@ import {
 } from './games.js';
 
 import {
-    startWeddingTimer, initVowsVault, hideTimeCapsule,
+    startWeddingTimer, startBirthdayCountdown, initVowsVault, hideTimeCapsule,
     showDailyQuestion, hideDailyQuestion, showFutureDreams, hideFutureDreams, addDream,
-    showOurWorld, hideOurWorld, showCelestialMap, hideCelestialMap, initializeCelestialFeature
+    showOurWorld, hideOurWorld, showCelestialMap, hideCelestialMap, initializeCelestialFeature,
+    celebrateBirthdaySurprise, blowOutBirthdayCandles,
+    showStarJar, hideStarJar, openStar, closeStarDetailModal,
+    showSkyLanterns, hideSkyLanterns, releaseSkyLantern,
+    showMarriageVows, hideMarriageVows
 } from './journey.js';
+import { generateBooklet } from './print.js';
 import { addFairytaleChapter } from './story.js';
 import { toggleRecording, saveRecordedSong, playOurSong } from './audio.js';
 
 import {
     toggleMusic, showPlaylist, hidePlaylist,
     showPiano, hidePiano, initializePiano, showSong, playSong,
-    playNarration, pauseNarration, stopNarration, triggerHeartbeat
+    playNarration, pauseNarration, stopNarration, triggerHeartbeat,
+    playChime, playHarpStrum, triggerHaptic
 } from './audio.js';
 
 
@@ -54,6 +65,8 @@ window.toggleOverlay = toggleOverlay;
 window.showOverlay = showOverlay;
 window.showCategory = showCategory;
 window.showMainCategories = showMainCategories;
+// Accessibility helper (aria-live announcement)
+window.announceLive = announceLive;
 
 // Visuals & Proposal
 window.initiateLoveWonderland = initiateLoveWonderland;
@@ -83,6 +96,19 @@ window.continueFairytale = continueFairytale;
 window.showPhotoMosaic = showPhotoMosaic;
 window.hidePhotoMosaic = hidePhotoMosaic;
 window.hideZoomedPhoto = hideZoomedPhoto;
+window.showOurVideo = showOurVideo;
+window.hideOurVideo = hideOurVideo;
+window.showWaxEnvelope = showWaxEnvelope;
+window.hideWaxEnvelope = hideWaxEnvelope;
+window.breakWaxSeal = breakWaxSeal;
+window.showOpenWhen = showOpenWhen;
+window.hideOpenWhen = hideOpenWhen;
+window.openWhenLetter = openWhenLetter;
+window.closeOpenWhenLetterModal = closeOpenWhenLetterModal;
+window.showPolaroidWall = showPolaroidWall;
+window.hidePolaroidWall = hidePolaroidWall;
+window.showMemoriesSlideshow = showMemoriesSlideshow;
+window.hideMemoriesSlideshow = hideMemoriesSlideshow;
 
 // Games
 window.showMemoryGame = showMemoryGame;
@@ -97,10 +123,22 @@ window.hidePhotoPuzzle = hidePhotoPuzzle;
 window.showGiftBox = showGiftBox;
 window.hideGiftBox = hideGiftBox;
 
-// Journey (Wedding Timer, Vows, Map)
+// Journey (Wedding Timer, Vows, Map, Stars, Lanterns)
 window.startWeddingTimer = startWeddingTimer;
-window.initVowsVault = initVowsVault; // This opens the Vows Vault
-window.hideTimeCapsule = hideTimeCapsule;
+window.startBirthdayCountdown = startBirthdayCountdown;
+window.celebrateBirthdaySurprise = celebrateBirthdaySurprise;
+window.blowOutBirthdayCandles = blowOutBirthdayCandles;
+window.showStarJar = showStarJar;
+window.hideStarJar = hideStarJar;
+window.openStar = openStar;
+window.closeStarDetailModal = closeStarDetailModal;
+window.showSkyLanterns = showSkyLanterns;
+window.hideSkyLanterns = hideSkyLanterns;
+window.releaseSkyLantern = releaseSkyLantern;
+window.showMarriageVows = showMarriageVows;
+window.hideMarriageVows = hideMarriageVows;
+window.initVowsVault = showMarriageVows; // This opens the Marriage Vows
+window.hideTimeCapsule = hideMarriageVows;
 window.showDailyQuestion = showDailyQuestion;
 window.hideDailyQuestion = hideDailyQuestion;
 window.showFutureDreams = showFutureDreams;
@@ -112,6 +150,15 @@ window.showCelestialMap = showCelestialMap;
 window.hideCelestialMap = hideCelestialMap;
 window.generateStarMap = () => { /* Redundant wrapper if needed by HTML */ showCelestialMap(); };
 
+// Visuals & Studio & Themes
+window.cycleTheme = cycleTheme;
+window.initTheme = initTheme;
+window.showBirthdayCrown = showBirthdayCrown;
+window.hideBirthdayCrown = hideBirthdayCrown;
+window.selectCrownPhoto = selectCrownPhoto;
+window.exportCrownPhoto = exportCrownPhoto;
+window.exportPostcard = exportPostcard;
+
 // Audio
 window.showPlaylist = showPlaylist;
 window.hidePlaylist = hidePlaylist;
@@ -122,6 +169,11 @@ window.playSong = playSong;
 window.playNarration = playNarration;
 window.pauseNarration = pauseNarration;
 window.stopNarration = stopNarration;
+window.playChime = playChime;
+window.playHarpStrum = playHarpStrum;
+window.triggerHaptic = triggerHaptic;
+// PDF booklet export
+window.generateBooklet = generateBooklet;
 // Recording / Our Song (exposed for button hooks)
 window.toggleRecording = toggleRecording;
 window.saveRecordedSong = saveRecordedSong;
@@ -134,6 +186,9 @@ window.playOurSong = playOurSong;
 
 document.addEventListener("DOMContentLoaded", () => {
     
+    // Initialize saved aesthetic theme
+    initTheme();
+
     // 1. Welcome Message Logic
     if (localStorage.getItem('radwaVisited')) {
         const header = document.querySelector('h1');
@@ -149,9 +204,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const musicBtn = document.getElementById("musicButton");
     if (musicBtn) musicBtn.addEventListener("click", toggleMusic);
 
-    const vaultBtn = document.getElementById('time-capsule-btn');
-    if (vaultBtn) vaultBtn.addEventListener('click', initVowsVault);
-
     const floatingMessage = document.querySelector('.floating-message');
     if (floatingMessage) floatingMessage.addEventListener('click', triggerHeartbeat);
 
@@ -163,6 +215,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (addChapterBtn && addChapterContainer) addChapterBtn.addEventListener('click', () => { addChapterContainer.style.display = 'block'; addChapterBtn.style.display = 'none'; });
     if (saveChapterBtn && newChapterText) saveChapterBtn.addEventListener('click', () => { addFairytaleChapter(newChapterText.value); newChapterText.value = ''; });
 
+    // Fairytale Narration Controls
+    const fairytalePlayBtn = document.getElementById('fairytalePlayBtn');
+    const fairytalePauseBtn = document.getElementById('fairytalePauseBtn');
+    const fairytaleStopBtn = document.getElementById('fairytaleStopBtn');
+    if (fairytalePlayBtn) fairytalePlayBtn.addEventListener('click', playNarration);
+    if (fairytalePauseBtn) fairytalePauseBtn.addEventListener('click', pauseNarration);
+    if (fairytaleStopBtn) fairytaleStopBtn.addEventListener('click', stopNarration);
+
     // Our Song - recording & saving
     const recordBtn = document.getElementById('record-our-song');
     const saveSongBtn = document.getElementById('save-our-song');
@@ -173,17 +233,6 @@ document.addEventListener("DOMContentLoaded", () => {
         playOurSongBtn.disabled = (window.localStorage && JSON.parse(localStorage.getItem('ourSong') || '[]').length === 0);
         playOurSongBtn.addEventListener('click', () => { const s = JSON.parse(localStorage.getItem('ourSong') || '[]'); playOurSong(s); });
     }
-
-    // Save vows button inside time capsule
-    const saveTimeCapsuleBtn = document.getElementById('save-time-capsule-btn');
-    if (saveTimeCapsuleBtn) saveTimeCapsuleBtn.addEventListener('click', () => {
-        const message = document.getElementById('time-capsule-message').value.trim();
-        if (!message) { alert('Please write your vows first!'); return; }
-        localStorage.setItem('radwaWeddingVows', message);
-        localStorage.setItem('radwaVowsLocked', 'true');
-        initVowsVault();
-        alert('Your vows have been sealed ❤️');
-    });
 
     // 3. Initialize Systems
     initializeStarrySky();
@@ -244,10 +293,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const openWelcomeBtn = document.getElementById('openWelcomeBtn');
     if (welcomeOverlay && !localStorage.getItem('mlwSeenWelcome')) {
         welcomeOverlay.style.display = 'flex';
-        if (openWelcomeBtn) openWelcomeBtn.addEventListener('click', () => {
-            welcomeOverlay.style.display = 'none';
-            localStorage.setItem('mlwSeenWelcome','true');
-        });
+        // Trap focus when visible
+        try { trapFocus(welcomeOverlay); } catch (e) {}
+        if (openWelcomeBtn) {
+            openWelcomeBtn.focus();
+            const closeWelcome = () => {
+                const card = welcomeOverlay.querySelector('.welcome-card');
+                if (card) {
+                    card.classList.add('closing');
+                    card.addEventListener('animationend', () => {
+                        welcomeOverlay.style.display = 'none';
+                        localStorage.setItem('mlwSeenWelcome','true');
+                        try { releaseFocus(welcomeOverlay); } catch (e) {}
+                        // Start the experience
+                        if (typeof initiateLoveWonderland === 'function') initiateLoveWonderland();
+                        // Move focus to main categories
+                        const btn = document.querySelector('#openSurpriseBtn');
+                        if (btn) btn.focus();
+                    }, { once: true });
+                } else {
+                    welcomeOverlay.style.display = 'none';
+                    localStorage.setItem('mlwSeenWelcome','true');
+                    try { releaseFocus(welcomeOverlay); } catch (e) {}
+                    if (typeof initiateLoveWonderland === 'function') initiateLoveWonderland();
+                }
+            };
+            openWelcomeBtn.addEventListener('click', closeWelcome);
+            openWelcomeBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); closeWelcome(); } });
+        }
     } else if (welcomeOverlay) {
         welcomeOverlay.style.display = 'none';
     }
@@ -257,6 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const printNoteOverlay = document.getElementById('printNoteOverlay');
     const printNowBtn = document.getElementById('printNowBtn');
     const closePrintNoteBtn = document.getElementById('closePrintNoteBtn');
+    const exportBookletBtn = document.getElementById('exportBookletBtn');
     if (printNoteBtn && printNoteOverlay) {
         printNoteBtn.addEventListener('click', () => { printNoteOverlay.style.display = 'flex'; });
     }
@@ -270,13 +344,15 @@ document.addEventListener("DOMContentLoaded", () => {
         w.print();
         w.close();
     });
+    if (exportBookletBtn) exportBookletBtn.addEventListener('click', async () => { exportBookletBtn.disabled = true; exportBookletBtn.textContent = 'Generating...'; try { await generateBooklet(); } catch (e) { alert('Booklet generation failed: ' + e.message); } exportBookletBtn.disabled = false; exportBookletBtn.textContent = 'Export Booklet (PDF)'; });
+
 });
 
 // Register service worker for PWA if supported
 let __deferredInstallPrompt = null;
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js').then(reg => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
             console.log('Service worker registered with scope:', reg.scope);
         }).catch(err => {
             console.warn('Service worker registration failed:', err);
@@ -372,8 +448,15 @@ function setupVoiceControl() {
             // Wedding/Birthday Timer
             'show wedding timer': () => { toggleOverlay('weddingTimerOverlay', true); startWeddingTimer(); },
             'show the big day': () => { toggleOverlay('weddingTimerOverlay', true); startWeddingTimer(); },
+            'married life': () => { toggleOverlay('weddingTimerOverlay', true); startWeddingTimer(); },
             'close wedding timer': () => toggleOverlay('weddingTimerOverlay', false),
-            'show birthday countdown': () => { toggleOverlay('weddingTimerOverlay', true); startWeddingTimer(); }, 
+            'our vows': showMarriageVows,
+            'marriage vows': showMarriageVows,
+            'show birthday countdown': () => startBirthdayCountdown(),
+            'close birthday countdown': () => toggleOverlay('birthdayCountdownOverlay', false),
+            'celebrate birthday': () => celebrateBirthdaySurprise(),
+            'show our movie': () => showOurVideo(),
+            'close our movie': () => hideOurVideo(),
             
             'ask a question': showDailyQuestion,
             'close the question': hideDailyQuestion,
@@ -387,6 +470,22 @@ function setupVoiceControl() {
             'hide the night sky': hideCelestialMap,
             'open the piano': showPiano,
             'close the piano': hidePiano,
+            'birthday letter': showWaxEnvelope,
+            'open letter': showWaxEnvelope,
+            'close letter': hideWaxEnvelope,
+            'open when': showOpenWhen,
+            'close open when': hideOpenWhen,
+            'star jar': showStarJar,
+            'close star jar': hideStarJar,
+            'sky lanterns': showSkyLanterns,
+            'close lanterns': hideSkyLanterns,
+            'polaroid': showPolaroidWall,
+            'close polaroid': hidePolaroidWall,
+            'slideshow': showMemoriesSlideshow,
+            'close slideshow': hideMemoriesSlideshow,
+            'birthday crown': showBirthdayCrown,
+            'close crown': hideBirthdayCrown,
+            'change theme': cycleTheme,
             
             // System Controls
             'day mode': () => {

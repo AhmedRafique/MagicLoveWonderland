@@ -1,5 +1,6 @@
 @echo off
-echo Starting local server on port 5500...
+echo Starting Magical Love Wonderland local server on port 5500...
+start "" http://localhost:5500
 where python >nul 2>&1
 if %ERRORLEVEL%==0 (
   python -m http.server 5500

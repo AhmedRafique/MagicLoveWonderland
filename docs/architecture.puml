@@ -1,0 +1,150 @@
+@startuml MagicalLoveWonderland_Architecture
+!theme plain
+skinparam backgroundColor #1B2735
+skinparam defaultFontColor #FFFFFF
+skinparam defaultFontName "Georgia"
+skinparam ComponentBorderColor #FF4D88
+skinparam ComponentBackgroundColor #2D1B36
+skinparam InterfaceColor #FFB6D5
+skinparam ArrowColor #FF85A2
+
+package "Presentation & View Layer" {
+    [index.html] as HTML
+    [style.css] as CSS
+    [singlefile.html] as SingleFile
+}
+
+package "Core Application Engine (ES Modules)" {
+    [js/main.js
+(Entry Point & Orchestrator)] as Main
+    [js/config.js
+(Love Data & Media Registry)] as Config
+    [js/utils.js
+(Overlay Manager & Focus Trap)] as Utils
+    [js/visuals.js
+(Star Sky, Studio, Themes, Fireworks)] as Visuals
+    [js/story.js
+(Timeline, Wax Letter, Open When, Polaroids)] as Story
+    [js/games.js
+(Wheel, Memory, Puzzle, Gift Box)] as Games
+    [js/audio.js
+(Synthesizer Piano, Chimes, Playlist, Haptics)] as Audio
+    [js/journey.js
+(Birthday & Wedding Countdown, Star Jar, Lanterns)] as Journey
+    [js/print.js
+(PDF Booklet Exporter via jsPDF)] as Print
+}
+
+package "External & Local Libraries" {
+    [Winwheel.js
+(Physics Prize Wheel)] as Winwheel
+    [celestial.min.js
+(D3 Celestial Map)] as Celestial
+    [jspdf.umd.min.js
+(Client-side PDF)] as jsPDF
+}
+
+package "Media & Data Assets" {
+    folder "photos/" as Photos
+    folder "timeline-photos/" as TimelinePhotos
+    folder "data/" as CelestialData
+    file "OurStory.mp4" as MovieVideo
+    file "background-music.mp3" as BgMusic
+    file "voice-message.mp3" as VoiceMsg
+    file "celebration.mp3" as CelebrationSound
+    file "tick.mp3" as TickSound
+    file "heartbeat.mp3" as HeartbeatSound
+}
+
+HTML ..> Main : loads as type="module"
+HTML ..> CSS : styled by
+HTML ..> Winwheel : loads
+HTML ..> Celestial : loads
+
+Main --> Config : reads data
+Main --> Utils : controls navigation & a11y
+Main --> Visuals : triggers animations & studio
+Main --> Story : manages narrative, envelopes & polaroids
+Main --> Games : runs activities
+Main --> Audio : controls sound, piano & chimes
+Main --> Journey : manages count-downs, stars & lanterns
+Main --> Print : exports booklet
+
+Games --> Winwheel : spins wheel
+Games --> TickSound : plays tick
+Journey --> CelebrationSound : plays celebration
+Visuals --> VoiceMsg : plays & ducks music
+Visuals --> HeartbeatSound : plays pulse
+Story --> MovieVideo : streams in theater
+Story --> TimelinePhotos : renders timeline
+Story --> Photos : renders gallery, mosaic & polaroids
+Journey --> CelestialData : queries night sky
+
+@enduml
+
+@startuml MagicalLoveWonderland_State_Machine
+!theme plain
+skinparam backgroundColor #090A0F
+skinparam defaultFontColor #FFFFFF
+skinparam defaultFontName "Georgia"
+skinparam StateBorderColor #FF4D88
+skinparam StateBackgroundColor #2D1B36
+skinparam ArrowColor #FF85A2
+
+[*] --> InitialWelcome : Page Load
+
+state InitialWelcome {
+    [*] --> SurpriseButton
+    SurpriseButton --> ProposalConstellation : Click "Open Your Surprise"
+}
+
+state WonderlandActive {
+    state MainCategories {
+        [*] --> CategorySelection
+        CategorySelection --> StoryCategory : Click "Our Story"
+        CategorySelection --> LoveCategory : Click "Love & Poems"
+        CategorySelection --> FunCategory : Click "Our Time"
+        CategorySelection --> JourneyCategory : Click "Our Journey"
+    }
+
+    state Overlays {
+        state PhotoGallery
+        state StoryTimeline
+        state OurStoryMovie
+        state PhotoMosaicHeart
+        state OurFairytale
+        state LoveReasons
+        state LoveLetter
+        state WaxSealedBirthdayLetter
+        state OpenWhenLetters
+        state StarJar31LoveStars
+        state SkyLanternsRelease
+        state PolaroidMemoryWall
+        state MemorySlideshow
+        state BirthdayCrownStudio
+        state SecretPuzzle
+        state PhotoPuzzle
+        state LoveWheel
+        state GiftBox
+        state LovePlaylist
+        state InteractivePiano
+        state BirthdayCelebration {
+            [*] --> CountdownTimer
+            CountdownTimer --> BirthdaySurpriseCard : Click "Celebrate Birthday Now!"
+            BirthdaySurpriseCard --> WishGranted : Blow out candles
+        }
+        state MarriedLifeTimer
+        state OurMarriageVows
+        state DailyQuestion
+        state DreamBoard
+        state OurWorldMap
+        state StarPortrait
+        state NightSkyCelestial
+    }
+}
+
+InitialWelcome --> WonderlandActive : Unlock Experience
+Overlays --> MainCategories : Close / ESC key
+MainCategories --> Overlays : Select Activity
+
+@enduml

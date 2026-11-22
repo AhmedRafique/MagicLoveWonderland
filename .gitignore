@@ -1,0 +1,18 @@
+# Distribution packages & archives
+dist/
+*.zip
+Gift-Magical-Love-Wonderland.zip
+
+# Temporary test & scratch files
+test_script.js
+run_test.js
+scripts.js
+
+# Tool assistants & cache
+.ecu-assist/
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

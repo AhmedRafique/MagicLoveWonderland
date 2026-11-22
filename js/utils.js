@@ -27,7 +27,11 @@ export function toggleOverlay(elementIdOrSelector, show) {
             '.overlay-content, .piano-overlay, .photo-gallery, ' +
             '.timeline-container, .love-letter-container, .memory-game-container, ' +
             '.love-wheel-overlay, .puzzle-overlay, .photo-puzzle-overlay, ' +
-            '.gift-box-overlay, .playlist-overlay, .fairytale-overlay'
+            '.gift-box-overlay, .playlist-overlay, .fairytale-overlay, ' +
+            '.photo-mosaic-overlay, .mosaic-zoom-overlay, .print-note-overlay, ' +
+            '#weddingTimerOverlay, #birthdayCountdownOverlay, #videoOverlay, ' +
+            '#waxEnvelopeOverlay, #openWhenOverlay, #starJarOverlay, #skyLanternsOverlay, ' +
+            '#polaroidWallOverlay, #slideshowOverlay, #birthdayCrownOverlay'
         );
         overlays.forEach(el => {
             el.style.display = 'none';
@@ -36,9 +40,12 @@ export function toggleOverlay(elementIdOrSelector, show) {
         });
 
         // Also hide ID-based overlays
-        const ids = ['time-capsule-overlay', 'weddingTimerOverlay', 'dailyQuestionOverlay', 
-                     'futureDreamsOverlay', 'ourWorldOverlay', 'starPortraitOverlay', 
-                     'celestialOverlay', 'poemContainer'];
+        const ids = ['weddingTimerOverlay', 'birthdayCountdownOverlay', 
+                     'dailyQuestionOverlay', 'futureDreamsOverlay', 'ourWorldOverlay', 
+                     'starPortraitOverlay', 'celestialOverlay', 'poemContainer',
+                     'photoMosaicOverlay', 'mosaic-zoom-overlay', 'playlistOverlay', 'videoOverlay',
+                     'waxEnvelopeOverlay', 'openWhenOverlay', 'starJarOverlay', 'skyLanternsOverlay',
+                     'polaroidWallOverlay', 'slideshowOverlay', 'birthdayCrownOverlay'];
         ids.forEach(id => {
             const el = document.getElementById(id);
             if(el && (!overlay || el.id !== overlay.id)) {
@@ -63,6 +70,8 @@ export function toggleOverlay(elementIdOrSelector, show) {
             setTimeout(() => {
                 overlay.style.opacity = '1';
                 overlay.style.visibility = 'visible';
+                // Trap focus inside overlay for accessibility
+                try { trapFocus(overlay); } catch (e) { /* ignore */ }
             }, 10);
         }
     } else {
@@ -70,6 +79,8 @@ export function toggleOverlay(elementIdOrSelector, show) {
             overlay.style.opacity = '0';
             overlay.style.visibility = 'hidden';
         } else {
+            // Release focus trap when hiding
+            try { releaseFocus(overlay); } catch (e) { /* ignore */ }
             overlay.style.display = 'none';
         }
     }
@@ -84,7 +95,13 @@ export function toggleOverlay(elementIdOrSelector, show) {
 export function showOverlay(elementToShow, displayType = 'block') {
     // Hide all overlays first
     document.querySelectorAll(
-        '.overlay-content, .piano-overlay, .photo-gallery, .timeline-container, .love-letter-container, .memory-game-container, .love-wheel-overlay, .puzzle-overlay, .photo-puzzle-overlay, .gift-box-overlay, .playlist-overlay, .fairytale-overlay'
+        '.overlay-content, .piano-overlay, .photo-gallery, .timeline-container, ' +
+        '.love-letter-container, .memory-game-container, .love-wheel-overlay, ' +
+        '.puzzle-overlay, .photo-puzzle-overlay, .gift-box-overlay, .playlist-overlay, ' +
+        '.fairytale-overlay, .photo-mosaic-overlay, .mosaic-zoom-overlay, .print-note-overlay, ' +
+        '#weddingTimerOverlay, #birthdayCountdownOverlay, #videoOverlay, ' +
+        '#waxEnvelopeOverlay, #openWhenOverlay, #starJarOverlay, #skyLanternsOverlay, ' +
+        '#polaroidWallOverlay, #slideshowOverlay, #birthdayCrownOverlay'
     ).forEach(el => {
         el.style.display = 'none';
         el.style.opacity = '0';
@@ -109,7 +126,6 @@ export function showOverlay(elementToShow, displayType = 'block') {
 
     if (!el) return;
 
-    // Hide action buttons while overlay is shown (only when we have a real overlay to show)
     const actionButtons = document.getElementById('actionButtonsContainer');
     if (actionButtons) actionButtons.style.display = 'none';
 
@@ -123,6 +139,7 @@ export function showOverlay(elementToShow, displayType = 'block') {
         setTimeout(() => {
             el.style.opacity = '1';
             el.style.visibility = 'visible';
+            try { trapFocus(el); } catch (e) {}
         }, 10);
     }
 }
@@ -144,6 +161,93 @@ export function showCategory(categoryName) {
         container.style.opacity = '1'; 
     }, 200); 
 }
+
+// Focus trap helpers
+const _focusTrapMap = new WeakMap();
+
+export function trapFocus(container) {
+    if (!container) return;
+    const focusableString = 'a[href], area[href], input:not([disabled]):not([type=hidden]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
+    const focusable = Array.from(container.querySelectorAll(focusableString)).filter(el => el.offsetParent !== null);
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const previous = document.activeElement;
+
+    function keyHandler(e) {
+        if (e.key === 'Tab') {
+            if (focusable.length === 0) {
+                e.preventDefault();
+                return;
+            }
+            if (e.shiftKey) {
+                if (document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                }
+            } else {
+                if (document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+        } else if (e.key === 'Escape') {
+            // Try to close overlay if possible by finding a close button inside
+            const closeBtn = container.querySelector(
+                '.close-gallery, .close-mosaic, .close-poem, #closePoemButton, ' +
+                '.close-timeline, .close-game, .close-puzzle, .close-gift, ' +
+                '.close-photo-puzzle, .close-wheel, .close-playlist, .close-countdown, ' +
+                '.close-question, .close-dreams, .close-world, .close-portrait, ' +
+                '.close-celestial, .close-piano, .close-fairytale, ' +
+                '.close-video, [class*="close-"], button[aria-label="Close"]'
+            );
+            if (closeBtn) {
+                closeBtn.click();
+            } else {
+                toggleOverlay(container, false);
+            }
+        }
+    }
+
+    container.addEventListener('keydown', keyHandler);
+    // Store the handler so it can be removed later
+    _focusTrapMap.set(container, { keyHandler, previous });
+
+    // Focus the container or the first focusable element
+    if (first) {
+        first.focus();
+    } else {
+        container.setAttribute('tabindex', '-1');
+        container.focus();
+    }
+}
+
+export function releaseFocus(container) {
+    if (!container) return;
+    const data = _focusTrapMap.get(container);
+    if (!data) return;
+    container.removeEventListener('keydown', data.keyHandler);
+    _focusTrapMap.delete(container);
+    // Restore focus to previous element if present
+    if (data.previous && data.previous.focus) data.previous.focus();
+}
+
+// Accessibility: announce a short message to assistive technologies via aria-live region
+export function announceLive(message, priority = 'polite') {
+    if (!message) return;
+    const id = priority === 'assertive' ? 'a11y-live-assertive' : 'a11y-live';
+    let live = document.getElementById(id);
+    if (!live) {
+        live = document.createElement('div');
+        live.id = id;
+        live.setAttribute('aria-live', priority === 'assertive' ? 'assertive' : 'polite');
+        live.setAttribute('aria-atomic', 'true');
+        live.className = 'sr-only';
+        document.body.appendChild(live);
+    }
+    // Setting textContent twice in quick succession helps some ATs notice the change
+    live.textContent = '';
+    setTimeout(() => { live.textContent = message; }, 50);
+} 
 
 export function showMainCategories() {
     const container = document.getElementById('actionButtonsContainer');

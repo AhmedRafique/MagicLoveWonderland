@@ -9,6 +9,69 @@ let isRecording = false;
 let recordedSong = [];
 let ourSong = JSON.parse(localStorage.getItem('ourSong')) || [];
 
+export function triggerHaptic(type = 'light') {
+    if ('vibrate' in navigator) {
+        try {
+            if (type === 'heartbeat') navigator.vibrate([40, 100, 60]);
+            else if (type === 'celebrate') navigator.vibrate([100, 50, 100, 50, 150]);
+            else if (type === 'medium') navigator.vibrate(40);
+            else navigator.vibrate(15);
+        } catch (e) {}
+    }
+}
+
+export function playChime() {
+    triggerHaptic('light');
+    try {
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioContext.state === 'suspended') {
+            audioContext.resume().catch(() => {});
+        }
+        const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+        freqs.forEach((f, idx) => {
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, audioContext.currentTime + idx * 0.08);
+            gain.gain.setValueAtTime(0, audioContext.currentTime + idx * 0.08);
+            gain.gain.linearRampToValueAtTime(0.2, audioContext.currentTime + idx * 0.08 + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + idx * 0.08 + 0.8);
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+            osc.start(audioContext.currentTime + idx * 0.08);
+            osc.stop(audioContext.currentTime + idx * 0.08 + 0.85);
+        });
+    } catch (e) {}
+}
+
+export function playHarpStrum() {
+    triggerHaptic('medium');
+    try {
+        if (!audioContext) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioContext.state === 'suspended') {
+            audioContext.resume().catch(() => {});
+        }
+        const freqs = [392.00, 493.88, 587.33, 659.25, 783.99, 987.77, 1174.66]; // G4 to D6
+        freqs.forEach((f, idx) => {
+            const osc = audioContext.createOscillator();
+            const gain = audioContext.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(f, audioContext.currentTime + idx * 0.05);
+            gain.gain.setValueAtTime(0, audioContext.currentTime + idx * 0.05);
+            gain.gain.linearRampToValueAtTime(0.18, audioContext.currentTime + idx * 0.05 + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + idx * 0.05 + 1.2);
+            osc.connect(gain);
+            gain.connect(audioContext.destination);
+            osc.start(audioContext.currentTime + idx * 0.05);
+            osc.stop(audioContext.currentTime + idx * 0.05 + 1.25);
+        });
+    } catch (e) {}
+}
+
 export function toggleMusic() {
     const music = document.getElementById('bg-music');
     const musicBtn = document.getElementById("musicButton");
@@ -23,13 +86,14 @@ export function toggleMusic() {
 
 /* --- Playlist --- */
 export function showPlaylist() {
-    const overlay = document.querySelector('.playlist-overlay') || document.getElementById('playlist-overlay');
+    const overlay = document.getElementById('playlistOverlay') || document.querySelector('.playlist-overlay');
     if (!overlay) {
         console.warn('Playlist overlay not found');
         return;
     }
+    if (!overlay.id) overlay.id = 'playlistOverlay';
 
-    toggleOverlay(overlay, true);
+    toggleOverlay(overlay.id, true);
 
     const list = overlay.querySelector('.playlist-list');
     if (!list) {
@@ -43,9 +107,17 @@ export function showPlaylist() {
     } else {
         playlistData.forEach((song, idx) => {
             const li = document.createElement('li');
-            li.textContent = song.title;
+            li.textContent = `🎵 ${song.title}`;
+            li.style.cursor = 'pointer';
             li.onclick = () => {
-                window.open(`https://www.youtube.com/watch?v=${song.youtubeId}`, '_blank');
+                const titleEl = overlay.querySelector('.playlist-song-title');
+                if (titleEl) {
+                    titleEl.innerHTML = `<strong>Playing:</strong> ${song.title} <a href="https://www.youtube.com/watch?v=${song.youtubeId}" target="_blank" rel="noopener noreferrer" style="color:#ffb6d5; margin-left:10px; font-size:0.9em; text-decoration:underline;">(Open in YouTube ↗)</a>`;
+                }
+                const ytDiv = document.getElementById('playlist-youtube');
+                if (ytDiv) {
+                    ytDiv.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${song.youtubeId}?autoplay=1" title="${song.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:12px; box-shadow:0 4px 15px rgba(0,0,0,0.4); width:100%; height:100%;"></iframe>`;
+                }
             };
             list.appendChild(li);
         });
@@ -56,7 +128,9 @@ export function showPlaylist() {
 }
 
 export function hidePlaylist() {
-    toggleOverlay('playlist-overlay', false);
+    const ytDiv = document.getElementById('playlist-youtube');
+    if(ytDiv) ytDiv.innerHTML = '';
+    toggleOverlay('playlistOverlay', false);
 }
 
 /* --- Piano --- */
@@ -76,17 +150,23 @@ const notes = {
 };
 
 const keyMap = {
-    'z': 'C3', 's': 'C#3', 'x': 'D3', 'd': 'D#3', 'c': 'E3',
-    'v': 'F3', 'g': 'F#3', 'b': 'G3', 'h': 'G#3', 'n': 'A3',
-    'j': 'A#3', 'm': 'B3',
-    'a': 'C4', 'w': 'C#4', 's': 'D4', 'e': 'D#4', 'd': 'E4',
-    'f': 'F4', 't': 'F#4', 'g': 'G4', 'y': 'G#4', 'h': 'A4',
-    'u': 'A#4', 'j': 'B4',
-    'k': 'C5', 'o': 'C#5', 'l': 'D5', 'p': 'D#5', ';': 'E5',
-    "'": 'F5', '[': 'F#5', ']': 'G5',
-    'q': 'C6', '2': 'C#6', 'w': 'D6', '3': 'D#6', 'e': 'E6',
-    'r': 'F6', '5': 'F#6', 't': 'G6', '6': 'G#6', 'y': 'A6',
-    '7': 'A#6', 'u': 'B6', 'i': 'C7'
+    // C3 octave — bottom row (z-m)
+    'z': 'C3', 'x': 'D3', 'c': 'E3',
+    'v': 'F3', 'b': 'G3', 'n': 'A3', 'm': 'B3',
+    // C3 sharps — above bottom row
+    's': 'C#3', 'd': 'D#3', 'g': 'F#3', 'h': 'G#3', 'j': 'A#3',
+    // C4 octave — home/middle row (a-;)
+    'a': 'C4', 'f': 'F4', 'k': 'C5',
+    'w': 'C#4', 'e': 'D#4', 't': 'F#4', 'y': 'G#4', 'u': 'A#4',
+    // Note: remaining C4-B4 are on surrounding keys
+    // Using unique keys only:
+    'q': 'D4', 'r': 'E4',
+    'i': 'G4', 'o': 'A4', 'p': 'B4',
+    // C5 octave — top/number row
+    '1': 'C5', '2': 'C#5', '3': 'D5', '4': 'D#5', '5': 'E5',
+    '6': 'F5', '7': 'F#5', '8': 'G5', '9': 'G#5', '0': 'A5',
+    '-': 'A#5', '=': 'B5',
+    'l': 'C6'
 };
 
 const secretMelody = ['C4', 'C4', 'G4', 'G4', 'A4', 'A4', 'G4'];
@@ -144,7 +224,8 @@ export function initializePiano() {
 }
 
 function handleKeyClick(e) {
-    const note = e.target.dataset.note;
+    const keyEl = e.target.closest('.key');
+    const note = keyEl ? keyEl.dataset.note : null;
     if (note) {
         playNote(note);
         playedNotes.push(note);
@@ -163,6 +244,12 @@ function handleKeyDown(e) {
 }
 
 function playNote(note) {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume().catch(() => {});
+    }
     if (!audioContext || !notes[note]) return;
     if (isRecording) {
         recordedSong.push(note);
@@ -215,6 +302,12 @@ export function showSong(songId) {
 export async function playSong(songId) {
     const song = songbook[songId];
     if (!song) return;
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioContext && audioContext.state === 'suspended') {
+        try { await audioContext.resume(); } catch (e) {}
+    }
     const notesArray = song.notes.replace(/\|/g, '').split(/\s+/).filter(n => n);
     const noteDuration = 300; 
     const pauseDuration = 100; 
@@ -272,10 +365,11 @@ export async function playOurSong(song) {
 }
 
 export function playSound() {
-    let audio = new Audio('tick.mp3');
-    audio.pause();
-    audio.currentTime = 0;
-    audio.play();
+    try {
+        let audio = new Audio('tick.mp3');
+        audio.volume = 0.4;
+        audio.play().catch(() => {});
+    } catch (e) {}
 }
 
 export function triggerHeartbeat() {
